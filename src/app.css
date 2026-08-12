@@ -1,0 +1,189 @@
+@import 'tailwindcss';
+
+/*
+ * Wright Kit design tokens.
+ * Project-owned visual system: a black/white neutral foundation, a single
+ * restrained orange accent, and an explicit type scale. Pages reference these
+ * tokens via Tailwind utilities (bg-ink-*, text-accent-*, text-hero, ...).
+ */
+@theme {
+	/* Neutral foundation */
+	--color-ink-50: #f7f7f5;
+	--color-ink-100: #ededeb;
+	--color-ink-200: #dcdcd8;
+	--color-ink-300: #c2c2bc;
+	--color-ink-400: #a1a19a;
+	--color-ink-500: #85857e;
+	--color-ink-600: #66665f;
+	--color-ink-700: #4d4d48;
+	--color-ink-800: #2c2c28;
+	--color-ink-900: #1a1a17;
+	--color-ink-950: #10100e;
+
+	/* Restrained accent */
+	--color-accent-300: #ffb37a;
+	--color-accent-400: #ff9a4d;
+	--color-accent-500: #f97316;
+	--color-accent-600: #e05e0a;
+
+	/* Typefaces */
+	--font-sans:
+		'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+		Arial, sans-serif;
+	--font-mono:
+		'JetBrains Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas,
+		'Liberation Mono', monospace;
+
+	/* Type scale */
+	--text-hero: clamp(2.625rem, 5.5vw, 4.5rem);
+	--text-hero--line-height: 1.03;
+	--text-hero--letter-spacing: -0.03em;
+
+	--text-title: clamp(1.75rem, 3vw, 2.25rem);
+	--text-title--line-height: 1.12;
+	--text-title--letter-spacing: -0.02em;
+
+	--text-eyebrow: 0.75rem;
+	--text-eyebrow--line-height: 1.3;
+	--text-eyebrow--letter-spacing: 0.24em;
+}
+
+@layer base {
+	body {
+		background-color: var(--color-ink-950);
+		color: var(--color-ink-200);
+		font-family: var(--font-sans);
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+	}
+
+	::selection {
+		background-color: var(--color-accent-500);
+		color: var(--color-ink-950);
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--color-accent-500);
+		outline-offset: 2px;
+		border-radius: 2px;
+	}
+}
+
+@layer components {
+	.container-site {
+		margin-inline: auto;
+		width: 100%;
+		max-width: 72rem;
+		padding-inline: 1.25rem;
+	}
+
+	@media (min-width: 640px) {
+		.container-site {
+			padding-inline: 2rem;
+		}
+	}
+
+	/* Section eyebrow: mono, spaced, muted, with an orange index/rule */
+	.eyebrow {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		font-family: var(--font-mono);
+		font-size: var(--text-eyebrow);
+		line-height: var(--text-eyebrow--line-height);
+		letter-spacing: var(--text-eyebrow--letter-spacing);
+		text-transform: uppercase;
+		color: var(--color-ink-400);
+	}
+
+	.eyebrow .accent {
+		color: var(--color-accent-500);
+	}
+
+	/* Buttons */
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		padding: 0.7rem 1.25rem;
+		border-radius: 2px;
+		font-family: var(--font-mono);
+		font-size: 0.8125rem;
+		font-weight: 600;
+		line-height: 1.2;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		transition:
+			background-color 150ms ease,
+			border-color 150ms ease,
+			color 150ms ease,
+			transform 150ms ease;
+	}
+
+	.btn:active {
+		transform: translateY(1px);
+	}
+
+	.btn-primary {
+		background-color: var(--color-accent-500);
+		color: var(--color-ink-950);
+	}
+
+	.btn-primary:hover {
+		background-color: var(--color-accent-400);
+	}
+
+	.btn-ghost {
+		border: 1px solid var(--color-ink-700);
+		color: var(--color-ink-100);
+	}
+
+	.btn-ghost:hover {
+		border-color: var(--color-ink-400);
+		background-color: var(--color-ink-900);
+	}
+
+	/* Cards and mono artifact paths */
+	.card {
+		background-color: var(--color-ink-900);
+		border: 1px solid var(--color-ink-800);
+		border-radius: 4px;
+	}
+
+	.path {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		letter-spacing: 0.04em;
+		color: var(--color-ink-500);
+	}
+
+	/* Technical visual (terminal) */
+	.terminal pre {
+		overflow-x: auto;
+		white-space: pre-wrap;
+		word-break: break-word;
+	}
+}
+
+/* Motion: only under explicit user preference; disabled otherwise */
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
