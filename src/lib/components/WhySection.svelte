@@ -3,15 +3,14 @@
 	import { why } from '$lib/site';
 </script>
 
-<Section index="01" eyebrow={why.eyebrow} title={why.title} lead={why.lead}>
-	<div class="mt-14 grid gap-px overflow-hidden rounded border border-ink-800 bg-ink-800 sm:grid-cols-2 lg:grid-cols-3">
-		{#each why.items as item, i (item.title)}
-			<div class="flex flex-col gap-4 bg-ink-950 p-7 sm:p-8">
-				<span class="font-mono text-xs text-accent-500">{String(i + 1).padStart(2, '0')}</span>
-				<h3 class="font-sans text-lg font-semibold text-ink-50">{item.title}</h3>
-				<p class="text-sm leading-relaxed text-ink-300">{item.body}</p>
-				<p class="mt-auto pt-4 font-mono text-xs text-ink-500">{item.artifact}</p>
-			</div>
+<Section title={why.title} lead={why.lead}>
+	<ul class="mt-10 max-w-2xl divide-y divide-ink-800 border-y border-ink-800">
+		{#each why.items as item (item.title)}
+			<li class="py-6">
+				<h3 class="text-base font-semibold text-ink-50">{item.title}</h3>
+				<p class="mt-1.5 text-[0.9375rem] leading-relaxed text-ink-300">{item.body}</p>
+				<p class="path mt-3">{item.artifact}</p>
+			</li>
 		{/each}
-	</div>
+	</ul>
 </Section>

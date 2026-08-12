@@ -4,11 +4,9 @@
 	let { compact = false }: { compact?: boolean } = $props();
 </script>
 
-<a href="/" class="group inline-flex items-center gap-2.5" aria-label="Wright Kit — home">
-	<Mark size={compact ? 22 : 26} />
-	<span
-		class="font-sans font-bold uppercase tracking-tight text-ink-50 {compact ? 'text-base' : 'text-lg'}"
-	>
-		Wright<span class="text-accent-500"> Kit</span>
+<a href="/" class="inline-flex min-h-11 items-center gap-2" aria-label="Wright Kit — home">
+	<Mark size={compact ? 20 : 22} />
+	<span class="font-semibold tracking-tight text-ink-50 {compact ? 'text-[0.9375rem]' : 'text-base'}">
+		Wright Kit
 	</span>
 </a>

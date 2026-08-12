@@ -1,13 +1,12 @@
 @import 'tailwindcss';
 
 /*
- * Wright Kit design tokens.
- * Project-owned visual system: a black/white neutral foundation, a single
- * restrained orange accent, and an explicit type scale. Pages reference these
- * tokens via Tailwind utilities (bg-ink-*, text-accent-*, text-hero, ...).
+ * Visual system.
+ * Neutral ink scale + one orange accent. Type is the platform system stack
+ * (optical sizing and tracking tables already in the OS fonts) — not Inter.
+ * Mono is reserved for actual code, not chrome.
  */
 @theme {
-	/* Neutral foundation */
 	--color-ink-50: #f7f7f5;
 	--color-ink-100: #ededeb;
 	--color-ink-200: #dcdcd8;
@@ -20,39 +19,34 @@
 	--color-ink-900: #1a1a17;
 	--color-ink-950: #10100e;
 
-	/* Restrained accent */
-	--color-accent-300: #ffb37a;
 	--color-accent-400: #ff9a4d;
 	--color-accent-500: #f97316;
 	--color-accent-600: #e05e0a;
 
-	/* Typefaces */
 	--font-sans:
-		'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
-		Arial, sans-serif;
-	--font-mono:
-		'JetBrains Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas,
-		'Liberation Mono', monospace;
+		system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
 
-	/* Type scale */
-	--text-hero: clamp(2.625rem, 5.5vw, 4.5rem);
-	--text-hero--line-height: 1.03;
-	--text-hero--letter-spacing: -0.03em;
+	--text-hero: clamp(2.25rem, 6vw, 4.25rem);
+	--text-hero--line-height: 1.04;
+	--text-hero--letter-spacing: -0.028em;
 
-	--text-title: clamp(1.75rem, 3vw, 2.25rem);
-	--text-title--line-height: 1.12;
-	--text-title--letter-spacing: -0.02em;
-
-	--text-eyebrow: 0.75rem;
-	--text-eyebrow--line-height: 1.3;
-	--text-eyebrow--letter-spacing: 0.24em;
+	--text-title: clamp(1.5rem, 2.4vw, 2rem);
+	--text-title--line-height: 1.18;
+	--text-title--letter-spacing: -0.018em;
 }
 
 @layer base {
+	html {
+		font-optical-sizing: auto;
+	}
+
 	body {
 		background-color: var(--color-ink-950);
 		color: var(--color-ink-200);
 		font-family: var(--font-sans);
+		font-size: 1.0625rem;
+		line-height: 1.55;
 		-webkit-font-smoothing: antialiased;
 		text-rendering: optimizeLegibility;
 	}
@@ -64,7 +58,7 @@
 
 	:focus-visible {
 		outline: 2px solid var(--color-accent-500);
-		outline-offset: 2px;
+		outline-offset: 3px;
 		border-radius: 2px;
 	}
 }
@@ -73,7 +67,7 @@
 	.container-site {
 		margin-inline: auto;
 		width: 100%;
-		max-width: 72rem;
+		max-width: 68rem;
 		padding-inline: 1.25rem;
 	}
 
@@ -83,46 +77,44 @@
 		}
 	}
 
-	/* Section eyebrow: mono, spaced, muted, with an orange index/rule */
-	.eyebrow {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		font-family: var(--font-mono);
-		font-size: var(--text-eyebrow);
-		line-height: var(--text-eyebrow--line-height);
-		letter-spacing: var(--text-eyebrow--letter-spacing);
-		text-transform: uppercase;
-		color: var(--color-ink-400);
+	.chrome {
+		position: relative;
+		background: rgb(16 16 14 / 0.72);
+		backdrop-filter: blur(20px) saturate(180%);
+		-webkit-backdrop-filter: blur(20px) saturate(180%);
 	}
 
-	.eyebrow .accent {
-		color: var(--color-accent-500);
+	.chrome::after {
+		content: '';
+		position: absolute;
+		inset-inline: 0;
+		bottom: -12px;
+		height: 12px;
+		pointer-events: none;
+		background: linear-gradient(to bottom, rgb(16 16 14 / 0.4), transparent);
 	}
 
-	/* Buttons */
 	.btn {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		gap: 0.5rem;
-		padding: 0.7rem 1.25rem;
+		gap: 0.4rem;
+		min-height: 2.75rem;
+		padding: 0.6rem 1.1rem;
 		border-radius: 2px;
-		font-family: var(--font-mono);
-		font-size: 0.8125rem;
-		font-weight: 600;
+		font-size: 0.9375rem;
+		font-weight: 590;
 		line-height: 1.2;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
+		letter-spacing: -0.01em;
 		transition:
-			background-color 150ms ease,
-			border-color 150ms ease,
-			color 150ms ease,
-			transform 150ms ease;
+			background-color 140ms ease,
+			border-color 140ms ease,
+			color 140ms ease,
+			transform 100ms ease-out;
 	}
 
 	.btn:active {
-		transform: translateY(1px);
+		transform: scale(0.97);
 	}
 
 	.btn-primary {
@@ -144,21 +136,13 @@
 		background-color: var(--color-ink-900);
 	}
 
-	/* Cards and mono artifact paths */
-	.card {
-		background-color: var(--color-ink-900);
-		border: 1px solid var(--color-ink-800);
-		border-radius: 4px;
-	}
-
 	.path {
 		font-family: var(--font-mono);
 		font-size: 0.75rem;
-		letter-spacing: 0.04em;
+		letter-spacing: 0.01em;
 		color: var(--color-ink-500);
 	}
 
-	/* Technical visual (terminal) */
 	.terminal pre {
 		overflow-x: auto;
 		white-space: pre-wrap;
@@ -166,7 +150,6 @@
 	}
 }
 
-/* Motion: only under explicit user preference; disabled otherwise */
 @media (prefers-reduced-motion: no-preference) {
 	html {
 		scroll-behavior: smooth;
@@ -185,5 +168,39 @@
 		animation-iteration-count: 1 !important;
 		transition-duration: 0.01ms !important;
 		scroll-behavior: auto !important;
+	}
+
+	.btn:active {
+		transform: none;
+	}
+}
+
+@media (prefers-reduced-transparency: reduce) {
+	.chrome {
+		background: var(--color-ink-950);
+		backdrop-filter: none;
+		-webkit-backdrop-filter: none;
+		border-bottom: 1px solid var(--color-ink-800);
+	}
+
+	.chrome::after {
+		display: none;
+	}
+}
+
+@media (prefers-contrast: more) {
+	.chrome {
+		background: var(--color-ink-950);
+		backdrop-filter: none;
+		border-bottom: 1px solid var(--color-ink-50);
+	}
+
+	.btn-primary {
+		outline: 1px solid var(--color-ink-50);
+		outline-offset: 2px;
+	}
+
+	.btn-ghost {
+		border-color: var(--color-ink-200);
 	}
 }
