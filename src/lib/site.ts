@@ -16,7 +16,7 @@ export const site = {
 	tagline: 'Tools for Overwatch Workshop',
 	headline: 'Tools for Overwatch Workshop.',
 	description:
-		'An open-source compiler and tooling stack for Workshop text: parse it, analyze it, emit it deterministically, and hand the same JSON to a coding agent.',
+		'An open-source compiler and tooling stack for Workshop text: parse, analyze, emit deterministically, and hand the same JSON to a coding agent.',
 	github: 'https://github.com/wrightkit',
 	license: 'AGPL-3.0-or-later'
 } as const;
@@ -46,7 +46,7 @@ export const terminal = [
 
 export const why = {
 	title: 'What the stack actually does',
-	lead: 'Workshop is still mostly hand-edited text. These crates add a language model, a queryable program, and a compatibility check you can rerun.',
+	lead: 'Workshop is still mostly hand-edited text. These crates add a language model, a queryable program, and a rerunnable compatibility check.',
 	items: [
 		{
 			title: 'Workshop language model',
@@ -55,12 +55,12 @@ export const why = {
 		},
 		{
 			title: 'Queries a coding agent can issue',
-			body: 'JSON over stdin/stdout for symbols, references, control flow, and findings. Same contract a person uses.',
+			body: 'JSON over stdin/stdout for symbols, references, control flow, and findings.',
 			artifact: 'crates/wright-analyzer'
 		},
 		{
 			title: 'Small crates with documented edges',
-			body: 'Core, IR, Workshop frontend, analyzer, adapter, and compatibility harness. Each has a boundary and a dependency direction.',
+			body: 'Core, IR, Workshop frontend, analyzer, adapter, and compatibility harness, each with a boundary and dependency direction.',
 			artifact: 'AGPL-3.0-or-later'
 		}
 	]
@@ -73,7 +73,7 @@ export const wright = {
 		label: 'Status',
 		value: 'Early-stage',
 		detail:
-			'No stable compiler binary, CLI, or release workflow yet. The repository is the source of truth for what exists today.'
+			'No stable compiler binary, CLI, or release workflow yet. The repository is the source of truth.'
 	},
 	capabilities: [
 		{
@@ -129,7 +129,7 @@ export const agents = {
 
 export const openSource = {
 	title: 'On GitHub',
-	lead: 'The public wrightkit organization is the current entry point. Wright is licensed AGPL-3.0-or-later; the Wright repo itself is still private.',
+	lead: 'The public wrightkit organization is the current entry point. Wright is licensed AGPL-3.0-or-later; the repo itself is still private.',
 	links: [
 		{ label: 'github.com/wrightkit', href: 'https://github.com/wrightkit' },
 		{
