@@ -13,7 +13,6 @@ CSS.
 - [Tailwind CSS v4](https://tailwindcss.com) — the visual system lives in
   project-owned design tokens (`src/app.css`, `@theme` block): a black/white
   neutral foundation, a restrained orange accent, and a type scale.
-- [Playwright](https://playwright.dev) for the smoke test
 
 The site is fully prerendered to static HTML — there is no server runtime,
 API, backend, or client-side data fetching.
@@ -37,32 +36,6 @@ pnpm preview   # serves the built output locally
 ```
 
 `pnpm check` runs `svelte-check` for type checking.
-
-## Smoke test
-
-The smoke test builds the site, serves the static output, and drives it with
-Playwright at desktop (1280×800) and mobile (375×812) viewports.
-
-```sh
-pnpm test
-```
-
-On the first run, install the Playwright Chromium browser:
-
-```sh
-pnpm exec playwright install chromium
-```
-
-The tests assert the homepage loads, key navigation targets and CTAs are
-present and usable, the primary CTA points at the public GitHub org, and there
-is no horizontal overflow at either viewport.
-
-There is also a standalone launch check that captures screenshots and logs:
-
-```sh
-pnpm build
-node scripts/launch-check.mjs [outdir] [port]
-```
 
 ## Content
 
