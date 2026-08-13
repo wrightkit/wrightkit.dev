@@ -64,18 +64,6 @@ pnpm build
 node scripts/launch-check.mjs [outdir] [port]
 ```
 
-## Deployment
-
-The `build/` directory produced by `pnpm build` is a self-contained static
-artifact and can be deployed anywhere that serves static files, including
-Cloudflare Pages.
-
-For Cloudflare Pages, set:
-
-- Build command: `pnpm install && pnpm build`
-- Build output directory: `build`
-- Node version: 20.19 or newer
-
 ## Content
 
 All copy, navigation, and capability claims live in
