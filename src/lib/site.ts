@@ -3,144 +3,313 @@
  * capability claim on the site.
  *
  * Accuracy contract: each concrete capability term below traces to an
- * artifact in the local `wright` repository (`crates/*`, `adapter/`,
- * `compatibility/`, `docs/`). Nothing beyond that repo's evidence is claimed,
- * and no CLI commands, flags, metrics, or testimonials are invented. GitHub
- * links point only at public destinations under `github.com/wrightkit`
- * (the `wright` and `wrightkit.dev` repositories are private).
+ * artifact in the official `wright` repository (`crates/*`, `docs/`, `install.sh`,
+ * `README.md`). Nothing beyond that repo's evidence is claimed, and no CLI
+ * commands, flags, or features are invented.
  */
 
 export const site = {
-	name: 'Wright Kit',
+	name: 'Wright',
+	brand: 'Wright Kit',
 	url: 'https://wrightkit.dev',
-	tagline: 'Tools for Overwatch Workshop',
-	headline: 'Tools for Overwatch Workshop.',
+	tagline: 'Tooling-first semantic platform for Overwatch Workshop',
+	headline: 'Tooling-first semantic platform for Overwatch Workshop.',
 	description:
-		'An open-source compiler and tooling stack for Workshop text: parse, analyze, emit deterministically, and hand the same JSON to a coding agent.',
-	github: 'https://github.com/wrightkit',
-	license: 'AGPL-3.0-or-later'
+		'An independent, standalone Rust toolchain for the Overwatch Workshop and OverPy ecosystem. Fast compiler, static linter, language server, and embedding APIs for developers, CI, and AI agents with zero runtime dependencies.',
+	github: 'https://github.com/wrightkit/wright',
+	releases: 'https://github.com/wrightkit/wright/releases',
+	org: 'https://github.com/wrightkit',
+	license: 'AGPL-3.0-or-later',
+	msrv: '1.85.0'
 } as const;
 
-export const nav = [{ label: 'GitHub', href: site.github, external: true }] as const;
+export interface NavItem {
+	label: string;
+	href: string;
+	external?: boolean;
+}
+
+export const nav = [
+	{ label: 'Install', href: '#install' },
+	{ label: 'Features', href: '#features' },
+	{ label: 'Compatibility', href: '#compatibility' },
+	{ label: 'Architecture', href: '#architecture' },
+	{ label: 'Agents', href: '#agents' },
+	{ label: 'GitHub', href: site.github, external: true }
+] satisfies readonly NavItem[];
 
 export const hero = {
-	primaryCta: { label: 'Explore on GitHub', href: site.github },
-	secondaryCta: { label: 'Meet Wright', href: '#wright' },
+	primaryCta: { label: 'Install Wright', href: '#install' },
+	secondaryCta: { label: 'View on GitHub', href: site.github },
+	quickInstall: 'curl -fsSL https://raw.githubusercontent.com/wrightkit/wright/main/install.sh | bash',
 	terminalCaption:
-		'wright-tool: read-only semantic service over stdin/stdout. Artifact: crates/wright-analyzer.'
+		'wright lint: static analysis with stable diagnostic codes and exact source spans.'
 } as const;
 
-/** Terminal transcript, grounded in `wright-analyzer`'s service protocol. */
+/** Terminal transcript, grounded in `wright lint` terminal diagnostics. */
 export const terminal = [
-	{ prompt: '$', text: 'wright-tool' },
-	{ prompt: '>', text: '{"op":"program"}' },
-	{ prompt: '<', text: '{"result":{"origin":{"kind":"protocol"},' },
-	{ prompt: '', text: '"rules":3, "subroutines":2,' },
-	{ prompt: '', text: '"globalVariables":4, "findings":1}}' },
-	{ prompt: '>', text: '{"op":"getFindings"}' },
-	{ prompt: '<', text: '{"result":[{"code":"expensive-loop-check",' },
-	{ prompt: '', text: '"severity":"info",' },
-	{ prompt: '', text: '"message":"geometry predicate evaluated inside a' },
-	{ prompt: '', text: 'loop body may be expensive per iteration"}]}' }
+	{ prompt: '$', text: 'wright lint src/hero.opy' },
+	{ prompt: '', text: 'warning[expensive-loop-check]: geometry predicate in loop body' },
+	{ prompt: '', text: '  --> src/hero.opy:24:9' },
+	{ prompt: '', text: '   |' },
+	{ prompt: '', text: '24 |     while @hero.is_in_view(target):' },
+	{ prompt: '', text: '   |           ^^^^^^^^^^^^^^^^^^^^^^^^' },
+	{ prompt: '', text: '   =' },
+	{ prompt: '', text: '   = note: evaluated on each iteration; may spike server load' },
+	{ prompt: '', text: '   = rule: expensive-loop-check (stability)' },
+	{ prompt: '$', text: 'wright compile src/hero.opy -o dist/hero.txt' },
+	{ prompt: '', text: '✓ compiled 12 rules, 4 subroutines (0.018s)' }
 ] as const;
 
-export const why = {
-	title: 'What the stack actually does',
-	lead: 'Workshop is still mostly hand-edited text. These crates add a language model, a queryable program, and a rerunnable compatibility check.',
+export const install = {
+	title: 'Install Wright',
+	lead: 'Standalone wright and wright-lsp binaries for macOS, Linux, and Windows. Zero runtime dependencies — no Node.js, .NET, or external interpreters required.',
+	latestVersion: '0.1.0',
+	targets: [
+		{
+			id: 'macos',
+			label: 'macOS',
+			badge: 'Apple Silicon & Intel',
+			method: 'Homebrew (Recommended)',
+			command: 'brew tap wrightkit/tap\nbrew install wrightkit/tap/wright',
+			altMethod: 'Unix installer script',
+			altCommand: 'curl -fsSL https://raw.githubusercontent.com/wrightkit/wright/main/install.sh | bash',
+			note: 'Installs wright and wright-lsp to your path with verified checksums.'
+		},
+		{
+			id: 'linux',
+			label: 'Linux',
+			badge: 'x86_64',
+			method: 'Installer script',
+			command: 'curl -fsSL https://raw.githubusercontent.com/wrightkit/wright/main/install.sh | bash',
+			altMethod: 'Custom version or dir',
+			altCommand: 'curl -fsSL https://raw.githubusercontent.com/wrightkit/wright/main/install.sh | bash -s -- --dir ~/.local/bin',
+			note: 'Auto-detects platform, verifies SHA-256 checksums, and installs to ~/.local/bin.'
+		},
+		{
+			id: 'windows',
+			label: 'Windows',
+			badge: 'x86_64',
+			method: 'WinGet (Recommended)',
+			command: 'winget install WrightKit.Wright',
+			altMethod: 'Scoop package manager',
+			altCommand: 'scoop bucket add wrightkit https://github.com/wrightkit/scoop-bucket\nscoop install wright',
+			note: 'Both WinGet and Scoop consume the official Windows release ZIP.'
+		},
+		{
+			id: 'ci',
+			label: 'CI / Agents',
+			badge: 'Deterministic',
+			method: 'Pinned version install',
+			command: 'curl -fsSL https://raw.githubusercontent.com/wrightkit/wright/main/install.sh | bash -s -- --version 0.1.0',
+			altMethod: 'Machine-readable flags',
+			altCommand: 'wright lint input.opy --format json',
+			note: 'Non-interactive script designed for GitHub Actions, pipelines, and AI agent containers.'
+		},
+		{
+			id: 'source',
+			label: 'From Source',
+			badge: 'Rust 1.85.0+',
+			method: 'Cargo build',
+			command: 'cargo build --release -p wright-cli -p wright-lsp',
+			altMethod: 'Run test suite',
+			altCommand: 'cargo test --workspace --all-targets --all-features',
+			note: 'Builds standalone binaries at target/release/wright and target/release/wright-lsp.'
+		}
+	],
+	fallbackArchive: {
+		text: 'Manual precompiled release archives (.tar.gz / .zip) with SHA-256 checksums are available on the',
+		linkText: 'GitHub Releases page',
+		href: site.releases
+	}
+} as const;
+
+export const features = {
+	title: 'Features',
+	lead: 'Developer tooling — linting, diagnostics, semantic queries, editor assistance, and safe source transformations — as first-class product surfaces.',
 	items: [
 		{
-			title: 'Workshop language model',
-			body: 'Locale-aware builtin catalog, lexer, parser, deterministic emitter, and round-trip validation for Workshop text.',
-			artifact: 'crates/wright-workshop'
+			id: 'compiler',
+			title: 'High-Performance Compiler',
+			body: 'Compile .opy source scripts and Workshop text to optimized, localized Workshop code with deterministic output.',
+			command: 'wright compile input.opy'
 		},
 		{
-			title: 'Queries a coding agent can issue',
-			body: 'JSON over stdin/stdout for symbols, references, control flow, and findings.',
-			artifact: 'crates/wright-analyzer'
+			id: 'lint',
+			title: 'First-Class Static Linting',
+			body: 'Static stability and performance analysis with configurable rules: min-wait-loop, duplicate-condition, expensive-loop-check, repeated-value, and while-without-wait.',
+			command: 'wright lint input.opy'
 		},
 		{
-			title: 'Small crates with documented edges',
-			body: 'Core, IR, Workshop frontend, analyzer, adapter, and compatibility harness, each with a boundary and dependency direction.',
-			artifact: 'AGPL-3.0-or-later'
+			id: 'diagnostics',
+			title: 'Deterministic Diagnostics',
+			body: 'Structured errors, warnings, and exact source spans surfaced in human-readable terminal format and machine-readable wright-result/v1 JSON.',
+			command: 'wright check input.opy --format json'
+		},
+		{
+			id: 'lsp',
+			title: 'Language Server (wright-lsp)',
+			body: 'Lightweight LSP providing hover documentation, definition navigation, reference searches, project-wide identifier rename, and semantic syntax highlighting.',
+			command: 'wright-lsp'
+		},
+		{
+			id: 'analysis',
+			title: 'Semantic Analysis & CFG',
+			body: 'Inspect structural models, rules, symbols, variable assignments, subroutine dependencies, and control-flow graphs.',
+			command: 'wright analyze input.opy'
+		},
+		{
+			id: 'agents',
+			title: 'Embedding & Agent Tooling',
+			body: 'Session-based driver (wright-driver) with stdio/JSON-RPC adapters (wright-serve) enabling programmatic inspection and verified refactoring.',
+			command: 'cat input.opy | wright lint -'
 		}
 	]
 } as const;
 
-export const wright = {
-	title: 'Wright',
-	lead: 'The current core product: a Rust compiler and tooling project for the Overwatch Workshop and OverPy ecosystem.',
-	status: {
-		label: 'Status',
-		value: 'Early-stage',
-		detail:
-			'No stable compiler binary, CLI, or release workflow yet. The repository is the source of truth.'
-	},
-	capabilities: [
+export const compatibility = {
+	title: 'Ecosystem Compatibility',
+	lead: 'Vanilla Workshop text is the canonical interoperability boundary and conversion hub.',
+	frontends: [
 		{
-			title: 'Workshop language model',
-			body: 'Canonical builtin catalog, native lexer and parser, deterministic emission, locale detection, and round-trip validation.',
-			artifact: 'crates/wright-workshop'
+			name: 'Vanilla Workshop',
+			role: 'Canonical target & interoperability layer',
+			status: 'Supported',
+			details:
+				'Native parser, localized catalog (catalog.json), validation, and deterministic emitter (wright-workshop). Supports rules, actions, values, events, enums, variables, subroutines, and custom-game-settings.'
 		},
 		{
-			title: 'HIR and Workshop IR',
-			body: 'Frontend-independent HIR and target-oriented WIR, with typed IDs, arenas, and explicit lowering.',
+			name: 'OPY / OverPy',
+			role: 'Native compatible semantic frontend',
+			status: 'Supported',
+			details:
+				'Native Rust parser (wright-opy), preprocessor (#!include, #!define), macro expansion, declarations, expressions, enums, custom-game-settings JSONC blocks, and lowering to Wright HIR and Workshop IR.'
+		},
+		{
+			name: 'OSTW',
+			role: 'Future compatible semantic frontend',
+			status: 'Planned',
+			details:
+				'Planned OSTW frontend mapping into Wright HIR/WIR for standalone compilation, linting, analysis, and language services under clean-room isolation (ADR-0008).'
+		}
+	],
+	conversionDirections: [
+		{ from: 'OPY', to: 'Workshop', status: 'Supported (native wright-opy → HIR → WIR → wright-workshop)' },
+		{ from: 'Workshop', to: 'Workshop', status: 'Supported (catalog parse → canonical WIR → deterministic emit)' },
+		{ from: 'OSTW', to: 'Workshop', status: 'Planned (future wright-ostw → HIR → WIR → wright-workshop)' },
+		{ from: 'Workshop', to: 'OPY', status: 'Planned (decompilation / translation via canonical WIR)' }
+	],
+	sdne: {
+		title: 'Four-Level S/D/N/E Verification Model',
+		lead: 'Compiler compatibility is rigorously evidenced under a prioritized verification framework:',
+		priority: 'E (semantics) > D (diagnostics) > S (syntax) > N (text output)',
+		levels: [
+			{
+				letter: 'S',
+				name: 'Syntax',
+				desc: 'Agrees on accepting valid inputs and rejecting unsupported syntax across the corpus.'
+			},
+			{
+				letter: 'D',
+				name: 'Diagnostics',
+				desc: 'Reports structured diagnostic categories, codes, and accurate source spans for diagnosed inputs.'
+			},
+			{
+				letter: 'N',
+				name: 'Normalized Output',
+				desc: 'Produces equivalent Workshop output under versioned normalization.'
+			},
+			{
+				letter: 'E',
+				name: 'Observable Semantics',
+				desc: 'High-risk runtime semantics are verified against repeatable behavioral scenarios.'
+			}
+		]
+	}
+} as const;
+
+export const architecture = {
+	title: 'System Architecture',
+	lead: 'Wright processes source code through a modular, owned pipeline with zero third-party AST leaks.',
+	pipeline: [
+		{
+			step: '01',
+			name: 'Owned Frontends',
+			desc: 'Parse .opy or Workshop text into typed representations with full source provenance.',
+			artifact: 'crates/wright-opy · crates/wright-workshop'
+		},
+		{
+			step: '02',
+			name: 'Wright HIR & WIR',
+			desc: 'Frontend-independent High-Level Intermediate Representation and target-oriented Workshop IR.',
 			artifact: 'crates/wright-core · crates/wright-ir'
 		},
 		{
-			title: 'Semantic services',
-			body: 'Read-only queries over a compiled program: symbols, references, usage, CFGs, and findings with stable codes.',
+			step: '03',
+			name: 'Semantic Layer',
+			desc: 'Symbol resolution, control-flow graph (CFG) construction, reference indexing, and lint evaluation.',
 			artifact: 'crates/wright-analyzer'
 		},
 		{
-			title: 'Frontend adapter',
-			body: 'Translates pinned OverPy frontend output into Wright’s HIR protocol, with structured error records on failure.',
-			artifact: 'adapter'
-		},
-		{
-			title: 'Compatibility harness',
-			body: 'Fixture corpus, pinned reference oracle, and normalized-output comparison that writes machine-readable reports.',
-			artifact: 'compatibility'
+			step: '04',
+			name: 'Downstream Tooling',
+			desc: 'Deterministic Workshop text compiler, language server (LSP), and session driver with JSON-RPC.',
+			artifact: 'crates/wright-lsp · crates/wright-driver · crates/wright-cli'
 		}
 	]
 } as const;
 
 export const agents = {
 	title: 'The same interface for people and agents',
-	lead: 'If a developer can ask the tooling a question, a coding agent can ask it through the same JSON. No scraped logs.',
+	lead: 'If a developer can ask the tooling a question, a coding agent can ask it through the same JSON contract. No scraped logs or brittle regexes.',
 	points: [
 		{
 			title: 'Structured interfaces',
-			body: 'Transport-neutral request/response for program summaries, rules, symbols, references, usage, control flow, and findings.'
+			body: 'Transport-neutral request/response (wright-result/v1) for program summaries, rules, symbols, references, usage, control flow, and findings.'
 		},
 		{
 			title: 'Deterministic output',
-			body: 'Equal inputs, configuration, and toolchain produce the same IR and snapshots. Results can be diffed.'
+			body: 'Equal inputs, configuration, and toolchain produce the exact same IR, diagnostics, and snapshots.'
 		},
 		{
 			title: 'Machine-readable diagnostics',
-			body: 'Errors and findings carry stable codes, messages, and source spans so a tool can act without parsing prose.'
+			body: 'Errors and findings carry stable codes, severity levels, and source spans so an agent or IDE can act without parsing prose.'
 		},
 		{
-			title: 'Reproducible checks',
-			body: 'Pinned reference versions, fixture corpora, and regenerable snapshots keep compatibility claims checkable.'
+			title: 'Clean-room & reproducible checks',
+			body: 'Isolated reference oracles, fixture corpora, and regenerable snapshots keep compatibility claims verifiable.'
 		}
 	]
 } as const;
 
 export const openSource = {
-	title: 'On GitHub',
-	lead: 'The public wrightkit organization is the current entry point. Wright is licensed AGPL-3.0-or-later; the repo itself is still private.',
+	title: 'Open Source',
+	lead: 'Wright is open source under the AGPL-3.0-or-later license. All code, releases, and distribution packages are publicly hosted on GitHub.',
 	links: [
-		{ label: 'github.com/wrightkit', href: 'https://github.com/wrightkit' },
+		{
+			label: 'wrightkit/wright',
+			href: 'https://github.com/wrightkit/wright',
+			note: 'Main compiler, linter, LSP, and CLI toolchain repository'
+		},
+		{
+			label: 'wrightkit/tap',
+			href: 'https://github.com/wrightkit/tap',
+			note: 'Homebrew tap for macOS'
+		},
+		{
+			label: 'wrightkit/scoop-bucket',
+			href: 'https://github.com/wrightkit/scoop-bucket',
+			note: 'Scoop bucket for Windows'
+		},
 		{
 			label: 'workshop-md-converter',
 			href: 'https://github.com/wrightkit/workshop-md-converter',
-			note: 'converts the Workshop.code wiki into Markdown'
+			note: 'Converts the Workshop.code wiki into Markdown'
 		}
 	] satisfies { label: string; href: string; note?: string }[]
 } as const;
 
 export const footer = {
-	note: 'Tools for Overwatch Workshop.',
+	note: 'Tooling-first semantic platform for Overwatch Workshop.',
 	copyright: '© 2026 Wright Kit'
 } as const;

@@ -18,7 +18,7 @@
 					target="_blank"
 					rel="noreferrer"
 				>
-					github.com/wrightkit
+					github.com/wrightkit/wright
 				</a>
 				· {site.license}
 			</p>
