@@ -41,7 +41,7 @@ export const nav = [
 export const hero = {
 	primaryCta: { label: 'Install Wright', href: '#install' },
 	secondaryCta: { label: 'View on GitHub', href: site.github },
-	quickInstall: 'curl -fsSL https://raw.githubusercontent.com/wrightkit/wright/main/install.sh | bash',
+	quickInstall: 'curl -fsSL https://wrightkit.dev/install.sh | bash',
 	terminalCaption:
 		'wright lint: static analysis with stable diagnostic codes and exact source spans.'
 } as const;
@@ -73,7 +73,7 @@ export const install = {
 			method: 'Homebrew (Recommended)',
 			command: 'brew tap wrightkit/tap\nbrew install wrightkit/tap/wright',
 			altMethod: 'Unix installer script',
-			altCommand: 'curl -fsSL https://raw.githubusercontent.com/wrightkit/wright/main/install.sh | bash',
+			altCommand: 'curl -fsSL https://wrightkit.dev/install.sh | bash',
 			note: 'Installs wright and wright-lsp to your path with verified checksums.'
 		},
 		{
@@ -81,9 +81,9 @@ export const install = {
 			label: 'Linux',
 			badge: 'x86_64',
 			method: 'Installer script',
-			command: 'curl -fsSL https://raw.githubusercontent.com/wrightkit/wright/main/install.sh | bash',
+			command: 'curl -fsSL https://wrightkit.dev/install.sh | bash',
 			altMethod: 'Custom version or dir',
-			altCommand: 'curl -fsSL https://raw.githubusercontent.com/wrightkit/wright/main/install.sh | bash -s -- --dir ~/.local/bin',
+			altCommand: 'curl -fsSL https://wrightkit.dev/install.sh | bash -s -- --dir ~/.local/bin',
 			note: 'Auto-detects platform, verifies SHA-256 checksums, and installs to ~/.local/bin.'
 		},
 		{
@@ -101,7 +101,7 @@ export const install = {
 			label: 'CI / Agents',
 			badge: 'Deterministic',
 			method: 'Pinned version install',
-			command: 'curl -fsSL https://raw.githubusercontent.com/wrightkit/wright/main/install.sh | bash -s -- --version 0.1.0',
+			command: 'curl -fsSL https://wrightkit.dev/install.sh | bash -s -- --version 0.1.0',
 			altMethod: 'Machine-readable flags',
 			altCommand: 'wright lint input.opy --format json',
 			note: 'Non-interactive script designed for GitHub Actions, pipelines, and AI agent containers.'
