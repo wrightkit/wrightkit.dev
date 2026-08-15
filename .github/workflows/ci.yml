@@ -1,7 +1,10 @@
-name: Deploy Cloudflare Worker
+name: CI
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
   workflow_dispatch:
@@ -10,12 +13,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: workers-production-${{ github.ref }}
+  group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    name: Build and deploy
+  check:
+    name: Check and build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,14 +38,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build static site
-        run: pnpm build
+      - name: Svelte check
+        run: pnpm check
 
-      - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v4
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          wranglerVersion: "4"
-          packageManager: pnpm
-          command: deploy
+      - name: Build site and verify installer
+        run: pnpm build
