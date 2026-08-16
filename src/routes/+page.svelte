@@ -3,7 +3,7 @@
 	import InstallSection from '$lib/components/InstallSection.svelte';
 	import FeaturesSection from '$lib/components/FeaturesSection.svelte';
 	import CompatibilitySection from '$lib/components/CompatibilitySection.svelte';
-	import WrightSection from '$lib/components/WrightSection.svelte';
+	import EcosystemSection from '$lib/components/EcosystemSection.svelte';
 	import AgentsSection from '$lib/components/AgentsSection.svelte';
 	import OpenSourceSection from '$lib/components/OpenSourceSection.svelte';
 	import { site } from '$lib/site';
@@ -25,6 +25,6 @@
 <InstallSection />
 <FeaturesSection />
 <CompatibilitySection />
-<WrightSection />
+<EcosystemSection />
 <AgentsSection />
 <OpenSourceSection />

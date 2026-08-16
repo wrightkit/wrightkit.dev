@@ -7,7 +7,7 @@
 	<div class="mt-8 flex flex-col gap-6">
 		<div class="flex flex-wrap items-center gap-3">
 			<a class="btn btn-primary" href={site.github} target="_blank" rel="noreferrer">
-				View wright on GitHub
+				View Wright on GitHub
 			</a>
 			<a class="btn btn-ghost" href={site.releases} target="_blank" rel="noreferrer">
 				Releases
