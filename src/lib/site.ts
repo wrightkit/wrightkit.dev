@@ -293,7 +293,7 @@ export const openSource = {
 		},
 		{
 			label: 'wrightkit/tap',
-			href: 'https://github.com/wrightkit/tap',
+			href: 'https://github.com/wrightkit/homebrew-tap',
 			note: 'Homebrew tap for macOS'
 		},
 		{
