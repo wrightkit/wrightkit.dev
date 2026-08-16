@@ -47,7 +47,7 @@
 
 <button
 	type="button"
-	class="inline-flex items-center justify-center gap-1.5 rounded-sm font-sans text-xs font-medium tracking-tight transition-all duration-150 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 {variant ===
+	class="inline-flex items-center justify-center gap-1.5 rounded-sm font-sans text-xs font-medium tracking-tight transition-[background-color,border-color,color,transform] duration-150 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 {variant ===
 	'primary'
 		? 'bg-accent-500 px-3 py-1.5 text-ink-950 hover:bg-accent-400'
 		: variant === 'inline'
