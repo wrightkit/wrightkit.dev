@@ -10,7 +10,7 @@
 	<div class="terminal p-4 sm:p-5">
 		<pre
 			class="overflow-x-auto"
-			aria-label="Example session with wright linter and compiler"><code class="font-mono text-[0.8125rem] leading-relaxed">{#each terminal as line}<span class="block">{#if line.prompt}<span class="select-none text-ink-500">{line.prompt} </span><span class="text-ink-100">{line.text}</span>{:else if line.text.startsWith('warning')}<span class="text-accent-400">{line.text}</span>{:else if line.text.includes('^^^^')}<span class="text-accent-400">{line.text}</span>{:else if line.text.startsWith('✓')}<span class="text-ink-50 font-semibold">{line.text}</span>{:else}<span class="text-ink-300">{line.text}</span>{/if}</span>{/each}</code></pre>
+			aria-label="Example session with wright linter and compiler"><code class="font-mono text-[0.75rem] sm:text-[0.8125rem] leading-relaxed">{#each terminal as line}<span class="block">{#if line.prompt}<span class="select-none text-ink-500">{line.prompt} </span><span class="text-ink-100">{line.text}</span>{:else if line.text.startsWith('warning')}<span class="text-accent-400">{line.text}</span>{:else if line.text.includes('^^^^')}<span class="text-accent-400">{line.text}</span>{:else if line.text.startsWith('✓')}<span class="text-ink-50 font-semibold">{line.text}</span>{:else}<span class="text-ink-300">{line.text}</span>{/if}</span>{/each}</code></pre>
 		<p class="mt-4 border-t border-ink-800/80 pt-3 text-xs leading-relaxed text-ink-500">
 			{hero.terminalCaption}
 		</p>
