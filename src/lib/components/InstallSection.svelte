@@ -9,7 +9,7 @@
 </script>
 
 <section id="install" class="scroll-mt-16 border-t border-ink-800">
-	<div class="container-site py-16 sm:py-20 lg:py-24">
+	<div class="container-site py-14 sm:py-20 lg:py-24">
 		<div class="max-w-2xl">
 			<h2 class="font-sans font-semibold text-title text-ink-50">{install.title}</h2>
 			<p class="mt-3 text-[1.0625rem] leading-relaxed text-ink-300">
@@ -20,7 +20,7 @@
 		<!-- Segmented platform tabs -->
 		<div class="mt-8">
 			<div
-				class="inline-flex max-w-full flex-wrap gap-1 rounded-sm border border-ink-800 bg-ink-950 p-1"
+				class="no-scrollbar flex max-w-full items-center gap-1 overflow-x-auto rounded-sm border border-ink-800 bg-ink-950 p-1 sm:inline-flex sm:flex-wrap"
 				role="tablist"
 				aria-label="Target platform"
 			>
@@ -29,7 +29,7 @@
 						type="button"
 						role="tab"
 						aria-selected={activeTargetId === target.id}
-						class="flex items-center gap-2 rounded-xs px-3.5 py-1.5 font-sans text-xs font-medium tracking-tight transition-colors duration-140 active:scale-[0.98] {activeTargetId ===
+						class="flex min-h-9 shrink-0 touch-manipulation select-none items-center gap-2 rounded-xs px-3.5 py-1.5 font-sans text-xs font-medium tracking-tight transition-all duration-120 active:scale-[0.96] {activeTargetId ===
 						target.id
 							? 'bg-ink-800 text-ink-50 shadow-xs'
 							: 'text-ink-400 hover:bg-ink-900 hover:text-ink-200'}"
@@ -49,7 +49,7 @@
 		</div>
 
 		<!-- Active platform install card -->
-		<div class="mt-4 max-w-3xl border border-ink-800 bg-ink-900/40">
+		<div class="mt-4 max-w-3xl rounded-xs border border-ink-800 bg-ink-900/40 overflow-hidden">
 			<!-- Header / Method info -->
 			<div
 				class="flex flex-wrap items-center justify-between gap-3 border-b border-ink-800 bg-ink-900/80 px-4 py-2.5 sm:px-5"
@@ -63,7 +63,7 @@
 			<!-- Command snippet -->
 			<div class="p-4 sm:p-5">
 				<pre
-					class="overflow-x-auto rounded-sm border border-ink-800/80 bg-ink-950 p-3.5 font-mono text-[0.8125rem] leading-relaxed text-ink-100"><code
+					class="overflow-x-auto rounded-xs border border-ink-800/80 bg-ink-950 p-3.5 font-mono text-[0.8125rem] leading-relaxed text-ink-100"><code
 						>{activeTarget.command}</code
 					></pre>
 
@@ -80,7 +80,7 @@
 							<CopyButton text={activeTarget.altCommand} label="Copy" variant="inline" />
 						</div>
 						<pre
-							class="mt-2 overflow-x-auto rounded-sm border border-ink-800/60 bg-ink-950/80 p-3 font-mono text-xs text-ink-300"><code
+							class="mt-2 overflow-x-auto rounded-xs border border-ink-800/60 bg-ink-950/80 p-3 font-mono text-xs text-ink-300"><code
 								>{activeTarget.altCommand}</code
 							></pre>
 					</div>
@@ -96,11 +96,12 @@
 				fill="none"
 				stroke="currentColor"
 				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
 				aria-hidden="true"
 			>
-				<circle cx="8" cy="8" r="6.5" />
-				<line x1="8" y1="5" x2="8" y2="8.5" />
-				<circle cx="8" cy="11" r="0.5" fill="currentColor" />
+				<circle cx="8" cy="8" r="6.25" />
+				<path d="M8 7v4.5M8 4.75h.01" />
 			</svg>
 			<span>
 				{install.fallbackArchive.text}
@@ -108,7 +109,7 @@
 					href={install.fallbackArchive.href}
 					target="_blank"
 					rel="noreferrer"
-					class="text-ink-200 underline decoration-ink-600 underline-offset-2 transition-colors hover:text-ink-50 hover:decoration-ink-300"
+					class="text-ink-200 underline decoration-ink-600 underline-offset-4 transition-colors hover:text-ink-50 hover:decoration-ink-300"
 				>
 					{install.fallbackArchive.linkText}
 				</a>.

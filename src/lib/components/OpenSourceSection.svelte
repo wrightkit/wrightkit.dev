@@ -6,19 +6,19 @@
 <Section title={openSource.title} lead={openSource.lead}>
 	<div class="mt-8 flex flex-col gap-6">
 		<div class="flex flex-wrap items-center gap-3">
-			<a class="btn btn-primary" href={site.github} target="_blank" rel="noreferrer">
+			<a class="btn btn-primary w-full sm:w-auto" href={site.github} target="_blank" rel="noreferrer">
 				View Wright on GitHub
 			</a>
-			<a class="btn btn-ghost" href={site.releases} target="_blank" rel="noreferrer">
+			<a class="btn btn-ghost w-full sm:w-auto" href={site.releases} target="_blank" rel="noreferrer">
 				Releases
 			</a>
 		</div>
 
 		<ul class="mt-4 divide-y divide-ink-800 border-y border-ink-800">
 			{#each openSource.links as link (link.href)}
-				<li class="py-4">
+				<li class="py-3.5 sm:py-4">
 					<a
-						class="text-[0.9375rem] font-medium text-ink-100 underline decoration-ink-600 underline-offset-4 transition-colors duration-150 hover:text-ink-50 hover:decoration-ink-300"
+						class="break-all font-mono text-[0.875rem] font-medium text-ink-100 underline decoration-ink-600 underline-offset-4 transition-colors duration-150 hover:text-ink-50 hover:decoration-ink-300 active:text-accent-400 sm:text-[0.9375rem]"
 						href={link.href}
 						target="_blank"
 						rel="noreferrer"

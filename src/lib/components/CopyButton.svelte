@@ -18,6 +18,11 @@
 		try {
 			await navigator.clipboard.writeText(text);
 			copied = true;
+			if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+				try {
+					navigator.vibrate(12);
+				} catch {}
+			}
 			if (timeoutId) clearTimeout(timeoutId);
 			timeoutId = setTimeout(() => {
 				copied = false;
@@ -34,6 +39,11 @@
 				document.execCommand('copy');
 				document.body.removeChild(textarea);
 				copied = true;
+				if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+					try {
+						navigator.vibrate(12);
+					} catch {}
+				}
 				if (timeoutId) clearTimeout(timeoutId);
 				timeoutId = setTimeout(() => {
 					copied = false;
@@ -47,12 +57,12 @@
 
 <button
 	type="button"
-	class="inline-flex items-center justify-center gap-1.5 rounded-sm font-sans text-xs font-medium tracking-tight transition-[background-color,border-color,color,transform] duration-150 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 {variant ===
+	class="relative inline-flex touch-manipulation select-none items-center justify-center gap-1.5 rounded-sm font-sans text-xs font-medium tracking-tight transition-all duration-120 active:scale-[0.94] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 {variant ===
 	'primary'
 		? 'bg-accent-500 px-3 py-1.5 text-ink-950 hover:bg-accent-400'
 		: variant === 'inline'
 			? 'border border-ink-700 bg-ink-900 px-2 py-1 text-ink-300 hover:border-ink-500 hover:text-ink-50'
-			: 'border border-ink-700 bg-ink-900/80 px-2.5 py-1 text-ink-200 hover:border-ink-500 hover:bg-ink-800 hover:text-ink-50'}"
+			: 'border border-ink-700 bg-ink-900/80 px-2.5 py-1.5 text-ink-200 hover:border-ink-500 hover:bg-ink-800 hover:text-ink-50'}"
 	onclick={handleCopy}
 	aria-label={copied ? copiedLabel : label}
 	title={copied ? copiedLabel : label}

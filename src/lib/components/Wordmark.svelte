@@ -4,7 +4,7 @@
 	let { compact = false }: { compact?: boolean } = $props();
 </script>
 
-<a href="/" class="inline-flex min-h-11 items-center gap-2" aria-label="WrightKit — home">
+<a href="/" class="inline-flex min-h-11 items-center gap-2 transition-transform duration-120 active:scale-[0.96]" aria-label="WrightKit — home">
 	<Mark size={compact ? 20 : 22} />
 	<span class="font-semibold tracking-tight text-ink-50 {compact ? 'text-[0.9375rem]' : 'text-base'}">
 		WrightKit

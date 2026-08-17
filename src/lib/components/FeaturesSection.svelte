@@ -4,7 +4,7 @@
 </script>
 
 <section id="features" class="scroll-mt-16 border-t border-ink-800">
-	<div class="container-site py-16 sm:py-20 lg:py-24">
+	<div class="container-site py-14 sm:py-20 lg:py-24">
 		<div class="max-w-2xl">
 			<h2 class="font-sans font-semibold text-title text-ink-50">{features.title}</h2>
 			<p class="mt-3 text-[1.0625rem] leading-relaxed text-ink-300">
@@ -12,9 +12,9 @@
 			</p>
 		</div>
 
-		<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+		<div class="mt-10 grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
 			{#each features.items as item (item.id)}
-				<div class="flex flex-col justify-between border border-ink-800 bg-ink-900/30 p-5 transition-colors duration-150 hover:border-ink-700">
+				<div class="flex flex-col justify-between rounded-xs border border-ink-800 bg-ink-900/30 p-4 sm:p-5 transition-colors duration-150 hover:border-ink-700">
 					<div>
 						<h3 class="font-sans text-base font-semibold text-ink-50">{item.title}</h3>
 						<p class="mt-2 text-[0.875rem] leading-relaxed text-ink-300">

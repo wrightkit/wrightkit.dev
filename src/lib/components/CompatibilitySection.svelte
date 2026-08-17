@@ -3,7 +3,7 @@
 </script>
 
 <section id="compatibility" class="scroll-mt-16 border-t border-ink-800">
-	<div class="container-site py-16 sm:py-20 lg:py-24">
+	<div class="container-site py-14 sm:py-20 lg:py-24">
 		<div class="max-w-2xl">
 			<h2 class="font-sans font-semibold text-title text-ink-50">{compatibility.title}</h2>
 			<p class="mt-3 text-[1.0625rem] leading-relaxed text-ink-300">
@@ -12,16 +12,16 @@
 		</div>
 
 		<!-- Source forms -->
-		<div class="mt-10 grid gap-6 md:grid-cols-3">
+		<div class="mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
 			{#each compatibility.surfaces as surface (surface.name)}
-				<div class="border border-ink-800 bg-ink-900/30 p-5">
+				<div class="rounded-xs border border-ink-800 bg-ink-900/30 p-4 sm:p-5">
 					<div class="flex items-center justify-between gap-2">
 						<h3 class="font-sans text-base font-semibold text-ink-50">{surface.name}</h3>
 						<span
 							class="rounded-xs px-2 py-0.5 text-xs font-medium {surface.status ===
 							'Supported'
-								? 'bg-accent-500/10 text-accent-400 border border-accent-500/30'
-								: 'bg-ink-800 text-ink-400'}"
+								? 'bg-ink-900 text-accent-400 border border-accent-500/40'
+								: 'bg-ink-800 text-ink-400 border border-transparent'}"
 						>
 							{surface.status}
 						</span>
@@ -38,15 +38,15 @@
 		</div>
 
 		<!-- Conversion directions -->
-		<div class="mt-10 max-w-3xl border border-ink-800">
-			<div class="border-b border-ink-800 bg-ink-900/60 px-5 py-3">
+		<div class="mt-10 max-w-3xl rounded-xs border border-ink-800 overflow-hidden">
+			<div class="border-b border-ink-800 bg-ink-900/60 px-4 py-3 sm:px-5">
 				<h3 class="font-sans text-sm font-semibold text-ink-50">
 					Conversion directions
 				</h3>
 			</div>
 			<ul class="divide-y divide-ink-800">
 				{#each compatibility.conversionDirections as dir (dir.from + dir.to)}
-					<li class="flex items-center justify-between gap-4 px-5 py-3">
+					<li class="flex items-center justify-between gap-4 px-4 py-3 sm:px-5">
 						<div class="flex items-baseline gap-2 font-mono text-[0.8125rem] text-ink-200">
 							<span>{dir.from}</span>
 							<span class="text-ink-600">→</span>
@@ -65,7 +65,7 @@
 		</div>
 
 		<!-- S/D/N/E Verification Model -->
-		<div class="mt-12 border border-ink-800 bg-ink-900/50 p-6 sm:p-8">
+		<div class="mt-10 sm:mt-12 rounded-xs border border-ink-800 bg-ink-900/50 p-5 sm:p-8">
 			<div class="max-w-xl">
 				<h3 class="font-sans text-lg font-semibold text-ink-50">
 					{compatibility.sdne.title}
@@ -73,7 +73,7 @@
 				<p class="mt-1.5 text-xs text-ink-400">
 					{compatibility.sdne.lead}
 				</p>
-				<div class="mt-3 inline-block rounded-xs bg-ink-950 border border-ink-800 px-3 py-1.5 font-mono text-xs text-accent-400">
+				<div class="mt-3 inline-block max-w-full break-words rounded-xs bg-ink-950 border border-ink-800 px-3 py-1.5 font-mono text-xs text-accent-400">
 					Priority: {compatibility.sdne.priority}
 				</div>
 			</div>
