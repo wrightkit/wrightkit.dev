@@ -56,7 +56,7 @@
 		<!-- Mobile adaptive menu toggle (Apple style 2-line animated button) -->
 		<button
 			type="button"
-			class="relative flex h-10 w-10 items-center justify-center rounded-xs text-ink-300 transition-all duration-120 hover:text-ink-50 active:scale-[0.92] md:hidden"
+			class="relative flex h-11 w-11 touch-manipulation items-center justify-center rounded-xs text-ink-300 transition-all duration-120 hover:text-ink-50 active:scale-[0.92] md:hidden"
 			aria-expanded={isOpen}
 			aria-controls="mobile-nav"
 			aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
@@ -82,9 +82,12 @@
 	{#if isOpen}
 		<div
 			id="mobile-nav"
-			class="fixed inset-x-0 bottom-0 top-14 z-40 flex flex-col justify-between border-b border-ink-800 bg-ink-950/95 backdrop-blur-2xl transition-all md:hidden"
+			class="fixed inset-x-0 bottom-0 top-[calc(3.5rem+env(safe-area-inset-top))] z-40 flex flex-col justify-between border-b border-ink-800 bg-ink-950/95 backdrop-blur-2xl md:hidden"
+			role="dialog"
+			aria-modal="true"
+			aria-label="Mobile navigation"
 		>
-			<div class="container-site flex flex-1 flex-col py-6 overflow-y-auto">
+			<div class="container-site flex min-h-0 flex-1 flex-col overflow-y-auto py-6">
 				<nav class="flex flex-col divide-y divide-ink-800/60" aria-label="Mobile Primary">
 					{#each nav as item}
 						<a

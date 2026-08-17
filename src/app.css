@@ -69,6 +69,7 @@
 @layer components {
 	.container-site {
 		margin-inline: auto;
+		min-width: 0;
 		width: 100%;
 		max-width: 68rem;
 		padding-left: max(1.25rem, env(safe-area-inset-left));
@@ -84,6 +85,7 @@
 
 	.chrome {
 		position: relative;
+		isolation: isolate;
 		background: rgb(16 16 14 / 0.82);
 		backdrop-filter: blur(20px) saturate(180%);
 		-webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -101,6 +103,7 @@
 		font-weight: 590;
 		line-height: 1.2;
 		letter-spacing: -0.01em;
+		touch-action: manipulation;
 		transition:
 			background-color 140ms ease,
 			border-color 140ms ease,
@@ -136,6 +139,10 @@
 		font-size: 0.75rem;
 		letter-spacing: 0.01em;
 		color: var(--color-ink-500);
+	}
+
+	.scroll-target {
+		scroll-margin-top: calc(4rem + env(safe-area-inset-top));
 	}
 
 	.terminal pre {

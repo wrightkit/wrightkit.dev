@@ -57,7 +57,7 @@
 
 <button
 	type="button"
-	class="relative inline-flex touch-manipulation select-none items-center justify-center gap-1.5 rounded-sm font-sans text-xs font-medium tracking-tight transition-all duration-120 active:scale-[0.94] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 {variant ===
+	class="relative inline-flex min-h-10 min-w-10 touch-manipulation select-none items-center justify-center gap-1.5 rounded-sm font-sans text-xs font-medium tracking-tight transition-all duration-120 active:scale-[0.94] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 {variant ===
 	'primary'
 		? 'bg-accent-500 px-3 py-1.5 text-ink-950 hover:bg-accent-400'
 		: variant === 'inline'

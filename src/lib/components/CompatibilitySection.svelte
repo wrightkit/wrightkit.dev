@@ -2,7 +2,7 @@
 	import { compatibility } from '$lib/site';
 </script>
 
-<section id="compatibility" class="scroll-mt-16 border-t border-ink-800">
+<section id="compatibility" class="scroll-target border-t border-ink-800">
 	<div class="container-site py-14 sm:py-20 lg:py-24">
 		<div class="max-w-2xl">
 			<h2 class="font-sans font-semibold text-title text-ink-50">{compatibility.title}</h2>

@@ -8,7 +8,7 @@
 	);
 </script>
 
-<section id="install" class="scroll-mt-16 border-t border-ink-800">
+<section id="install" class="scroll-target border-t border-ink-800">
 	<div class="container-site py-14 sm:py-20 lg:py-24">
 		<div class="max-w-2xl">
 			<h2 class="font-sans font-semibold text-title text-ink-50">{install.title}</h2>
@@ -20,7 +20,7 @@
 		<!-- Segmented platform tabs -->
 		<div class="mt-8">
 			<div
-				class="no-scrollbar flex max-w-full items-center gap-1 overflow-x-auto rounded-sm border border-ink-800 bg-ink-950 p-1 sm:inline-flex sm:flex-wrap"
+				class="no-scrollbar flex max-w-full snap-x snap-mandatory items-center gap-1 overflow-x-auto rounded-sm border border-ink-800 bg-ink-950 p-1 sm:inline-flex sm:flex-wrap"
 				role="tablist"
 				aria-label="Target platform"
 			>
@@ -29,10 +29,11 @@
 						type="button"
 						role="tab"
 						aria-selected={activeTargetId === target.id}
-						class="flex min-h-9 shrink-0 touch-manipulation select-none items-center gap-2 rounded-xs px-3.5 py-1.5 font-sans text-xs font-medium tracking-tight transition-all duration-120 active:scale-[0.96] {activeTargetId ===
+						class="flex min-h-10 shrink-0 snap-start touch-manipulation select-none items-center gap-2 rounded-xs px-3.5 py-1.5 font-sans text-xs font-medium tracking-tight transition-all duration-120 active:scale-[0.96] {activeTargetId ===
 						target.id
 							? 'bg-ink-800 text-ink-50 shadow-xs'
 							: 'text-ink-400 hover:bg-ink-900 hover:text-ink-200'}"
+						aria-controls="install-panel"
 						onclick={() => (activeTargetId = target.id)}
 					>
 						<span>{target.label}</span>
@@ -49,7 +50,7 @@
 		</div>
 
 		<!-- Active platform install card -->
-		<div class="mt-4 max-w-3xl rounded-xs border border-ink-800 bg-ink-900/40 overflow-hidden">
+		<div id="install-panel" class="mt-4 max-w-3xl min-w-0 overflow-hidden rounded-xs border border-ink-800 bg-ink-900/40" role="tabpanel" tabindex="0">
 			<!-- Header / Method info -->
 			<div
 				class="flex flex-wrap items-center justify-between gap-3 border-b border-ink-800 bg-ink-900/80 px-4 py-2.5 sm:px-5"
@@ -89,7 +90,7 @@
 		</div>
 
 		<!-- Fallback release archives note -->
-		<div class="mt-6 flex max-w-3xl items-center gap-2 text-xs text-ink-400">
+		<div class="mt-6 flex max-w-3xl items-start gap-2 text-xs text-ink-400">
 			<svg
 				class="h-4 w-4 shrink-0 text-ink-500"
 				viewBox="0 0 16 16"
