@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Hero from '$lib/components/Hero.svelte';
 	import InstallSection from '$lib/components/InstallSection.svelte';
-	import FeaturesSection from '$lib/components/FeaturesSection.svelte';
+	import PillarsSection from '$lib/components/PillarsSection.svelte';
+	import CapabilitiesSection from '$lib/components/CapabilitiesSection.svelte';
 	import CompatibilitySection from '$lib/components/CompatibilitySection.svelte';
 	import EcosystemSection from '$lib/components/EcosystemSection.svelte';
-	import AgentsSection from '$lib/components/AgentsSection.svelte';
 	import OpenSourceSection from '$lib/components/OpenSourceSection.svelte';
 	import { site } from '$lib/site';
 </script>
@@ -23,8 +23,8 @@
 
 <Hero />
 <InstallSection />
-<FeaturesSection />
+<PillarsSection />
+<CapabilitiesSection />
 <CompatibilitySection />
 <EcosystemSection />
-<AgentsSection />
 <OpenSourceSection />

@@ -14,6 +14,9 @@
 				<h1 class="font-sans font-semibold text-hero text-ink-50">
 					{site.headline}
 				</h1>
+				<p class="mt-2 text-[1rem] font-medium text-ink-400 sm:text-[1.0625rem]">
+					{site.subheadline}
+				</p>
 				<p class="mt-4 text-[0.9375rem] leading-relaxed text-ink-300 sm:mt-5 sm:text-[1.0625rem]">
 					{site.description}
 				</p>
