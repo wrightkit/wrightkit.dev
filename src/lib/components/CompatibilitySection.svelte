@@ -73,16 +73,8 @@
 				<p class="mt-1.5 text-xs leading-relaxed text-ink-400">
 					{compatibility.sdne.lead}
 				</p>
-				<div class="mt-3 inline-flex flex-wrap items-center gap-1.5 rounded-xs bg-ink-950 border border-ink-800 px-2.5 py-1.5 font-mono text-xs text-ink-300 sm:px-3">
-					<span class="font-sans text-xs text-ink-500">Priority:</span>
-					<span class="text-accent-400 font-semibold">E</span>
-					<span class="text-ink-600">&gt;</span>
-					<span class="text-accent-400 font-semibold">D</span>
-					<span class="text-ink-600">&gt;</span>
-					<span class="text-accent-400 font-semibold">S</span>
-					<span class="text-ink-600">&gt;</span>
-					<span class="text-accent-400 font-semibold">N</span>
-					<span class="ml-1 text-[0.6875rem] text-ink-500">({compatibility.sdne.priority})</span>
+				<div class="mt-3 rounded-xs bg-ink-950 border border-ink-800 px-3 py-1.5 font-mono text-xs text-accent-400 [overflow-wrap:break-word]">
+					Priority: {compatibility.sdne.priority}
 				</div>
 			</div>
 

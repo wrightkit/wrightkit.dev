@@ -42,7 +42,7 @@
 		-webkit-tap-highlight-color: transparent;
 		-webkit-text-size-adjust: 100%;
 		text-size-adjust: 100%;
-		overflow-x: hidden;
+		/* Do NOT set overflow-x here — it breaks position:sticky on iOS Safari */
 	}
 
 	body {
@@ -53,7 +53,15 @@
 		line-height: 1.55;
 		-webkit-font-smoothing: antialiased;
 		text-rendering: optimizeLegibility;
-		overflow-x: hidden;
+		/* clip: clips visually without creating a scroll container (sticky still works) */
+		overflow-x: clip;
+	}
+
+	/* Prevent pre elements from causing page-level overflow */
+	pre {
+		max-width: 100%;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	::selection {

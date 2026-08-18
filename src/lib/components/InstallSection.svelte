@@ -53,11 +53,9 @@
 		<div id="install-panel" class="mt-4 max-w-3xl min-w-0 overflow-hidden rounded-xs border border-ink-800 bg-ink-900/40" role="tabpanel" tabindex="0">
 			<!-- Header / Method info -->
 			<div
-				class="flex items-center justify-between gap-3 border-b border-ink-800 bg-ink-900/80 px-3.5 py-2.5 sm:px-5"
+				class="flex flex-wrap items-center justify-between gap-2 border-b border-ink-800 bg-ink-900/80 px-3.5 py-2.5 sm:px-5"
 			>
-				<div class="min-w-0 flex-1">
-					<span class="block truncate text-xs font-semibold text-ink-50">{activeTarget.method}</span>
-				</div>
+				<span class="text-xs font-semibold leading-snug text-ink-50">{activeTarget.method}</span>
 				<CopyButton text={activeTarget.command} label="Copy" />
 			</div>
 
@@ -74,8 +72,8 @@
 
 				{#if activeTarget.altCommand}
 					<div class="mt-4 border-t border-ink-800/70 pt-3.5 sm:mt-5 sm:pt-4">
-						<div class="flex items-center justify-between gap-2">
-							<span class="min-w-0 truncate text-xs font-medium text-ink-300">
+						<div class="flex flex-wrap items-center justify-between gap-2">
+							<span class="text-xs font-medium leading-snug text-ink-300">
 								Alternative: {activeTarget.altMethod}
 							</span>
 							<CopyButton text={activeTarget.altCommand} label="Copy" variant="inline" />
