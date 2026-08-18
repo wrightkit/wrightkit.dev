@@ -87,7 +87,7 @@
 			aria-modal="true"
 			aria-label="Mobile navigation"
 		>
-			<div class="container-site flex min-h-0 flex-1 flex-col overflow-y-auto py-6">
+			<div class="container-site flex min-h-0 flex-1 flex-col overflow-y-auto py-6 pb-[max(2rem,calc(1.5rem+env(safe-area-inset-bottom)))]">
 				<nav class="flex flex-col divide-y divide-ink-800/60" aria-label="Mobile Primary">
 					{#each nav as item}
 						<a

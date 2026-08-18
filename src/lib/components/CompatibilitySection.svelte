@@ -3,22 +3,22 @@
 </script>
 
 <section id="compatibility" class="scroll-target border-t border-ink-800">
-	<div class="container-site py-14 sm:py-20 lg:py-24">
+	<div class="container-site py-12 sm:py-20 lg:py-24">
 		<div class="max-w-2xl">
 			<h2 class="font-sans font-semibold text-title text-ink-50">{compatibility.title}</h2>
-			<p class="mt-3 text-[1.0625rem] leading-relaxed text-ink-300">
+			<p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-300 sm:text-[1.0625rem]">
 				{compatibility.lead}
 			</p>
 		</div>
 
 		<!-- Source forms -->
-		<div class="mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
+		<div class="mt-8 grid gap-3 sm:mt-10 sm:gap-6 md:grid-cols-3">
 			{#each compatibility.surfaces as surface (surface.name)}
 				<div class="rounded-xs border border-ink-800 bg-ink-900/30 p-4 sm:p-5">
 					<div class="flex items-center justify-between gap-2">
 						<h3 class="font-sans text-base font-semibold text-ink-50">{surface.name}</h3>
 						<span
-							class="rounded-xs px-2 py-0.5 text-xs font-medium {surface.status ===
+							class="shrink-0 rounded-xs px-2 py-0.5 text-xs font-medium {surface.status ===
 							'Supported'
 								? 'bg-ink-900 text-accent-400 border border-accent-500/40'
 								: 'bg-ink-800 text-ink-400 border border-transparent'}"
@@ -38,7 +38,7 @@
 		</div>
 
 		<!-- Conversion directions -->
-		<div class="mt-10 max-w-3xl rounded-xs border border-ink-800 overflow-hidden">
+		<div class="mt-8 sm:mt-10 max-w-3xl rounded-xs border border-ink-800 overflow-hidden">
 			<div class="border-b border-ink-800 bg-ink-900/60 px-4 py-3 sm:px-5">
 				<h3 class="font-sans text-sm font-semibold text-ink-50">
 					Conversion directions
@@ -53,7 +53,7 @@
 							<span>{dir.to}</span>
 						</div>
 						<span
-							class="text-xs font-medium {dir.status === 'Supported'
+							class="shrink-0 text-xs font-medium {dir.status === 'Supported'
 								? 'text-accent-400'
 								: 'text-ink-400'}"
 						>
@@ -65,20 +65,28 @@
 		</div>
 
 		<!-- S/D/N/E Verification Model -->
-		<div class="mt-10 sm:mt-12 rounded-xs border border-ink-800 bg-ink-900/50 p-5 sm:p-8">
+		<div class="mt-8 sm:mt-12 rounded-xs border border-ink-800 bg-ink-900/50 p-4 sm:p-8">
 			<div class="max-w-xl">
-				<h3 class="font-sans text-lg font-semibold text-ink-50">
+				<h3 class="font-sans text-base font-semibold text-ink-50 sm:text-lg">
 					{compatibility.sdne.title}
 				</h3>
-				<p class="mt-1.5 text-xs text-ink-400">
+				<p class="mt-1.5 text-xs leading-relaxed text-ink-400">
 					{compatibility.sdne.lead}
 				</p>
-				<div class="mt-3 inline-block max-w-full break-words rounded-xs bg-ink-950 border border-ink-800 px-3 py-1.5 font-mono text-xs text-accent-400">
-					Priority: {compatibility.sdne.priority}
+				<div class="mt-3 inline-flex flex-wrap items-center gap-1.5 rounded-xs bg-ink-950 border border-ink-800 px-2.5 py-1.5 font-mono text-xs text-ink-300 sm:px-3">
+					<span class="font-sans text-xs text-ink-500">Priority:</span>
+					<span class="text-accent-400 font-semibold">E</span>
+					<span class="text-ink-600">&gt;</span>
+					<span class="text-accent-400 font-semibold">D</span>
+					<span class="text-ink-600">&gt;</span>
+					<span class="text-accent-400 font-semibold">S</span>
+					<span class="text-ink-600">&gt;</span>
+					<span class="text-accent-400 font-semibold">N</span>
+					<span class="ml-1 text-[0.6875rem] text-ink-500">({compatibility.sdne.priority})</span>
 				</div>
 			</div>
 
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+			<div class="mt-6 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
 				{#each compatibility.sdne.levels as level (level.letter)}
 					<div class="border-t border-ink-800 pt-3">
 						<div class="flex items-center gap-2">

@@ -9,10 +9,10 @@
 </script>
 
 <section id="install" class="scroll-target border-t border-ink-800">
-	<div class="container-site py-14 sm:py-20 lg:py-24">
+	<div class="container-site py-12 sm:py-20 lg:py-24">
 		<div class="max-w-2xl">
 			<h2 class="font-sans font-semibold text-title text-ink-50">{install.title}</h2>
-			<p class="mt-3 text-[1.0625rem] leading-relaxed text-ink-300">
+			<p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-300 sm:text-[1.0625rem]">
 				{install.lead}
 			</p>
 		</div>
@@ -20,7 +20,7 @@
 		<!-- Segmented platform tabs -->
 		<div class="mt-8">
 			<div
-				class="no-scrollbar flex max-w-full snap-x snap-mandatory items-center gap-1 overflow-x-auto rounded-sm border border-ink-800 bg-ink-950 p-1 sm:inline-flex sm:flex-wrap"
+				class="no-scrollbar flex max-w-full snap-x snap-mandatory items-center gap-1.5 overflow-x-auto rounded-sm border border-ink-800 bg-ink-950 p-1 sm:inline-flex sm:flex-wrap"
 				role="tablist"
 				aria-label="Target platform"
 			>
@@ -29,7 +29,7 @@
 						type="button"
 						role="tab"
 						aria-selected={activeTargetId === target.id}
-						class="flex min-h-10 shrink-0 snap-start touch-manipulation select-none items-center gap-2 rounded-xs px-3.5 py-1.5 font-sans text-xs font-medium tracking-tight transition-all duration-120 active:scale-[0.96] {activeTargetId ===
+						class="flex min-h-9 shrink-0 snap-start touch-manipulation select-none items-center gap-1.5 rounded-xs px-3 py-1.5 font-sans text-xs font-medium tracking-tight transition-all duration-120 active:scale-[0.96] sm:min-h-10 sm:gap-2 sm:px-3.5 {activeTargetId ===
 						target.id
 							? 'bg-ink-800 text-ink-50 shadow-xs'
 							: 'text-ink-400 hover:bg-ink-900 hover:text-ink-200'}"
@@ -53,18 +53,18 @@
 		<div id="install-panel" class="mt-4 max-w-3xl min-w-0 overflow-hidden rounded-xs border border-ink-800 bg-ink-900/40" role="tabpanel" tabindex="0">
 			<!-- Header / Method info -->
 			<div
-				class="flex flex-wrap items-center justify-between gap-3 border-b border-ink-800 bg-ink-900/80 px-4 py-2.5 sm:px-5"
+				class="flex items-center justify-between gap-3 border-b border-ink-800 bg-ink-900/80 px-3.5 py-2.5 sm:px-5"
 			>
-				<div class="flex items-center gap-2">
-					<span class="text-xs font-semibold text-ink-50">{activeTarget.method}</span>
+				<div class="min-w-0 flex-1">
+					<span class="block truncate text-xs font-semibold text-ink-50">{activeTarget.method}</span>
 				</div>
-				<CopyButton text={activeTarget.command} label="Copy command" />
+				<CopyButton text={activeTarget.command} label="Copy" />
 			</div>
 
 			<!-- Command snippet -->
-			<div class="p-4 sm:p-5">
+			<div class="p-3.5 sm:p-5">
 				<pre
-					class="overflow-x-auto rounded-xs border border-ink-800/80 bg-ink-950 p-3.5 font-mono text-[0.8125rem] leading-relaxed text-ink-100"><code
+					class="overflow-x-auto rounded-xs border border-ink-800/80 bg-ink-950 p-3 sm:p-3.5 font-mono text-[0.8125rem] leading-relaxed text-ink-100"><code
 						>{activeTarget.command}</code
 					></pre>
 
@@ -73,15 +73,15 @@
 				</p>
 
 				{#if activeTarget.altCommand}
-					<div class="mt-5 border-t border-ink-800/70 pt-4">
+					<div class="mt-4 border-t border-ink-800/70 pt-3.5 sm:mt-5 sm:pt-4">
 						<div class="flex items-center justify-between gap-2">
-							<span class="text-xs font-medium text-ink-300">
+							<span class="min-w-0 truncate text-xs font-medium text-ink-300">
 								Alternative: {activeTarget.altMethod}
 							</span>
 							<CopyButton text={activeTarget.altCommand} label="Copy" variant="inline" />
 						</div>
 						<pre
-							class="mt-2 overflow-x-auto rounded-xs border border-ink-800/60 bg-ink-950/80 p-3 font-mono text-xs text-ink-300"><code
+							class="mt-2 overflow-x-auto rounded-xs border border-ink-800/60 bg-ink-950/80 p-2.5 sm:p-3 font-mono text-xs text-ink-300"><code
 								>{activeTarget.altCommand}</code
 							></pre>
 					</div>
@@ -92,7 +92,7 @@
 		<!-- Fallback release archives note -->
 		<div class="mt-6 flex max-w-3xl items-start gap-2 text-xs text-ink-400">
 			<svg
-				class="h-4 w-4 shrink-0 text-ink-500"
+				class="mt-0.5 h-4 w-4 shrink-0 text-ink-500"
 				viewBox="0 0 16 16"
 				fill="none"
 				stroke="currentColor"
@@ -104,7 +104,7 @@
 				<circle cx="8" cy="8" r="6.25" />
 				<path d="M8 7v4.5M8 4.75h.01" />
 			</svg>
-			<span>
+			<span class="leading-relaxed">
 				{install.fallbackArchive.text}
 				<a
 					href={install.fallbackArchive.href}

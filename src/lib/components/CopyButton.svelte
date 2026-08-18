@@ -57,12 +57,12 @@
 
 <button
 	type="button"
-	class="relative inline-flex min-h-10 min-w-10 touch-manipulation select-none items-center justify-center gap-1.5 rounded-sm font-sans text-xs font-medium tracking-tight transition-all duration-120 active:scale-[0.94] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 {variant ===
+	class="relative inline-flex shrink-0 touch-manipulation select-none items-center justify-center gap-1.5 rounded-sm font-sans text-xs font-medium tracking-tight transition-all duration-120 active:scale-[0.94] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 after:absolute after:-inset-1.5 after:content-[''] {variant ===
 	'primary'
-		? 'bg-accent-500 px-3 py-1.5 text-ink-950 hover:bg-accent-400'
+		? 'min-h-9 min-w-9 bg-accent-500 px-3 py-1.5 text-ink-950 hover:bg-accent-400'
 		: variant === 'inline'
-			? 'border border-ink-700 bg-ink-900 px-2 py-1 text-ink-300 hover:border-ink-500 hover:text-ink-50'
-			: 'border border-ink-700 bg-ink-900/80 px-2.5 py-1.5 text-ink-200 hover:border-ink-500 hover:bg-ink-800 hover:text-ink-50'}"
+			? 'h-7 border border-ink-700 bg-ink-900 px-2 py-0.5 text-ink-300 hover:border-ink-500 hover:text-ink-50'
+			: 'min-h-8 border border-ink-700 bg-ink-900/80 px-2.5 py-1.5 text-ink-200 hover:border-ink-500 hover:bg-ink-800 hover:text-ink-50'}"
 	onclick={handleCopy}
 	aria-label={copied ? copiedLabel : label}
 	title={copied ? copiedLabel : label}

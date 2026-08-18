@@ -4,15 +4,15 @@
 </script>
 
 <section id="features" class="scroll-target border-t border-ink-800">
-	<div class="container-site py-14 sm:py-20 lg:py-24">
+	<div class="container-site py-12 sm:py-20 lg:py-24">
 		<div class="max-w-2xl">
 			<h2 class="font-sans font-semibold text-title text-ink-50">{features.title}</h2>
-			<p class="mt-3 text-[1.0625rem] leading-relaxed text-ink-300">
+			<p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-300 sm:text-[1.0625rem]">
 				{features.lead}
 			</p>
 		</div>
 
-		<div class="mt-10 grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+		<div class="mt-8 grid gap-3 sm:mt-10 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
 			{#each features.items as item (item.id)}
 				<div class="flex flex-col justify-between rounded-xs border border-ink-800 bg-ink-900/30 p-4 sm:p-5 transition-colors duration-150 hover:border-ink-700">
 					<div>
@@ -22,9 +22,9 @@
 						</p>
 					</div>
 
-					<div class="mt-5 border-t border-ink-800/80 pt-3">
-						<div class="flex items-center justify-between gap-2">
-							<code class="truncate font-mono text-[0.75rem] text-ink-400">{item.command}</code>
+					<div class="mt-4 border-t border-ink-800/80 pt-3 sm:mt-5">
+						<div class="flex min-w-0 items-center justify-between gap-2">
+							<code class="min-w-0 truncate font-mono text-[0.75rem] text-ink-400">{item.command}</code>
 							<CopyButton text={item.command} label="Copy" variant="inline" />
 						</div>
 					</div>

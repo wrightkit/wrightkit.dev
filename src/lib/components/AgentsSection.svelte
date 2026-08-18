@@ -3,13 +3,13 @@
 </script>
 
 <section id="agents" class="scroll-target border-t border-ink-800">
-	<div class="container-site py-14 sm:py-20 lg:py-24">
+	<div class="container-site py-12 sm:py-20 lg:py-24">
 		<div class="max-w-2xl">
 			<h2 class="font-sans font-semibold text-title text-ink-50">{agents.title}</h2>
-			<p class="mt-3 text-[1.0625rem] leading-relaxed text-ink-300">{agents.lead}</p>
+			<p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-300 sm:text-[1.0625rem]">{agents.lead}</p>
 		</div>
 
-		<div class="mt-10 grid gap-4 sm:gap-6 sm:grid-cols-2">
+		<div class="mt-8 grid gap-3 sm:mt-10 sm:gap-6 sm:grid-cols-2">
 			{#each agents.points as point (point.title)}
 				<div class="rounded-xs border border-ink-800 bg-ink-900/30 p-4 sm:p-5">
 					<h3 class="text-base font-semibold text-ink-50">{point.title}</h3>
