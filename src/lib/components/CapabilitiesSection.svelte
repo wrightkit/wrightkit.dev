@@ -1,19 +1,19 @@
 <script lang="ts">
 	import CopyButton from './CopyButton.svelte';
-	import { features } from '$lib/site';
+	import { capabilities } from '$lib/site';
 </script>
 
-<section id="features" class="scroll-target border-t border-ink-800">
+<section id="capabilities" class="scroll-target border-t border-ink-800">
 	<div class="container-site py-12 sm:py-20 lg:py-24">
 		<div class="max-w-2xl">
-			<h2 class="font-sans font-semibold text-title text-ink-50">{features.title}</h2>
+			<h2 class="font-sans font-semibold text-title text-ink-50">{capabilities.title}</h2>
 			<p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-300 sm:text-[1.0625rem]">
-				{features.lead}
+				{capabilities.lead}
 			</p>
 		</div>
 
 		<div class="mt-8 grid gap-3 sm:mt-10 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-			{#each features.items as item (item.id)}
+			{#each capabilities.items as item (item.id)}
 				<div class="flex flex-col justify-between rounded-xs border border-ink-800 bg-ink-900/30 p-4 sm:p-5 transition-colors duration-150 hover:border-ink-700">
 					<div>
 						<h3 class="font-sans text-base font-semibold text-ink-50">{item.title}</h3>

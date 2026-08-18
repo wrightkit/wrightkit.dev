@@ -17,10 +17,11 @@ export const site = {
 	product: 'Wright',
 	brand: 'WrightKit',
 	url: 'https://wrightkit.dev',
-	tagline: 'Tooling-first ecosystem for Overwatch Workshop',
-	headline: 'Tooling for the Overwatch Workshop.',
+	tagline: 'Tooling for Overwatch Workshop development',
+	headline: 'Tooling for Overwatch Workshop development.',
+	subheadline: 'Native Workshop, OverPy / OSTW, and AI agents.',
 	description:
-		'WrightKit is an open-source ecosystem of tools for Overwatch Workshop development. Wright, its primary product, is a standalone Rust toolchain for linting, static analysis, semantic inspection, and compilation — for developers, CI, and AI agents.',
+		'WrightKit is an open-source tooling ecosystem for Overwatch Workshop development. Whether you work in native Workshop text, OverPy, OSTW, or use AI coding agents — Wright provides linting, static analysis, semantic inspection, validated source editing, and language services.',
 	github: 'https://github.com/wrightkit/wright',
 	org: 'https://github.com/wrightkit',
 	releases: 'https://github.com/wrightkit/wright/releases',
@@ -36,10 +37,10 @@ export interface NavItem {
 
 export const nav = [
 	{ label: 'Install', href: '#install' },
-	{ label: 'Features', href: '#features' },
+	{ label: 'Workflows', href: '#workflows' },
+	{ label: 'Capabilities', href: '#capabilities' },
 	{ label: 'Compatibility', href: '#compatibility' },
 	{ label: 'Ecosystem', href: '#ecosystem' },
-	{ label: 'Agents', href: '#agents' },
 	{ label: 'GitHub', href: site.org, external: true }
 ] satisfies readonly NavItem[];
 
@@ -64,6 +65,61 @@ export const terminal = [
 	{ prompt: '', text: '   = rule: expensive-loop-check (stability)' },
 	{ prompt: '$', text: 'wright compile src/hero.opy -o dist/hero.txt' },
 	{ prompt: '', text: '✓ compiled 12 rules, 4 subroutines (0.018s)' }
+] as const;
+
+/**
+ * Three primary developer entry points.
+ * Capability claims trace to current wright/workshop-rs/opy-rs/del-rs/workshop-agent evidence.
+ */
+export const pillars = [
+	{
+		id: 'workshop',
+		anchor: 'workflows',
+		label: 'Native Workshop',
+		headline: 'Parse, inspect, lint, and transform raw Workshop scripts.',
+		body: 'Workshop text is the canonical interoperability boundary. WrightKit treats it as a first-class source form — not only as compiler output. Parse, validate, check, analyze, and emit Workshop projects with full catalog awareness.',
+		capabilities: [
+			'Parse and validate Workshop text against the live action/value catalog',
+			'Static analysis and lint rules with stable diagnostic codes',
+			'Semantic inspection: rules, variables, subroutines, control flow',
+			'Deterministic re-emission for diffs, CI, and round-trip verification',
+			'Source-span diagnostics in terminal and machine-readable JSON'
+		],
+		command: 'wright lint src/main.workshop',
+		commandCaption: 'Lint native Workshop text with stable diagnostic codes.'
+	},
+	{
+		id: 'opy',
+		anchor: 'workflows',
+		label: 'OverPy & OSTW',
+		headline: 'Modern tooling for OverPy and OSTW projects.',
+		body: 'OverPy (OPY) and DeltinScript (OSTW) are widely-used languages for Workshop development. WrightKit provides source-aware tooling — checking, linting, semantic analysis, and compilation where supported — for existing projects without replacing upstream implementations.',
+		capabilities: [
+			'OverPy frontend: preprocessor, macros, declarations, expressions, settings blocks',
+			'Corpus-evidenced semantic frontend, verified against a pinned OverPy oracle',
+			'OPY → Workshop compilation (supported), Workshop → OPY (in development)',
+			'DEL/OSTW-compatible frontend in development (del-rs)',
+			'Language server hover, definition, references, and rename (wright-lsp)'
+		],
+		command: 'wright check src/hero.opy',
+		commandCaption: 'Check an OverPy source file with exact source-span diagnostics.'
+	},
+	{
+		id: 'agents',
+		anchor: 'workflows',
+		label: 'AI Agents',
+		headline: 'Semantic understanding and validated edits for coding agents.',
+		body: 'Workshop projects are hard for agents to reason about: the action/value catalog is large, semantics are non-obvious, and mistakes can silently break behavior. WrightKit gives agents the same structured interfaces developers use — no scraped logs or brittle regexes.',
+		capabilities: [
+			'Semantic inspection APIs: rules, symbols, dependencies, control-flow graphs',
+			'Machine-readable diagnostics with stable codes, severity levels, and source spans',
+			'Validated source editing that agents can verify before applying',
+			'workshop-agent: deterministic CLI tools and engineering knowledge for agent harnesses',
+			'Non-interactive installer for CI and agent containers'
+		],
+		command: 'wright analyze src/hero.opy --format json',
+		commandCaption: 'Structured program analysis for programmatic consumption.'
+	}
 ] as const;
 
 export const install = {
@@ -130,9 +186,9 @@ export const install = {
 	}
 } as const;
 
-export const features = {
-	title: 'Features',
-	lead: 'Developer tooling — linting, diagnostics, semantic queries, editor assistance, and safe source transformations — as first-class product surfaces.',
+export const capabilities = {
+	title: 'Shared Capabilities',
+	lead: 'The same tooling foundation — linting, diagnostics, semantic inspection, language services, and agent APIs — applies across all supported source forms.',
 	items: [
 		{
 			id: 'lint',
