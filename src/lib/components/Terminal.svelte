@@ -2,7 +2,7 @@
 	import { terminal, hero } from '$lib/site';
 </script>
 
-<figure class="rounded-xs border border-ink-800 bg-ink-900/90 overflow-hidden">
+<figure class="min-w-0 rounded-xs border border-ink-800 bg-ink-900/90 overflow-hidden">
 	<figcaption class="flex items-center justify-between border-b border-ink-800 bg-ink-900 px-3.5 py-2 sm:px-4 sm:py-2.5">
 		<span class="font-mono text-xs font-medium text-ink-300">wright lint & compile</span>
 		<span class="font-mono text-xs text-ink-500">v0.1.0</span>
