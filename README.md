@@ -1,21 +1,48 @@
 # wrightkit.dev
 
-The public website for **Wright Kit** — modern tools for Overwatch Workshop
-development. This is the v0.1 product landing page: a small, static,
-prerender-first site built with SvelteKit, Svelte 5, TypeScript, and Tailwind
-CSS.
+The public website for **WrightKit** — tooling for Overwatch Workshop
+development. It is a static, prerender-first SvelteKit site.
+
+## Content contract
+
+Public capability claims must be grounded in the repository that owns the
+implementation:
+
+- `workshop-rs` for raw Workshop semantics, WIR, catalog/settings/localization,
+  parsing, validation, and emission;
+- `opy-rs` for OverPy syntax/semantics/compiler/reconstruction support;
+- `del-rs` for DEL/OSTW syntax/semantics/runtime/compiler/reconstruction support;
+- `wright` for the unified tooling/integration product: lint, analysis,
+  validated source edits, agents, CI/embedding, language services, and
+  orchestration;
+- `language-provider-protocol` for LPP protocol contracts.
+
+Do not treat old Wright monolith behavior, an existing CLI command, or an issue
+state as proof that an owning implementation currently supports the full
+capability.
+
+Terminology on the website follows the ecosystem architecture:
+
+- `opy-rs` and `del-rs` are **standalone language implementations**;
+- `workshop-rs` is the **standalone Workshop implementation and canonical
+  Workshop core**;
+- **frontend** describes an internal source-to-semantic stage;
+- **provider** describes an integration role that an implementation may expose
+  through LPP;
+- Wright is the **unified tooling and integration product**.
+
+All copy, navigation, and compatibility claims live in `src/lib/site.ts` and
+should remain synchronized with current merged/released evidence.
 
 ## Stack
 
-- [SvelteKit](https://kit.svelte.dev) with [`@sveltejs/adapter-static`](https://kit.svelte.dev/docs/adapter-static)
-- [Svelte 5](https://svelte.dev) (runes)
+- SvelteKit with `@sveltejs/adapter-static`
+- Svelte 5
 - TypeScript
-- [Tailwind CSS v4](https://tailwindcss.com) — the visual system lives in
-  project-owned design tokens (`src/app.css`, `@theme` block): a black/white
-  neutral foundation, a restrained orange accent, and a type scale.
+- Tailwind CSS v4
 
-The site is fully prerendered to static HTML — there is no server runtime,
-API, backend, or client-side data fetching.
+The site is fully prerendered to static HTML; there is no server runtime or
+client-side data service.
 
 ## Local development
 
@@ -24,22 +51,12 @@ Requires Node.js 20.19+ and `pnpm`.
 ```sh
 pnpm install
 pnpm dev
+pnpm check
 ```
-
-Open the printed URL (http://localhost:5173 by default).
 
 ## Build and preview
 
 ```sh
-pnpm build     # prerenders the site into build/
-pnpm preview   # serves the built output locally
+pnpm build
+pnpm preview
 ```
-
-`pnpm check` runs `svelte-check` for type checking.
-
-## Content
-
-All copy, navigation, and capability claims live in
-`src/lib/site.ts`. Capability terms are grounded in the
-[`wright`](https://github.com/wrightkit) repository's current state — no
-invented CLI commands, metrics, or features.
