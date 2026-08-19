@@ -1,15 +1,10 @@
 /**
- * Single source of truth for every copy string, navigation entry, and
- * capability claim on the site.
+ * Single source of truth for public copy and capability claims.
  *
- * Accuracy contract: each concrete capability term below traces to a current
- * artifact in the WrightKit repositories (`wright`, `workshop-rs`, `opy-rs`,
- * `del-rs`, `language-provider-protocol`, `workshop-agent`, `homebrew-tap`)
- * or to an authoritative contract such as ADR-0009. Nothing beyond that
- * evidence is claimed, and no CLI commands, flags, features, or package
- * channels are invented. Work that exists only on unmerged branches or has
- * not shipped in a release is labelled accordingly, never presented as
- * released support.
+ * Accuracy contract: current implementation claims are grounded in the owning
+ * WrightKit repository. Wright may integrate a capability, but its public copy
+ * must not claim more language/compiler support than workshop-rs, opy-rs, or
+ * del-rs currently evidence.
  */
 
 export const site = {
@@ -21,7 +16,7 @@ export const site = {
 	headline: 'Tooling for Overwatch Workshop development.',
 	subheadline: 'Native Workshop, OverPy / OSTW, and AI agents.',
 	description:
-		'WrightKit is an open-source tooling ecosystem for Overwatch Workshop development. Whether you work in native Workshop text, OverPy, OSTW, or use AI coding agents — Wright provides linting, static analysis, semantic inspection, validated source editing, and language services.',
+		'WrightKit combines independently usable Workshop, OverPy, and DEL/OSTW implementations with Wright, a unified tooling product for linting, analysis, semantic inspection, validated source editing, agents, CI, and language services.',
 	github: 'https://github.com/wrightkit/wright',
 	org: 'https://github.com/wrightkit',
 	releases: 'https://github.com/wrightkit/wright/releases',
@@ -48,94 +43,83 @@ export const hero = {
 	primaryCta: { label: 'Install Wright', href: '#install' },
 	secondaryCta: { label: 'View on GitHub', href: site.github },
 	quickInstall: 'curl -fsSL https://wrightkit.dev/install.sh | bash',
-	terminalCaption:
-		'wright lint: static analysis with stable diagnostic codes and exact source spans.'
+	terminalCaption: 'Wright provides one tooling surface across supported Workshop source forms.'
 } as const;
 
-/** Terminal transcript, grounded in `wright lint` terminal diagnostics. */
 export const terminal = [
-	{ prompt: '$', text: 'wright lint src/hero.opy' },
-	{ prompt: '', text: 'warning[expensive-loop-check]: geometry predicate in loop body' },
-	{ prompt: '', text: '  --> src/hero.opy:24:9' },
-	{ prompt: '', text: '   |' },
-	{ prompt: '', text: '24 |     while @hero.is_in_view(target):' },
-	{ prompt: '', text: '   |           ^^^^^^^^^^^^^^^^^^^^^^^^' },
-	{ prompt: '', text: '   =' },
-	{ prompt: '', text: '   = note: evaluated on each iteration; may spike server load' },
-	{ prompt: '', text: '   = rule: expensive-loop-check (stability)' },
-	{ prompt: '$', text: 'wright compile src/hero.opy -o dist/hero.txt' },
-	{ prompt: '', text: '✓ compiled 12 rules, 4 subroutines (0.018s)' }
+	{ prompt: '$', text: 'wright check src/main.opy' },
+	{ prompt: '', text: 'diagnostics use stable codes and exact source spans' },
+	{ prompt: '$', text: 'wright lint src/main.workshop' },
+	{ prompt: '', text: 'lint and analysis build on the owning semantic implementation' },
+	{ prompt: '$', text: 'wright analyze src/main.opy --format json' },
+	{ prompt: '', text: 'machine-readable results for CI, tools, and agents' }
 ] as const;
 
-/**
- * Three primary developer entry points.
- * Capability claims trace to current wright/workshop-rs/opy-rs/del-rs/workshop-agent evidence.
- */
 export const pillars = [
 	{
 		id: 'workshop',
 		anchor: 'workflows',
 		label: 'Native Workshop',
-		headline: 'Parse, inspect, lint, and transform raw Workshop scripts.',
-		body: 'Workshop text is the canonical interoperability boundary. WrightKit treats it as a first-class source form — not only as compiler output. Parse, validate, check, analyze, and emit Workshop projects with full catalog awareness.',
+		headline: 'A standalone Workshop implementation plus integrated tooling.',
+		body: 'workshop-rs owns raw Workshop parsing, canonical semantics, WIR, catalog data, validation, localization, and emission. Wright consumes those capabilities and adds linting, analysis, source editing, CI, agents, and language services.',
 		capabilities: [
-			'Parse and validate Workshop text against the live action/value catalog',
-			'Static analysis and lint rules with stable diagnostic codes',
-			'Semantic inspection: rules, variables, subroutines, control flow',
-			'Deterministic re-emission for diffs, CI, and round-trip verification',
-			'Source-span diagnostics in terminal and machine-readable JSON'
+			'Parse and validate raw Workshop through workshop-rs',
+			'Canonical Workshop identities, WIR, settings, and localization',
+			'Static analysis and linting through Wright',
+			'Deterministic Workshop emission and locale conversion',
+			'Machine-readable diagnostics and semantic queries'
 		],
 		command: 'wright lint src/main.workshop',
-		commandCaption: 'Lint native Workshop text with stable diagnostic codes.'
+		commandCaption: 'Use Wright tooling on canonical Workshop semantics.'
 	},
 	{
 		id: 'opy',
 		anchor: 'workflows',
 		label: 'OverPy & OSTW',
-		headline: 'Modern tooling for OverPy and OSTW projects.',
-		body: 'OverPy (OPY) and DeltinScript (OSTW) are widely-used languages for Workshop development. WrightKit provides source-aware tooling — checking, linting, semantic analysis, and compilation where supported — for existing projects without replacing upstream implementations.',
+		headline: 'Independent language implementations, deeply integrated by Wright.',
+		body: 'opy-rs and del-rs are standalone Rust implementations, not Wright-owned frontend repositories. Their internal frontends provide source-aware semantics; compilation reuses workshop-rs instead of duplicating raw Workshop. Wright adds unified lint, analysis, edits, agents, CI, and language services.',
 		capabilities: [
-			'OverPy frontend: preprocessor, macros, declarations, expressions, settings blocks',
-			'Corpus-evidenced semantic frontend, verified against a pinned OverPy oracle',
-			'OPY → Workshop compilation (supported), Workshop → OPY (in development)',
-			'DEL/OSTW-compatible frontend in development (del-rs)',
-			'Language server hover, definition, references, and rename (wright-lsp)'
+			'opy-rs: standalone OverPy parsing, preprocessing, semantic analysis, and tooling',
+			'del-rs: standalone DEL/OSTW parsing, projects, type/semantic analysis, and tooling',
+			'Both implementations reuse workshop-rs for canonical Workshop contracts',
+			'Compiler and reconstruction support remains evidence-backed and may be partial',
+			'Wright integrates supported semantic capabilities without hidden upstream runtime fallback'
 		],
-		command: 'wright check src/hero.opy',
-		commandCaption: 'Check an OverPy source file with exact source-span diagnostics.'
+		command: 'wright check src/main.opy',
+		commandCaption: 'Wright routes language-specific understanding to the owning implementation.'
 	},
 	{
 		id: 'agents',
 		anchor: 'workflows',
 		label: 'AI Agents',
 		headline: 'Semantic understanding and validated edits for coding agents.',
-		body: 'Workshop projects are hard for agents to reason about: the action/value catalog is large, semantics are non-obvious, and mistakes can silently break behavior. WrightKit gives agents the same structured interfaces developers use — no scraped logs or brittle regexes.',
+		body: 'Wright exposes structured diagnostics, semantic queries, and validated source-edit workflows on top of the same language implementations developers use. Agents do not need to scrape compiler logs or regenerate entire source files.',
 		capabilities: [
-			'Semantic inspection APIs: rules, symbols, dependencies, control-flow graphs',
-			'Machine-readable diagnostics with stable codes, severity levels, and source spans',
-			'Validated source editing that agents can verify before applying',
-			'workshop-agent: deterministic CLI tools and engineering knowledge for agent harnesses',
-			'Non-interactive installer for CI and agent containers'
+			'Semantic inspection and structured diagnostics',
+			'Validated source-edit transactions with refusal for unsafe operations',
+			'Machine-readable output for agent harnesses and CI',
+			'Shared Workshop gameplay/catalog queries from workshop-rs',
+			'workshop-agent skills and domain guidance'
 		],
-		command: 'wright analyze src/hero.opy --format json',
-		commandCaption: 'Structured program analysis for programmatic consumption.'
+		command: 'wright analyze src/main.opy --format json',
+		commandCaption: 'Structured program information for tools and agents.'
 	}
 ] as const;
 
 export const install = {
 	title: 'Install Wright',
-	lead: 'Standalone wright and wright-lsp binaries for macOS (Apple Silicon & Intel), Linux (x86_64), and Windows (x86_64). Zero runtime dependencies — no Node.js, .NET, or external interpreters required.',
-	latestVersion: '0.1.0',
+	lead: 'Wright is the unified tooling product. The language implementations also expose standalone libraries and CLIs from their own repositories.',
+	latestVersion: '0.2.8',
 	targets: [
 		{
 			id: 'macos',
 			label: 'macOS',
 			badge: 'Apple Silicon & Intel',
-			method: 'Homebrew (Recommended)',
+			method: 'Homebrew',
 			command: 'brew tap wrightkit/tap\nbrew install wrightkit/tap/wright',
-			altMethod: 'Unix installer script',
+			altMethod: 'Installer script',
 			altCommand: 'curl -fsSL https://wrightkit.dev/install.sh | bash',
-			note: 'Installs wright and wright-lsp to your path with checksums verified by Homebrew.'
+			note: 'Installs the released Wright binaries.'
 		},
 		{
 			id: 'linux',
@@ -143,44 +127,43 @@ export const install = {
 			badge: 'x86_64',
 			method: 'Installer script',
 			command: 'curl -fsSL https://wrightkit.dev/install.sh | bash',
-			altMethod: 'Custom version or dir',
+			altMethod: 'Custom install directory',
 			altCommand: 'curl -fsSL https://wrightkit.dev/install.sh | bash -s -- --dir ~/.local/bin',
-			note: 'Auto-detects platform, verifies SHA-256 checksums, and installs to ~/.local/bin.'
+			note: 'Downloads the matching release archive and verifies its checksum.'
 		},
 		{
 			id: 'windows',
 			label: 'Windows',
 			badge: 'x86_64',
-			method: 'Release ZIP (manual)',
-			command:
-				'https://github.com/wrightkit/wright/releases/download/v0.1.0/wright-0.1.0-x86_64-pc-windows-msvc.zip',
-			altMethod: 'WSL (installer script)',
-			altCommand: 'curl -fsSL https://wrightkit.dev/install.sh | bash',
-			note: 'Download the Windows release ZIP, verify its SHA-256 checksum, and add the extracted directory to your PATH. WinGet and Scoop packages are not published yet.'
+			method: 'GitHub Release archive',
+			command: 'https://github.com/wrightkit/wright/releases',
+			altMethod: 'See release documentation',
+			altCommand: 'docs/release.md',
+			note: 'Use the currently published Windows distribution path from the release documentation.'
 		},
 		{
 			id: 'ci',
 			label: 'CI / Agents',
 			badge: 'Deterministic',
 			method: 'Pinned version install',
-			command: 'curl -fsSL https://wrightkit.dev/install.sh | bash -s -- --version 0.1.0',
-			altMethod: 'Machine-readable flags',
+			command: 'curl -fsSL https://wrightkit.dev/install.sh | bash -s -- --version 0.2.8',
+			altMethod: 'Machine-readable output',
 			altCommand: 'wright lint input.opy --format json',
-			note: 'Non-interactive installer for Linux and macOS, designed for GitHub Actions, pipelines, and AI agent containers.'
+			note: 'Pin a released version for reproducible automation.'
 		},
 		{
 			id: 'source',
 			label: 'From Source',
-			badge: 'Rust 1.85.0+',
+			badge: 'Rust 1.85+',
 			method: 'Cargo build',
 			command: 'cargo build --release -p wright-cli -p wright-lsp',
-			altMethod: 'Run test suite',
+			altMethod: 'Run tests',
 			altCommand: 'cargo test --workspace --all-targets --all-features',
-			note: 'Builds standalone binaries at target/release/wright and target/release/wright-lsp.'
+			note: 'Build Wright from the repository workspace.'
 		}
 	],
 	fallbackArchive: {
-		text: 'Manual precompiled release archives (.tar.gz / .zip) with SHA-256 checksums are available on the',
+		text: 'Current precompiled release archives and checksums are available on the',
 		linkText: 'GitHub Releases page',
 		href: site.releases
 	}
@@ -188,42 +171,42 @@ export const install = {
 
 export const capabilities = {
 	title: 'Shared Capabilities',
-	lead: 'The same tooling foundation — linting, diagnostics, semantic inspection, language services, and agent APIs — applies across all supported source forms.',
+	lead: 'Wright adds cross-language tooling on top of the source form implementations. Availability is bounded by the semantic support of the owning implementation.',
 	items: [
 		{
 			id: 'lint',
 			title: 'Static analysis & linting',
-			body: 'Stability and performance rules with stable diagnostic codes: min-wait-loop, duplicate-condition, expensive-loop-check, repeated-value, and while-without-wait.',
+			body: 'Workshop stability and performance rules operate on semantic information rather than raw text where the backing implementation provides it.',
 			command: 'wright lint input.opy'
 		},
 		{
 			id: 'diagnostics',
 			title: 'Deterministic diagnostics',
-			body: 'Structured errors, warnings, and exact source spans in terminal format and machine-readable wright-result/v1 JSON.',
+			body: 'Structured errors, warnings, and source spans in terminal and machine-readable formats.',
 			command: 'wright check input.opy'
 		},
 		{
 			id: 'analysis',
 			title: 'Semantic inspection',
-			body: 'Structural models, rules, symbols, variable assignments, subroutine dependencies, and control-flow graphs.',
+			body: 'Rules, symbols, references, dependencies, and other queries derived from the owning semantic implementation.',
 			command: 'wright analyze input.opy'
 		},
 		{
 			id: 'agents',
 			title: 'Agent & embedding APIs',
-			body: 'Session-based driver (wright-driver) with stdio/JSON-RPC adapters (wright-serve) for programmatic inspection and verified source editing from CI and agents.',
-			command: 'cat input.opy | wright lint -'
+			body: 'Programmatic inspection and validated source-edit workflows for CI, agents, and other consumers.',
+			command: 'wright lint input.opy --format json'
 		},
 		{
 			id: 'lsp',
-			title: 'Language server',
-			body: 'Lightweight wright-lsp providing hover documentation, definition navigation, reference searches, project-wide identifier rename, and semantic syntax highlighting.',
+			title: 'Language services',
+			body: 'Wright integrates semantic capabilities into editor-neutral services and LSP where the source implementation exposes the required information.',
 			command: 'wright-lsp'
 		},
 		{
 			id: 'compiler',
-			title: 'Compiler',
-			body: 'Compile .opy and Workshop text to deterministic, catalog-validated Workshop output (en-US baseline).',
+			title: 'Compilation & conversion',
+			body: 'Compilation and reconstruction are exposed only for the evidence-backed subset implemented by the owning language repository and workshop-rs.',
 			command: 'wright compile input.opy'
 		}
 	]
@@ -231,188 +214,125 @@ export const capabilities = {
 
 export const compatibility = {
 	title: 'Compatibility',
-	lead: 'Workshop text is the interoperability hub: it is the canonical boundary between supported source forms and the target for compilation.',
+	lead: 'Workshop is the interoperability hub. Source-language support is defined by the owning implementation and its corpus, not by the presence of a Wright command.',
 	surfaces: [
 		{
 			name: 'Workshop text',
-			role: 'Canonical boundary & interoperability layer',
-			owner: 'workshop-rs · canonical core',
-			status: 'Supported',
-			details:
-				'Parsing, validation, the localized action/value catalog, and deterministic emission are owned by workshop-rs, the canonical Workshop semantic core. Rules, actions, values, events, enums, variables, subroutines, and settings are covered.'
+			role: 'Standalone implementation & canonical interoperability layer',
+			owner: 'workshop-rs',
+			status: 'Supported baseline',
+			details: 'workshop-rs owns raw Workshop parsing, canonical identities, WIR, validation, localization, emission, and reviewed Workshop gameplay/catalog queries.'
 		},
 		{
 			name: 'OPY / OverPy',
-			role: 'Corpus-evidenced semantic frontend',
-			owner: 'wright v0.1.0 · opy-rs provider (in development)',
-			status: 'Supported',
-			details:
-				'Native frontend shipped in Wright v0.1.0: preprocessor (#!include, #!define), macros, declarations, expressions, enums, and settings blocks, verified against a pinned OverPy oracle. A standalone opy-rs provider is in development.'
+			role: 'Standalone OverPy implementation',
+			owner: 'opy-rs',
+			status: 'Partial end-to-end',
+			details: 'Standalone source analysis is implemented. Builtin/member/catalog breadth and OPY→Workshop compilation are still being closed; Workshop→OPY reconstruction is not yet supported.'
 		},
 		{
 			name: 'DEL / OSTW',
-			role: 'Independent compatible frontend',
-			owner: 'del-rs (in development) · declared surface on Wright main',
-			status: 'In development',
-			details:
-				'A native DEL/OSTW-compatible frontend is declared on Wright main for the protect-ban slice; the standalone del-rs provider owns the durable implementation. Not yet in a release.'
+			role: 'Standalone DEL/OSTW implementation',
+			owner: 'del-rs',
+			status: 'Partial end-to-end',
+			details: 'Parsing, projects, semantic/type analysis, and typed HIR are substantial. Advanced runtime/project lowering and end-to-end compilation remain incomplete; reconstruction is not yet supported.'
 		}
 	],
 	conversionDirections: [
-		{ from: 'OPY', to: 'Workshop', status: 'Supported' },
+		{ from: 'OPY', to: 'Workshop', status: 'Partial' },
 		{ from: 'Workshop', to: 'Workshop', status: 'Supported' },
-		{ from: 'OSTW', to: 'Workshop', status: 'In development' },
-		{ from: 'Workshop', to: 'OPY', status: 'In development' }
+		{ from: 'OSTW', to: 'Workshop', status: 'Partial' },
+		{ from: 'Workshop', to: 'OPY', status: 'Not yet' }
 	],
 	sdne: {
-		title: 'Four-Level S/D/N/E Verification Model',
-		lead: 'Compiler compatibility is rigorously evidenced under a prioritized verification framework:',
-		priority: 'E (semantics) > D (diagnostics) > S (syntax) > N (text output)',
+		title: 'Evidence-driven compatibility',
+		lead: 'Compatibility targets observable semantics and declared source/tooling contracts rather than compiler-output identity.',
+		priority: 'Observable semantics and valid source/tooling behavior > normalized text similarity',
 		levels: [
-			{
-				letter: 'S',
-				name: 'Syntax',
-				desc: 'Agrees on accepting valid inputs and rejecting unsupported syntax across the corpus.'
-			},
-			{
-				letter: 'D',
-				name: 'Diagnostics',
-				desc: 'Reports structured diagnostic categories, codes, and accurate source spans for diagnosed inputs.'
-			},
-			{
-				letter: 'N',
-				name: 'Normalized Output',
-				desc: 'Produces equivalent Workshop output under versioned normalization.'
-			},
-			{
-				letter: 'E',
-				name: 'Observable Semantics',
-				desc: 'High-risk runtime semantics are verified against repeatable behavioral scenarios.'
-			}
+			{ letter: 'S', name: 'Syntax', desc: 'Valid and unsupported syntax is classified against corpus evidence.' },
+			{ letter: 'D', name: 'Diagnostics', desc: 'Diagnostics retain stable categories and accurate source provenance.' },
+			{ letter: 'N', name: 'Normalized Output', desc: 'Normalized text comparison is supporting evidence, not the product target.' },
+			{ letter: 'E', name: 'Observable Semantics', desc: 'Semantically significant behavior is validated with the strongest available evidence.' }
 		]
 	}
 } as const;
 
 export const ecosystem = {
 	title: 'Ecosystem',
-	lead: 'WrightKit is a multi-repository ecosystem: each repository owns a distinct product, contract, or language implementation, and Wright orchestrates them through shared contracts.',
+	lead: 'WrightKit combines independent implementations with a unified tooling product. Each repository keeps its own responsibility, public contracts, tests, and release identity.',
 	items: [
 		{
 			repo: 'wrightkit/wright',
 			href: 'https://github.com/wrightkit/wright',
-			role: 'Tooling & orchestration',
-			status: 'Released v0.1.0',
-			desc: 'Wright is the primary user-facing product: CLI, diagnostics, static analysis and linting, language services (wright-lsp), validated source editing, and agent/embedding APIs. AGPL-3.0-or-later.'
+			role: 'Unified tooling & integration product',
+			status: 'Released',
+			desc: 'One product surface for diagnostics, lint, analysis, source editing, agents, CI/embedding, language services, and supported compile/convert workflows.'
 		},
 		{
 			repo: 'wrightkit/workshop-rs',
 			href: 'https://github.com/wrightkit/workshop-rs',
-			role: 'Canonical Workshop core',
-			status: 'In development',
-			desc: 'Canonical Workshop semantics: actions, values, events, operators, the localized catalog, parser, Workshop IR, and emitter. The interoperability hub for supported source forms. MIT.'
+			role: 'Standalone Workshop implementation',
+			status: 'Canonical baseline available',
+			desc: 'Raw Workshop parser, canonical WIR/catalog/settings/localization, validation, emission, gameplay queries, and conformance evidence.'
 		},
 		{
 			repo: 'wrightkit/opy-rs',
 			href: 'https://github.com/wrightkit/opy-rs',
-			role: 'OPY language provider',
+			role: 'Standalone OverPy implementation',
 			status: 'In development',
-			desc: 'Standalone, Workshop-independent OPY/OverPy-compatible frontend: lexer, preprocessor, parser, semantic resolution, and Opy HIR.'
+			desc: 'OverPy parsing, preprocessing/macros, semantics, diagnostics/provenance, standalone tooling, and the language-owned compiler/reconstruction path.'
 		},
 		{
 			repo: 'wrightkit/del-rs',
 			href: 'https://github.com/wrightkit/del-rs',
-			role: 'DEL/OSTW language provider',
+			role: 'Standalone DEL/OSTW implementation',
 			status: 'In development',
-			desc: 'Independent DEL/OSTW-compatible frontend: lexer, recoverable parser, project and import loading, semantic analysis, and a backend-neutral HIR.'
+			desc: 'DEL/OSTW parsing, project loading, semantic/type system, typed HIR, runtime/compiler lowering, standalone tooling, and reconstruction ownership.'
 		},
 		{
 			repo: 'wrightkit/language-provider-protocol',
 			href: 'https://github.com/wrightkit/language-provider-protocol',
-			role: 'Provider protocol',
+			role: 'Integration protocol',
 			status: 'LPP v1.0',
-			desc: 'The versioned process and data contract between Wright tooling and language providers: source text, positions, diagnostics, and source-level edits, without leaking provider internals. MIT.'
+			desc: 'A versioned process/data contract. Provider is an integration role that standalone implementations may expose; it is not their repository identity.'
 		},
 		{
 			repo: 'wrightkit/workshop-agent',
 			href: 'https://github.com/wrightkit/workshop-agent',
 			role: 'Agent skills & tools',
-			status: 'Released v0.1.4',
-			desc: 'Workshop-native engineering knowledge and deterministic CLI tools for coding agents — Codex, Claude Code, Gemini CLI, OpenCode, and other Agent Skills-compatible harnesses.'
+			status: 'Released',
+			desc: 'Workshop engineering knowledge and deterministic tools for coding-agent harnesses.'
 		}
 	]
 } as const;
 
 export const agents = {
-	title: 'The same interface for people and agents',
-	lead: 'If a developer can ask the tooling a question, a coding agent can ask it through the same JSON contract. No scraped logs or brittle regexes.',
+	title: 'The same semantic interfaces for people and agents',
+	lead: 'Agents consume structured diagnostics, queries, and validated edits from the same implementation-backed tooling surfaces as developers.',
 	points: [
-		{
-			title: 'Structured interfaces',
-			body: 'Transport-neutral request/response (wright-result/v1) for program summaries, rules, symbols, references, usage, control flow, and findings.'
-		},
-		{
-			title: 'Deterministic output',
-			body: 'Equal inputs, configuration, and toolchain produce the exact same IR, diagnostics, and snapshots.'
-		},
-		{
-			title: 'Machine-readable diagnostics',
-			body: 'Errors and findings carry stable codes, severity levels, and source spans so an agent or IDE can act without parsing prose.'
-		},
-		{
-			title: 'Clean-room & reproducible checks',
-			body: 'Isolated reference oracles, fixture corpora, and regenerable snapshots keep compatibility claims verifiable.'
-		}
+		{ title: 'Structured interfaces', body: 'Semantic queries and results use stable machine-readable contracts rather than scraped logs.' },
+		{ title: 'Explicit support boundaries', body: 'Unsupported language behavior remains visible instead of being hidden behind fallback runtimes.' },
+		{ title: 'Machine-readable diagnostics', body: 'Stable codes, severity, and source spans let tools act without parsing prose.' },
+		{ title: 'Validated source edits', body: 'Agents modify original source through semantic understanding and checked edits rather than whole-file regeneration by default.' }
 	]
 } as const;
 
 export const openSource = {
-	title: 'Open Source',
-	lead: 'WrightKit is open source: repositories are licensed independently and hosted on GitHub. Wright is AGPL-3.0-or-later; the canonical Workshop core and the provider protocol are MIT.',
+	title: 'Source & licenses',
+	lead: 'WrightKit repositories are versioned and licensed independently. See each repository for its current license and provenance terms.',
 	links: [
-		{
-			label: 'wrightkit/wright',
-			href: 'https://github.com/wrightkit/wright',
-			note: 'Primary tooling and orchestration repository'
-		},
-		{
-			label: 'wrightkit/workshop-rs',
-			href: 'https://github.com/wrightkit/workshop-rs',
-			note: 'Canonical Workshop semantic core'
-		},
-		{
-			label: 'wrightkit/opy-rs',
-			href: 'https://github.com/wrightkit/opy-rs',
-			note: 'OPY / OverPy language provider'
-		},
-		{
-			label: 'wrightkit/del-rs',
-			href: 'https://github.com/wrightkit/del-rs',
-			note: 'DEL / OSTW-compatible frontend'
-		},
-		{
-			label: 'wrightkit/language-provider-protocol',
-			href: 'https://github.com/wrightkit/language-provider-protocol',
-			note: 'Language Provider Protocol contract'
-		},
-		{
-			label: 'wrightkit/workshop-agent',
-			href: 'https://github.com/wrightkit/workshop-agent',
-			note: 'Agent skills and tools for coding agents'
-		},
-		{
-			label: 'wrightkit/homebrew-tap',
-			href: 'https://github.com/wrightkit/homebrew-tap',
-			note: 'Homebrew tap for Wright (macOS)'
-		},
-		{
-			label: 'wrightkit/workshop-md-converter',
-			href: 'https://github.com/wrightkit/workshop-md-converter',
-			note: 'Converts the Workshop.code wiki into Markdown'
-		}
+		{ label: 'wrightkit/wright', href: 'https://github.com/wrightkit/wright', note: 'Unified tooling and integration product' },
+		{ label: 'wrightkit/workshop-rs', href: 'https://github.com/wrightkit/workshop-rs', note: 'Standalone Workshop implementation and canonical core' },
+		{ label: 'wrightkit/opy-rs', href: 'https://github.com/wrightkit/opy-rs', note: 'Standalone OverPy implementation' },
+		{ label: 'wrightkit/del-rs', href: 'https://github.com/wrightkit/del-rs', note: 'Standalone DEL/OSTW implementation' },
+		{ label: 'wrightkit/language-provider-protocol', href: 'https://github.com/wrightkit/language-provider-protocol', note: 'Language Provider Protocol integration contract' },
+		{ label: 'wrightkit/workshop-agent', href: 'https://github.com/wrightkit/workshop-agent', note: 'Agent skills and tools' },
+		{ label: 'wrightkit/homebrew-tap', href: 'https://github.com/wrightkit/homebrew-tap', note: 'Homebrew distribution for Wright' },
+		{ label: 'wrightkit/workshop-md-converter', href: 'https://github.com/wrightkit/workshop-md-converter', note: 'Workshop wiki Markdown conversion' }
 	] satisfies { label: string; href: string; note?: string }[]
 } as const;
 
 export const footer = {
-	note: 'Tooling-first ecosystem for Overwatch Workshop.',
+	note: 'Independent Workshop language implementations, deeply integrated tooling.',
 	copyright: '© 2026 WrightKit'
 } as const;

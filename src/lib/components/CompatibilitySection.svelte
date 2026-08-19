@@ -18,8 +18,9 @@
 					<div class="flex items-center justify-between gap-2">
 						<h3 class="font-sans text-base font-semibold text-ink-50">{surface.name}</h3>
 						<span
-							class="shrink-0 rounded-xs px-2 py-0.5 text-xs font-medium {surface.status ===
-							'Supported'
+							class="shrink-0 rounded-xs px-2 py-0.5 text-xs font-medium {surface.status.startsWith(
+								'Supported'
+							)
 								? 'bg-ink-900 text-accent-400 border border-accent-500/40'
 								: 'bg-ink-800 text-ink-400 border border-transparent'}"
 						>
