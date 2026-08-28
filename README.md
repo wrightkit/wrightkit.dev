@@ -1,7 +1,7 @@
 # wrightkit.dev
 
-The public website for **WrightKit** — tooling for Overwatch Workshop
-development. It is a static, prerender-first SvelteKit site.
+The public website for **WrightKit**, a development toolchain for the Overwatch
+Workshop. It is a static, prerender-first SvelteKit site.
 
 ## Content contract
 
