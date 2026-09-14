@@ -137,6 +137,8 @@ export const install = {
 			badge: 'x86_64',
 			method: 'PowerShell installer',
 			command: 'irm https://wrightkit.dev/install.ps1 | iex',
+			altMethod: 'Custom install directory',
+			altCommand: '$script = irm https://wrightkit.dev/install.ps1; & ([scriptblock]::Create($script)) -InstallDir "$HOME\\bin"',
 			note: 'Downloads the matching Windows release and verifies its checksum.'
 		},
 		{
