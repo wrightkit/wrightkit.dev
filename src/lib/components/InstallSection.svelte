@@ -1,11 +1,26 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import CopyButton from './CopyButton.svelte';
-	import { install, site } from '$lib/site';
+	import { install } from '$lib/site';
 
 	let activeTargetId = $state('macos');
 	let activeTarget = $derived(
 		install.targets.find((t) => t.id === activeTargetId) ?? install.targets[0]
 	);
+
+	function detectInstallTarget() {
+		const userAgent = navigator.userAgent.toLowerCase();
+		if (/android|iphone|ipad|ipod/.test(userAgent)) return null;
+		if (userAgent.includes('windows')) return 'windows';
+		if (userAgent.includes('macintosh')) return 'macos';
+		if (userAgent.includes('linux') || userAgent.includes('x11')) return 'linux';
+		return null;
+	}
+
+	onMount(() => {
+		const detectedTarget = detectInstallTarget();
+		if (detectedTarget) activeTargetId = detectedTarget;
+	});
 </script>
 
 <section id="install" class="scroll-target border-t border-ink-800">

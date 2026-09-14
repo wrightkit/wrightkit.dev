@@ -135,11 +135,11 @@ export const install = {
 			id: 'windows',
 			label: 'Windows',
 			badge: 'x86_64',
-			method: 'GitHub Release archive',
-			command: 'https://github.com/wrightkit/wright/releases',
-			altMethod: 'See release documentation',
-			altCommand: 'docs/release.md',
-			note: 'Use the currently published Windows distribution path from the release documentation.'
+			method: 'PowerShell installer',
+			command: 'irm https://wrightkit.dev/install.ps1 | iex',
+			altMethod: 'Custom install directory',
+			altCommand: '$script = irm https://wrightkit.dev/install.ps1; & ([scriptblock]::Create($script)) -InstallDir "$HOME\\bin"',
+			note: 'Downloads the matching Windows release and verifies its checksum.'
 		},
 		{
 			id: 'ci',
