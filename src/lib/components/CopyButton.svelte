@@ -1,5 +1,10 @@
 <script lang="ts">
-	let { text, label = 'Copy' }: { text: string; label?: string } = $props();
+	import { currentMessages } from '$lib/content';
+
+	let { text, label }: { text: string; label?: string } = $props();
+
+	const t = $derived(currentMessages());
+	const name = $derived(label ?? t.ui.copy);
 
 	let copied = $state(false);
 	let timeoutId: ReturnType<typeof setTimeout> | undefined;
@@ -40,8 +45,8 @@
 		? 'bg-accent-500/15 text-accent-400'
 		: 'bg-ink-800/80 text-ink-300 hover:bg-ink-700 hover:text-ink-50'}"
 	onclick={handleCopy}
-	aria-label={label}
-	title={label}
+	aria-label={name}
+	title={name}
 >
 	{#if copied}
 		<svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -53,5 +58,5 @@
 			<path d="M3.5 10.5V4.5a1 1 0 0 1 1-1h6" />
 		</svg>
 	{/if}
-	<span class="sr-only" aria-live="polite">{copied ? 'Copied to clipboard' : ''}</span>
+	<span class="sr-only" aria-live="polite">{copied ? t.ui.copied : ''}</span>
 </button>

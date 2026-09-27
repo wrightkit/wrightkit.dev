@@ -72,6 +72,9 @@
 		--chrome-bg-scrolled: light-dark(rgb(255 255 255 / 0.8), rgb(32 32 29 / 0.8));
 		--chrome-line: light-dark(rgb(16 16 14 / 0.07), rgb(247 247 245 / 0.07));
 		--chrome-fade: light-dark(rgb(246 246 244 / 0.85), rgb(16 16 14 / 0.85));
+		--popover-bg: light-dark(rgb(255 255 255 / 0.92), rgb(36 36 33 / 0.92));
+		--popover-ring: light-dark(rgb(16 16 14 / 0.1), rgb(247 247 245 / 0.08));
+		--popover-shadow: light-dark(rgb(16 16 14 / 0.14), rgb(0 0 0 / 0.45));
 	}
 
 	:root[data-theme='light'] {
@@ -189,6 +192,17 @@
 			0 1px 3px var(--surface-shadow);
 	}
 
+	/* Small floating panel anchored to a trigger (language menu). */
+	.popover {
+		border-radius: var(--radius-card);
+		background: var(--popover-bg);
+		backdrop-filter: blur(24px) saturate(180%);
+		box-shadow:
+			inset 0 0 0 1px var(--popover-ring),
+			0 12px 32px -8px var(--popover-shadow),
+			0 2px 6px var(--popover-shadow);
+	}
+
 	.eyebrow {
 		font-size: 0.8125rem;
 		line-height: 1.3;
@@ -297,6 +311,11 @@
 }
 
 @media (prefers-reduced-transparency: reduce) {
+	.popover {
+		background: var(--color-ink-900);
+		backdrop-filter: none;
+	}
+
 	.chrome,
 	.chrome[data-scrolled] {
 		background: var(--color-ink-950);
@@ -326,6 +345,12 @@
 		box-shadow: inset 0 0 0 1px var(--color-ink-300);
 	}
 
+	.popover {
+		background: var(--color-ink-950);
+		backdrop-filter: none;
+		box-shadow: inset 0 0 0 1px var(--color-ink-300);
+	}
+
 	.btn-primary {
 		outline: 1px solid var(--color-ink-50);
 		outline-offset: 2px;
@@ -334,4 +359,49 @@
 	.btn-ghost {
 		box-shadow: inset 0 0 0 1px var(--color-ink-200);
 	}
+}
+
+/*
+ * Chinese text. CJK glyphs are full-width and dense, so the negative tracking
+ * and tight leading tuned for Latin display type would crowd them. Unlayered,
+ * so it overrides the tracking utilities on headings. Latin runs keep the
+ * system face; CJK falls through to a Simplified Chinese font rather than
+ * whatever the OS picks for an untagged Han character. The same stack covers
+ * Chinese labels on English pages (the language switcher).
+ */
+:root:lang(zh) body,
+[lang|='zh']:not(html) {
+	font-family:
+		system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+		'Microsoft YaHei', 'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
+}
+
+:root:lang(zh) body {
+	line-height: 1.7;
+}
+
+:lang(zh) :is(h1, h2, h3, h4, .btn, .eyebrow) {
+	letter-spacing: 0;
+}
+
+/* Wrap headings only between words (spaces, punctuation, or U+200B hints). */
+:lang(zh) :is(h1, h2) {
+	word-break: keep-all;
+	overflow-wrap: anywhere;
+}
+
+:lang(zh) .text-hero {
+	line-height: 1.2;
+}
+
+:lang(zh) .text-title {
+	line-height: 1.3;
+}
+
+:lang(zh) .text-lead {
+	line-height: 1.75;
+}
+
+:lang(zh) .leading-snug {
+	line-height: 1.6;
 }

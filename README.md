@@ -29,8 +29,29 @@ that a capability ships. Describe direction (for example the intent-driven
 agent loop) as direction, not as current behavior. Keep internal terms such as
 WIR, HIR, frontend, and provider out of primary homepage messaging.
 
-All copy, navigation, and support claims live in `src/lib/site.ts`. The hero
-terminal shows real `wright` output; refresh it when the CLI output changes.
+Locale-independent data (URLs, commands, repository names, support status,
+and the hero terminal) lives in `src/lib/site.ts`. The hero terminal shows real
+`wright` output; refresh it when the CLI output changes.
+
+## Localization
+
+English is the default at `/`; Simplified Chinese is at `/zh-CN`. There is no
+browser-language redirect; readers switch from the header language menu.
+
+- Copy lives in `src/lib/content/<locale>.ts`, typed by
+  `src/lib/content/types.ts`. Records keyed by the ids in `site.ts` and
+  fixed-length lists keep every locale making the same claims; change a claim
+  in all locales in the same PR.
+- Commands, repository names, protocol names, and CLI output stay literal.
+- Write each locale for its readers, not word for word. Keep it short and
+  plain: the audience is Workshop, OverPy, and OSTW developers, not compiler
+  engineers. Chinese follows the zh-CN game client's Workshop terms (地图工坊,
+  规则, 动作, 值, 服务器负载) and puts a space between CJK text and Latin words.
+- Long Chinese headings may use `\u200b` to mark where they are allowed to
+  wrap; headings otherwise break only at spaces and punctuation.
+- To add a locale: add it to `src/lib/locales.ts`, add a content file, and add
+  the path to `prerender.entries` in `svelte.config.js` and to
+  `scripts/verify-build.mjs`.
 
 ## Stack
 

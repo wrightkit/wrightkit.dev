@@ -2,30 +2,33 @@
 	import { onMount, tick } from 'svelte';
 	import Section from './Section.svelte';
 	import CopyButton from './CopyButton.svelte';
-	import { install } from '$lib/site';
+	import { installTargets as targets, site, type InstallTargetId as TargetId } from '$lib/site';
+	import { currentMessages } from '$lib/content';
 
-	type TargetId = (typeof install.targets)[number]['id'];
+	const t = $derived(currentMessages());
+	const install = $derived(t.install);
 
 	let activeId = $state<TargetId>('macos');
-	let active = $derived(install.targets.find((t) => t.id === activeId) ?? install.targets[0]);
+	let active = $derived(targets.find((target) => target.id === activeId) ?? targets[0]);
+	let activeCopy = $derived(install.targets[active.id]);
 	let tabs: HTMLButtonElement[] = $state([]);
 	let indicator = $state({ x: 0, width: 0, ready: false });
 
 	function measure() {
-		const el = tabs[install.targets.findIndex((t) => t.id === activeId)];
+		const el = tabs[targets.findIndex((target) => target.id === activeId)];
 		if (el) indicator = { x: el.offsetLeft, width: el.offsetWidth, ready: true };
 	}
 
 	async function select(id: TargetId, focus = false) {
 		activeId = id;
 		await tick();
-		const el = tabs[install.targets.findIndex((t) => t.id === id)];
+		const el = tabs[targets.findIndex((target) => target.id === id)];
 		if (focus) el?.focus();
 		el?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 	}
 
 	function onKeydown(e: KeyboardEvent, index: number) {
-		const last = install.targets.length - 1;
+		const last = targets.length - 1;
 		const next =
 			e.key === 'ArrowRight' ? (index === last ? 0 : index + 1)
 			: e.key === 'ArrowLeft' ? (index === 0 ? last : index - 1)
@@ -34,7 +37,7 @@
 			: null;
 		if (next === null) return;
 		e.preventDefault();
-		select(install.targets[next].id, true);
+		select(targets[next].id, true);
 	}
 
 	function detectTarget(): TargetId | null {
@@ -46,8 +49,10 @@
 		return null;
 	}
 
+	// Re-measure when the tab or the locale (and so the label widths) changes.
 	$effect(() => {
 		void activeId;
+		void install;
 		measure();
 	});
 
@@ -66,7 +71,7 @@
 			<div
 				class="relative inline-flex gap-0.5 rounded-full bg-ink-900 p-1 ring-1 ring-inset ring-ink-50/[0.06]"
 				role="tablist"
-				aria-label="Platform"
+				aria-label={install.platformLabel}
 			>
 				<span
 					data-motion="move"
@@ -76,7 +81,7 @@
 					style="transform: translateX({indicator.x}px); width: {indicator.width}px;"
 					aria-hidden="true"
 				></span>
-				{#each install.targets as target, i (target.id)}
+				{#each targets as target, i (target.id)}
 					<button
 						bind:this={tabs[i]}
 						type="button"
@@ -92,7 +97,7 @@
 						onclick={() => select(target.id)}
 						onkeydown={(e) => onKeydown(e, i)}
 					>
-						{target.label}
+						{install.targets[target.id].label}
 					</button>
 				{/each}
 			</div>
@@ -105,30 +110,29 @@
 			aria-labelledby="install-tab-{active.id}"
 		>
 			<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-				<h3 class="text-[0.9375rem] font-semibold text-ink-50">{active.method}</h3>
-				<span class="text-xs text-ink-500">{active.badge}</span>
+				<h3 class="text-[0.9375rem] font-semibold text-ink-50">{activeCopy.method}</h3>
+				<span class="text-xs text-ink-500">{activeCopy.badge}</span>
 			</div>
 
 			<div class="mt-3 flex items-start gap-2 rounded-control bg-ink-950/80 p-1.5 pl-3.5 ring-1 ring-inset ring-ink-800/80">
 				<pre class="min-w-0 flex-1 overflow-x-auto py-1.5 font-mono text-[0.8125rem] leading-relaxed text-ink-100"><code>{active.command}</code></pre>
-				<CopyButton text={active.command} label="Copy command" />
+				<CopyButton text={active.command} />
 			</div>
-			<p class="mt-3 text-sm leading-relaxed text-ink-500">{active.note}</p>
+			<p class="mt-3 text-sm leading-relaxed text-ink-500">{activeCopy.note}</p>
 
 			<div class="mt-6 border-t border-ink-800/80 pt-5">
-				<h4 class="text-sm font-medium text-ink-300">{active.altMethod}</h4>
+				<h4 class="text-sm font-medium text-ink-300">{activeCopy.altMethod}</h4>
 				<div class="mt-2.5 flex items-start gap-2 rounded-control bg-ink-950/60 p-1.5 pl-3.5">
 					<pre class="min-w-0 flex-1 overflow-x-auto py-1.5 font-mono text-xs leading-relaxed text-ink-300"><code>{active.altCommand}</code></pre>
-					<CopyButton text={active.altCommand} label="Copy command" />
+					<CopyButton text={active.altCommand} />
 				</div>
 			</div>
 		</div>
 
 		<p class="mt-5 text-sm leading-relaxed text-ink-500">
-			{install.fallbackArchive.text}
-			<a class="text-link" href={install.fallbackArchive.href} target="_blank" rel="noreferrer">
-				{install.fallbackArchive.linkText}</a
-			>.
+			{install.releases.before}<a class="text-link" href={site.releases} target="_blank" rel="noreferrer"
+				>{install.releases.link}</a
+			>{install.releases.after}
 		</p>
 	</div>
 </Section>

@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { terminal } from '$lib/site';
+	import { terminalLines } from '$lib/site';
+	import { currentMessages } from '$lib/content';
+
+	const t = $derived(currentMessages());
 
 	// The terminal stays dark in both appearances, so it uses fixed colors
 	// rather than the theme-aware ink tokens.
@@ -21,12 +24,12 @@
 			<span class="h-2.5 w-2.5 rounded-full bg-[#4d4d48]"></span>
 			<span class="h-2.5 w-2.5 rounded-full bg-[#4d4d48]"></span>
 		</span>
-		<span class="text-xs font-medium text-[#85857e]">{terminal.title}</span>
+		<span class="text-xs font-medium text-[#85857e]">{t.terminal.title}</span>
 	</figcaption>
 	<pre
 		class="whitespace-pre-wrap break-words px-4 pb-5 pt-1 font-mono text-[0.75rem] leading-[1.7] sm:px-5 sm:text-[0.8125rem]"
-		aria-label="Example wright session"><code
-			>{#each terminal.lines as line, i (i)}<span class="block min-h-[1.7em] {tone[line.kind]}"
+		aria-label={t.terminal.label}><code
+			>{#each terminalLines as line, i (i)}<span class="block min-h-[1.7em] {tone[line.kind]}"
 					>{#if line.kind === 'prompt'}<span class="select-none text-[#66665f]">$ </span
 						>{/if}{line.text}</span
 				>{/each}</code
