@@ -2,41 +2,86 @@
 
 /*
  * Visual system.
- * Neutral ink scale + one orange accent. Type is the platform system stack
- * (optical sizing and tracking tables already in the OS fonts) — not Inter.
- * Mono is reserved for actual code, not chrome.
+ * Neutral ink scale + one orange accent, in light and dark appearances.
+ * Every ink step is a light-dark() pair: 50 is always the strongest text and
+ * 950 the page background, so components never branch on the theme. The
+ * appearance follows `color-scheme` on <html>: the system preference by
+ * default, or the choice the theme switcher pins through data-theme.
+ * Tailwind's CSS lowering resolves light-dark() once on :root, so a nested
+ * color-scheme does not flip these tokens; always-dark islands such as the
+ * terminal use fixed colors instead.
+ * Type is the platform system stack (optical sizing and tracking tables ship
+ * with the OS fonts). Mono is reserved for actual code, not chrome.
+ * Tracking is size-specific: display sizes tighten, small labels loosen.
  */
 @theme {
-	--color-ink-50: #f7f7f5;
-	--color-ink-100: #ededeb;
-	--color-ink-200: #dcdcd8;
-	--color-ink-300: #c2c2bc;
-	--color-ink-400: #a1a19a;
-	--color-ink-500: #85857e;
-	--color-ink-600: #66665f;
-	--color-ink-700: #4d4d48;
-	--color-ink-800: #2c2c28;
-	--color-ink-900: #1a1a17;
-	--color-ink-950: #10100e;
+	--color-ink-50: light-dark(#111110, #f7f7f5);
+	--color-ink-100: light-dark(#1c1c1a, #ededeb);
+	--color-ink-200: light-dark(#2e2e2b, #dcdcd8);
+	--color-ink-300: light-dark(#44443f, #c2c2bc);
+	--color-ink-400: light-dark(#5a5a54, #a1a19a);
+	--color-ink-500: light-dark(#6c6c65, #85857e);
+	--color-ink-600: light-dark(#8c8c85, #66665f);
+	--color-ink-700: light-dark(#b8b8b1, #4d4d48);
+	--color-ink-800: light-dark(#dcdcd6, #2c2c28);
+	--color-ink-900: light-dark(#ebebe7, #1a1a17);
+	--color-ink-950: light-dark(#f6f6f4, #10100e);
 
-	--color-accent-400: #ff9a4d;
+	/* 400 is the accent for text, so it darkens in light mode to keep contrast. */
+	--color-accent-400: light-dark(#c2410c, #ff9a4d);
 	--color-accent-500: #f97316;
-	--color-accent-600: #e05e0a;
+	--color-accent-hover: light-dark(#fb923c, #ff9a4d);
+	--color-on-accent: #10100e;
 
-	--font-sans:
-		system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	/* Raised control on a track (segmented control thumb). */
+	--color-raised: light-dark(#ffffff, rgb(77 77 72 / 0.8));
+	--color-scrim: light-dark(rgb(16 16 14 / 0.22), rgb(16 16 14 / 0.6));
+
+	--font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 	--font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
 
-	--text-hero: clamp(2rem, 5.5vw + 0.5rem, 4.25rem);
-	--text-hero--line-height: 1.05;
-	--text-hero--letter-spacing: -0.028em;
+	--text-hero: clamp(2.25rem, 4.4vw + 0.75rem, 4rem);
+	--text-hero--line-height: 1.04;
+	--text-hero--letter-spacing: -0.032em;
 
-	--text-title: clamp(1.375rem, 2vw + 0.75rem, 2rem);
-	--text-title--line-height: 1.2;
-	--text-title--letter-spacing: -0.018em;
+	--text-title: clamp(1.625rem, 2.2vw + 0.9rem, 2.5rem);
+	--text-title--line-height: 1.1;
+	--text-title--letter-spacing: -0.024em;
+
+	--text-lead: clamp(1.0625rem, 0.4vw + 0.95rem, 1.25rem);
+	--text-lead--line-height: 1.5;
+	--text-lead--letter-spacing: -0.008em;
+
+	/* Radii: surfaces read as larger; controls nest inside with a smaller radius. */
+	--radius-control: 0.625rem;
+	--radius-card: 1rem;
+
+	/* Settles without overshoot, like a critically damped spring. */
+	--ease-settle: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 @layer base {
+	:root {
+		color-scheme: light dark;
+		--surface-bg: light-dark(#ffffff, rgb(26 26 23 / 0.6));
+		--surface-ring: light-dark(rgb(16 16 14 / 0.08), rgb(247 247 245 / 0.06));
+		--surface-highlight: light-dark(rgb(255 255 255 / 0), rgb(247 247 245 / 0.04));
+		--surface-shadow: light-dark(rgb(16 16 14 / 0.05), rgb(0 0 0 / 0));
+		--chrome-bg: light-dark(rgb(246 246 244 / 0.8), rgb(16 16 14 / 0.8));
+		/* A lifted tint, distinct from the page, so the bar reads as its own layer. */
+		--chrome-bg-scrolled: light-dark(rgb(255 255 255 / 0.8), rgb(32 32 29 / 0.8));
+		--chrome-line: light-dark(rgb(16 16 14 / 0.07), rgb(247 247 245 / 0.07));
+		--chrome-fade: light-dark(rgb(246 246 244 / 0.85), rgb(16 16 14 / 0.85));
+	}
+
+	:root[data-theme='light'] {
+		color-scheme: light;
+	}
+
+	:root[data-theme='dark'] {
+		color-scheme: dark;
+	}
+
 	html {
 		font-optical-sizing: auto;
 		-webkit-tap-highlight-color: transparent;
@@ -47,7 +92,7 @@
 
 	body {
 		background-color: var(--color-ink-950);
-		color: var(--color-ink-200);
+		color: var(--color-ink-300);
 		font-family: var(--font-sans);
 		font-size: 1rem;
 		line-height: 1.55;
@@ -57,7 +102,6 @@
 		overflow-x: clip;
 	}
 
-	/* Prevent pre elements from causing page-level overflow */
 	pre {
 		max-width: 100%;
 		overflow-x: auto;
@@ -66,13 +110,13 @@
 
 	::selection {
 		background-color: var(--color-accent-500);
-		color: var(--color-ink-950);
+		color: var(--color-on-accent);
 	}
 
 	:focus-visible {
 		outline: 2px solid var(--color-accent-500);
 		outline-offset: 3px;
-		border-radius: 2px;
+		border-radius: 4px;
 	}
 }
 
@@ -81,16 +125,9 @@
 		margin-inline: auto;
 		min-width: 0;
 		width: 100%;
-		max-width: 68rem;
-		padding-left: max(1rem, env(safe-area-inset-left));
-		padding-right: max(1rem, env(safe-area-inset-right));
-	}
-
-	@media (min-width: 480px) {
-		.container-site {
-			padding-left: max(1.25rem, env(safe-area-inset-left));
-			padding-right: max(1.25rem, env(safe-area-inset-right));
-		}
+		max-width: 70rem;
+		padding-left: max(1.25rem, env(safe-area-inset-left));
+		padding-right: max(1.25rem, env(safe-area-inset-right));
 	}
 
 	@media (min-width: 640px) {
@@ -100,12 +137,64 @@
 		}
 	}
 
+	/*
+	 * Floating translucent chrome; content scrolls underneath. At the top of the
+	 * page it blends into the background; once content scrolls under it, the
+	 * material lifts to its own tint, gains a hairline edge, and a scroll edge
+	 * fade separates it from the content.
+	 */
 	.chrome {
 		position: relative;
 		isolation: isolate;
-		background: rgb(16 16 14 / 0.82);
-		backdrop-filter: blur(20px) saturate(180%);
-		-webkit-backdrop-filter: blur(20px) saturate(180%);
+		background: var(--chrome-bg);
+		backdrop-filter: blur(24px) saturate(180%);
+		transition:
+			background-color 200ms ease,
+			box-shadow 200ms ease;
+	}
+
+	.chrome[data-scrolled] {
+		background: var(--chrome-bg-scrolled);
+		box-shadow: 0 1px 0 var(--chrome-line);
+	}
+
+	/* Scroll edge effect instead of a hard divider. */
+	.chrome::after {
+		content: '';
+		position: absolute;
+		inset-inline: 0;
+		top: 100%;
+		height: 1.75rem;
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 200ms ease;
+		background: linear-gradient(
+			to bottom,
+			var(--chrome-fade) 0%,
+			color-mix(in srgb, var(--chrome-fade) 45%, transparent) 45%,
+			transparent 100%
+		);
+	}
+
+	.chrome[data-scrolled]::after {
+		opacity: 1;
+	}
+
+	.surface {
+		border-radius: var(--radius-card);
+		background-color: var(--surface-bg);
+		box-shadow:
+			inset 0 0 0 1px var(--surface-ring),
+			inset 0 1px 0 var(--surface-highlight),
+			0 1px 3px var(--surface-shadow);
+	}
+
+	.eyebrow {
+		font-size: 0.8125rem;
+		line-height: 1.3;
+		letter-spacing: 0.01em;
+		font-weight: 600;
+		color: var(--color-accent-400);
 	}
 
 	.btn {
@@ -114,60 +203,66 @@
 		justify-content: center;
 		gap: 0.4rem;
 		min-height: 2.75rem;
-		padding: 0.6rem 1.1rem;
-		border-radius: 2px;
+		padding: 0.625rem 1.25rem;
+		border-radius: 999px;
 		font-size: 0.9375rem;
 		font-weight: 590;
 		line-height: 1.2;
 		letter-spacing: -0.01em;
 		touch-action: manipulation;
 		transition:
-			background-color 140ms ease,
-			border-color 140ms ease,
-			color 140ms ease,
-			transform 120ms cubic-bezier(0.2, 0, 0, 1);
+			background-color 160ms ease,
+			box-shadow 160ms ease,
+			color 160ms ease,
+			transform 160ms var(--ease-settle);
 	}
 
+	/* Feedback lives on the press and is immediate. */
 	.btn:active {
-		transform: scale(0.96);
+		transform: scale(0.97);
+		transition-duration: 80ms;
 	}
 
 	.btn-primary {
 		background-color: var(--color-accent-500);
-		color: var(--color-ink-950);
-	}
-
-	.btn-primary:hover {
-		background-color: var(--color-accent-400);
+		color: var(--color-on-accent);
 	}
 
 	.btn-ghost {
-		border: 1px solid var(--color-ink-700);
 		color: var(--color-ink-100);
+		box-shadow: inset 0 0 0 1px var(--color-ink-700);
 	}
 
-	.btn-ghost:hover {
-		border-color: var(--color-ink-400);
-		background-color: var(--color-ink-900);
+	@media (hover: hover) {
+		.btn-primary:hover {
+			background-color: var(--color-accent-hover);
+		}
+
+		.btn-ghost:hover {
+			background-color: var(--color-ink-900);
+			box-shadow: inset 0 0 0 1px var(--color-ink-500);
+		}
 	}
 
-	.path {
-		font-family: var(--font-mono);
-		font-size: 0.75rem;
-		letter-spacing: 0.01em;
-		color: var(--color-ink-500);
+	.text-link {
+		color: var(--color-ink-100);
+		text-decoration: underline;
+		text-decoration-color: var(--color-ink-600);
+		text-underline-offset: 4px;
+		transition:
+			color 160ms ease,
+			text-decoration-color 160ms ease;
+	}
+
+	@media (hover: hover) {
+		.text-link:hover {
+			color: var(--color-ink-50);
+			text-decoration-color: var(--color-ink-300);
+		}
 	}
 
 	.scroll-target {
-		scroll-margin-top: calc(4rem + env(safe-area-inset-top));
-	}
-
-	.terminal pre {
-		overflow-x: auto;
-		white-space: pre;
-		-webkit-overflow-scrolling: touch;
-		scrollbar-width: thin;
-		scrollbar-color: var(--color-ink-700) transparent;
+		scroll-margin-top: calc(3.5rem + env(safe-area-inset-top));
 	}
 
 	.no-scrollbar {
@@ -186,43 +281,49 @@
 	}
 }
 
+/* Reduced motion keeps opacity/color feedback but drops movement and scaling. */
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;
 	}
 
-	*,
-	*::before,
-	*::after {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
-		scroll-behavior: auto !important;
-	}
-
 	.btn:active {
 		transform: none;
+	}
+
+	[data-motion='move'] {
+		transition-property: opacity, background-color, color !important;
 	}
 }
 
 @media (prefers-reduced-transparency: reduce) {
-	.chrome {
+	.chrome,
+	.chrome[data-scrolled] {
 		background: var(--color-ink-950);
 		backdrop-filter: none;
-		-webkit-backdrop-filter: none;
 		border-bottom: 1px solid var(--color-ink-800);
 	}
 
-	.chrome::after {
+	.chrome[data-scrolled]::after {
 		display: none;
 	}
 }
 
 @media (prefers-contrast: more) {
-	.chrome {
+	.chrome,
+	.chrome[data-scrolled] {
 		background: var(--color-ink-950);
 		backdrop-filter: none;
 		border-bottom: 1px solid var(--color-ink-50);
+	}
+
+	.chrome[data-scrolled]::after {
+		display: none;
+	}
+
+	.surface {
+		background-color: var(--color-ink-900);
+		box-shadow: inset 0 0 0 1px var(--color-ink-300);
 	}
 
 	.btn-primary {
@@ -231,6 +332,6 @@
 	}
 
 	.btn-ghost {
-		border-color: var(--color-ink-200);
+		box-shadow: inset 0 0 0 1px var(--color-ink-200);
 	}
 }

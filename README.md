@@ -5,34 +5,32 @@ Workshop. It is a static, prerender-first SvelteKit site.
 
 ## Content contract
 
+Positioning follows the WrightKit goal
+([`wrightkit/.github` `docs/goal.md`](https://github.com/wrightkit/.github/blob/main/docs/goal.md)):
+Wright is the product, tooling (diagnostics, analysis, editor/CI integration,
+agent access) leads, and compilation is presented as serving those workflows.
+Compatibility means structural convergence with the upstream compiler, compared
+as canonical Workshop programs, never text similarity.
+
 Public capability claims must be grounded in the repository that owns the
 implementation:
 
-- `workshop-rs` for raw Workshop semantics, WIR, catalog/settings/localization,
+- `workshop-rs` for raw Workshop semantics, catalog/settings/localization,
   parsing, validation, and emission;
 - `opy-rs` for OverPy syntax/semantics/compiler/reconstruction support;
-- `del-rs` for DEL/OSTW syntax/semantics/runtime/compiler/reconstruction support;
-- `wright` for the unified tooling/integration product: lint, analysis,
-  validated source edits, agents, CI/embedding, language services, and
-  orchestration;
+- `deltin-rs` for DeltinScript/OSTW syntax/semantics/compiler/reconstruction
+  support;
+- `wright` for the unified tooling product: CLI commands, lint, analysis,
+  language server, CI output, and agent-facing APIs;
 - `language-provider-protocol` for LPP protocol contracts.
 
-Do not treat old Wright monolith behavior, an existing CLI command, or an issue
-state as proof that an owning implementation currently supports the full
-capability.
+Do not treat an issue state, an unreleased branch, or a hidden command as proof
+that a capability ships. Describe direction (for example the intent-driven
+agent loop) as direction, not as current behavior. Keep internal terms such as
+WIR, HIR, frontend, and provider out of primary homepage messaging.
 
-Terminology on the website follows the ecosystem architecture:
-
-- `opy-rs` and `del-rs` are **standalone language implementations**;
-- `workshop-rs` is the **standalone Workshop implementation and canonical
-  Workshop core**;
-- **frontend** describes an internal source-to-semantic stage;
-- **provider** describes an integration role that an implementation may expose
-  through LPP;
-- Wright is the **unified tooling and integration product**.
-
-All copy, navigation, and compatibility claims live in `src/lib/site.ts` and
-should remain synchronized with current merged/released evidence.
+All copy, navigation, and support claims live in `src/lib/site.ts`. The hero
+terminal shows real `wright` output; refresh it when the CLI output changes.
 
 ## Stack
 

@@ -1,100 +1,57 @@
 <script lang="ts">
-	let {
-		text,
-		label = 'Copy',
-		copiedLabel = 'Copied',
-		variant = 'ghost'
-	}: {
-		text: string;
-		label?: string;
-		copiedLabel?: string;
-		variant?: 'ghost' | 'primary' | 'inline';
-	} = $props();
+	let { text, label = 'Copy' }: { text: string; label?: string } = $props();
 
 	let copied = $state(false);
 	let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
+	function writeFallback(value: string) {
+		const textarea = document.createElement('textarea');
+		textarea.value = value;
+		textarea.style.position = 'fixed';
+		textarea.style.opacity = '0';
+		document.body.appendChild(textarea);
+		textarea.select();
+		const ok = document.execCommand('copy');
+		document.body.removeChild(textarea);
+		if (!ok) throw new Error('copy failed');
+	}
+
 	async function handleCopy() {
 		try {
-			await navigator.clipboard.writeText(text);
-			copied = true;
-			if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
-				try {
-					navigator.vibrate(12);
-				} catch {}
+			if (navigator.clipboard?.writeText) {
+				await navigator.clipboard.writeText(text);
+			} else {
+				writeFallback(text);
 			}
-			if (timeoutId) clearTimeout(timeoutId);
-			timeoutId = setTimeout(() => {
-				copied = false;
-			}, 2000);
 		} catch {
-			// Fallback: execCommand for older environments
-			try {
-				const textarea = document.createElement('textarea');
-				textarea.value = text;
-				textarea.style.position = 'fixed';
-				textarea.style.opacity = '0';
-				document.body.appendChild(textarea);
-				textarea.select();
-				document.execCommand('copy');
-				document.body.removeChild(textarea);
-				copied = true;
-				if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
-					try {
-						navigator.vibrate(12);
-					} catch {}
-				}
-				if (timeoutId) clearTimeout(timeoutId);
-				timeoutId = setTimeout(() => {
-					copied = false;
-				}, 2000);
-			} catch {
-				// Silently fail if clipboard denied
-			}
+			return;
 		}
+		copied = true;
+		clearTimeout(timeoutId);
+		timeoutId = setTimeout(() => (copied = false), 1600);
 	}
+
+	$effect(() => () => clearTimeout(timeoutId));
 </script>
 
 <button
 	type="button"
-	class="relative inline-flex shrink-0 touch-manipulation select-none items-center justify-center gap-1.5 rounded-sm font-sans text-xs font-medium tracking-tight transition-all duration-120 active:scale-[0.94] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 after:absolute after:-inset-1.5 after:content-[''] {variant ===
-	'primary'
-		? 'min-h-9 min-w-9 bg-accent-500 px-3 py-1.5 text-ink-950 hover:bg-accent-400'
-		: variant === 'inline'
-			? 'h-7 border border-ink-700 bg-ink-900 px-2 py-0.5 text-ink-300 hover:border-ink-500 hover:text-ink-50'
-			: 'min-h-8 border border-ink-700 bg-ink-900/80 px-2.5 py-1.5 text-ink-200 hover:border-ink-500 hover:bg-ink-800 hover:text-ink-50'}"
+	class="relative inline-flex h-8 w-8 shrink-0 touch-manipulation select-none items-center justify-center rounded-full transition-[background-color,color,transform] duration-150 active:scale-[0.92] active:duration-75 after:absolute after:-inset-1.5 after:content-[''] {copied
+		? 'bg-accent-500/15 text-accent-400'
+		: 'bg-ink-800/80 text-ink-300 hover:bg-ink-700 hover:text-ink-50'}"
 	onclick={handleCopy}
-	aria-label={copied ? copiedLabel : label}
-	title={copied ? copiedLabel : label}
+	aria-label={label}
+	title={label}
 >
 	{#if copied}
-		<svg
-			class="h-3.5 w-3.5 text-accent-400"
-			viewBox="0 0 16 16"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			aria-hidden="true"
-		>
+		<svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 			<polyline points="3.5 8.5 6.5 11.5 12.5 4.5" />
 		</svg>
-		<span class="text-accent-400">{copiedLabel}</span>
 	{:else}
-		<svg
-			class="h-3.5 w-3.5 text-ink-400"
-			viewBox="0 0 16 16"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="1.6"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			aria-hidden="true"
-		>
-			<rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
-			<path d="M3.5 10.5V3.5a1 1 0 0 1 1-1h7" />
+		<svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+			<rect x="5.5" y="5.5" width="8" height="8" rx="2" />
+			<path d="M3.5 10.5V4.5a1 1 0 0 1 1-1h6" />
 		</svg>
-		<span>{label}</span>
 	{/if}
+	<span class="sr-only" aria-live="polite">{copied ? 'Copied to clipboard' : ''}</span>
 </button>
