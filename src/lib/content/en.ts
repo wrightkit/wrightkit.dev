@@ -216,7 +216,7 @@ const en: Messages = {
 			'workshop-rs':
 				'The Workshop core: element catalog, parsing, validation, localization, and output.',
 			'opy-rs': 'OverPy implementation with semantic analysis and compilation to Workshop.',
-			'deltin-rs': 'DeltinScript / OSTW implementation, in development.',
+			'deltin-rs': 'DeltinScript / OSTW implementation (in development).',
 			'language-provider-protocol': 'Versioned protocol that connects Wright to language implementations.',
 			skills: 'The wright Agent Skill for coding agents.',
 			'homebrew-tap': 'Homebrew formula for Wright.'
