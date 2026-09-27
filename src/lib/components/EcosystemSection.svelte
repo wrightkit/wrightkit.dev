@@ -1,48 +1,56 @@
 <script lang="ts">
+	import Section from './Section.svelte';
 	import { ecosystem } from '$lib/site';
 </script>
 
-<section id="ecosystem" class="scroll-target border-t border-ink-800">
-	<div class="container-site py-12 sm:py-20 lg:py-24">
-		<div class="max-w-2xl">
-			<h2 class="font-sans font-semibold text-title text-ink-50">{ecosystem.title}</h2>
-			<p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-300 sm:text-[1.0625rem]">
-				{ecosystem.lead}
-			</p>
-		</div>
+<Section id="ecosystem" eyebrow={ecosystem.eyebrow} title={ecosystem.title} lead={ecosystem.lead}>
+	<ul class="mt-10 grid gap-8 sm:mt-14 md:grid-cols-3 md:gap-10">
+		{#each ecosystem.principles as principle (principle.title)}
+			<li class="border-t border-ink-800 pt-5">
+				<h3 class="text-[1.0625rem] font-semibold tracking-[-0.012em] text-ink-50">{principle.title}</h3>
+				<p class="mt-2 text-[0.9375rem] leading-relaxed text-ink-400">{principle.body}</p>
+			</li>
+		{/each}
+	</ul>
 
-		<div class="mt-8 sm:mt-10 max-w-3xl border-y border-ink-800">
-			<ul class="divide-y divide-ink-800">
-				{#each ecosystem.items as item (item.repo)}
-					<li class="py-4 sm:py-5">
-						<div class="flex items-start justify-between gap-3">
-							<div class="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-2.5">
-								<a
-									class="[overflow-wrap:anywhere] font-mono text-[0.875rem] font-medium text-ink-100 underline decoration-ink-600 underline-offset-4 transition-colors duration-150 hover:text-ink-50 hover:decoration-ink-300 active:text-accent-400 sm:text-[0.9375rem]"
-									href={item.href}
-									target="_blank"
-									rel="noreferrer"
-								>
-									{item.repo}
-								</a>
-								<span class="text-xs text-ink-500">{item.role}</span>
-							</div>
-							<span
-								class="shrink-0 rounded-xs px-2 py-0.5 text-xs font-medium {item.status.startsWith(
-									'Released'
-								)
-									? 'border border-accent-500/40 bg-ink-900 text-accent-400'
-									: 'border border-ink-800 bg-ink-900 text-ink-400'}"
-							>
-								{item.status}
-							</span>
-						</div>
-						<p class="mt-2 max-w-xl text-[0.875rem] leading-relaxed text-ink-300">
-							{item.desc}
-						</p>
-					</li>
-				{/each}
-			</ul>
-		</div>
+	<ul class="surface mt-12 divide-y divide-ink-800/70 overflow-hidden sm:mt-16">
+		{#each ecosystem.repos as item (item.repo)}
+			<li>
+				<a
+					class="group flex items-center gap-4 px-5 py-4 transition-colors duration-150 hover:bg-ink-800/40 active:bg-ink-800/60 sm:px-6"
+					href={item.href}
+					target="_blank"
+					rel="noreferrer"
+				>
+					<span class="min-w-0 flex-1 sm:flex sm:items-baseline sm:gap-4">
+						<span class="block font-mono text-sm font-medium text-ink-100 sm:w-60 sm:shrink-0">
+							{item.repo}
+						</span>
+						<span class="mt-0.5 block text-sm leading-relaxed text-ink-500 sm:mt-0">{item.role}</span>
+					</span>
+					<svg
+						class="h-4 w-4 shrink-0 text-ink-600 transition-colors group-hover:text-ink-300"
+						viewBox="0 0 16 16"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M5.5 10.5l5-5M6.5 5.5h4v4" />
+					</svg>
+				</a>
+			</li>
+		{/each}
+	</ul>
+
+	<div class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-baseline sm:gap-5">
+		<h3 class="shrink-0 text-sm font-medium text-ink-300">{ecosystem.nonGoals.title}</h3>
+		<ul class="flex flex-wrap gap-2">
+			{#each ecosystem.nonGoals.items as item (item)}
+				<li class="rounded-full px-3 py-1 text-[0.8125rem] text-ink-500 ring-1 ring-inset ring-ink-800">{item}</li>
+			{/each}
+		</ul>
 	</div>
-</section>
+</Section>

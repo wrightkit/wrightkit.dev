@@ -2,22 +2,29 @@
 	import type { Snippet } from 'svelte';
 
 	let {
+		id,
+		eyebrow,
 		title,
 		lead,
 		children
 	}: {
+		id: string;
+		eyebrow?: string;
 		title: string;
 		lead?: string;
 		children?: Snippet;
 	} = $props();
 </script>
 
-<section class="scroll-target border-t border-ink-800">
-	<div class="container-site py-12 sm:py-20 lg:py-24">
-		<div class="max-w-2xl">
-			<h2 class="font-sans font-semibold text-title text-ink-50">{title}</h2>
+<section {id} class="scroll-target" aria-labelledby="{id}-title">
+	<div class="container-site py-16 sm:py-24 lg:py-28">
+		<div class="max-w-3xl">
+			{#if eyebrow}
+				<p class="eyebrow">{eyebrow}</p>
+			{/if}
+			<h2 id="{id}-title" class="mt-2.5 text-title font-semibold text-balance text-ink-50">{title}</h2>
 			{#if lead}
-				<p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-300 sm:text-[1.0625rem]">{lead}</p>
+				<p class="mt-4 max-w-2xl text-lead text-pretty text-ink-400">{lead}</p>
 			{/if}
 		</div>
 		{#if children}{@render children()}{/if}

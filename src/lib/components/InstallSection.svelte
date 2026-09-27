@@ -1,133 +1,134 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
+	import Section from './Section.svelte';
 	import CopyButton from './CopyButton.svelte';
 	import { install } from '$lib/site';
 
-	let activeTargetId = $state('macos');
-	let activeTarget = $derived(
-		install.targets.find((t) => t.id === activeTargetId) ?? install.targets[0]
-	);
+	type TargetId = (typeof install.targets)[number]['id'];
 
-	function detectInstallTarget() {
-		const userAgent = navigator.userAgent.toLowerCase();
-		if (/android|iphone|ipad|ipod/.test(userAgent)) return null;
-		if (userAgent.includes('windows')) return 'windows';
-		if (userAgent.includes('macintosh')) return 'macos';
-		if (userAgent.includes('linux') || userAgent.includes('x11')) return 'linux';
+	let activeId = $state<TargetId>('macos');
+	let active = $derived(install.targets.find((t) => t.id === activeId) ?? install.targets[0]);
+	let tabs: HTMLButtonElement[] = $state([]);
+	let indicator = $state({ x: 0, width: 0, ready: false });
+
+	function measure() {
+		const el = tabs[install.targets.findIndex((t) => t.id === activeId)];
+		if (el) indicator = { x: el.offsetLeft, width: el.offsetWidth, ready: true };
+	}
+
+	async function select(id: TargetId, focus = false) {
+		activeId = id;
+		await tick();
+		const el = tabs[install.targets.findIndex((t) => t.id === id)];
+		if (focus) el?.focus();
+		el?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+	}
+
+	function onKeydown(e: KeyboardEvent, index: number) {
+		const last = install.targets.length - 1;
+		const next =
+			e.key === 'ArrowRight' ? (index === last ? 0 : index + 1)
+			: e.key === 'ArrowLeft' ? (index === 0 ? last : index - 1)
+			: e.key === 'Home' ? 0
+			: e.key === 'End' ? last
+			: null;
+		if (next === null) return;
+		e.preventDefault();
+		select(install.targets[next].id, true);
+	}
+
+	function detectTarget(): TargetId | null {
+		const ua = navigator.userAgent.toLowerCase();
+		if (/android|iphone|ipad|ipod/.test(ua)) return null;
+		if (ua.includes('windows')) return 'windows';
+		if (ua.includes('macintosh')) return 'macos';
+		if (ua.includes('linux') || ua.includes('x11')) return 'linux';
 		return null;
 	}
 
+	$effect(() => {
+		void activeId;
+		measure();
+	});
+
 	onMount(() => {
-		const detectedTarget = detectInstallTarget();
-		if (detectedTarget) activeTargetId = detectedTarget;
+		const detected = detectTarget();
+		if (detected) activeId = detected;
+		const observer = new ResizeObserver(measure);
+		tabs.forEach((el) => el && observer.observe(el));
+		return () => observer.disconnect();
 	});
 </script>
 
-<section id="install" class="scroll-target border-t border-ink-800">
-	<div class="container-site py-12 sm:py-20 lg:py-24">
-		<div class="max-w-2xl">
-			<h2 class="font-sans font-semibold text-title text-ink-50">{install.title}</h2>
-			<p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-300 sm:text-[1.0625rem]">
-				{install.lead}
-			</p>
-		</div>
-
-		<!-- Segmented platform tabs -->
-		<div class="mt-8">
+<Section id="install" eyebrow={install.eyebrow} title={install.title} lead={install.lead}>
+	<div class="mt-10 max-w-3xl sm:mt-12">
+		<div class="no-scrollbar -mx-1 overflow-x-auto px-1 py-1">
 			<div
-				class="no-scrollbar flex max-w-full snap-x snap-mandatory items-center gap-1.5 overflow-x-auto rounded-sm border border-ink-800 bg-ink-950 p-1 sm:inline-flex sm:flex-wrap"
+				class="relative inline-flex gap-0.5 rounded-full bg-ink-900 p-1 ring-1 ring-inset ring-ink-50/[0.06]"
 				role="tablist"
-				aria-label="Target platform"
+				aria-label="Platform"
 			>
-				{#each install.targets as target (target.id)}
+				<span
+					data-motion="move"
+					class="absolute bottom-1 left-0 top-1 rounded-full bg-ink-700/80 shadow-sm shadow-black/40 transition-[transform,width,opacity] duration-300 ease-(--ease-settle) {indicator.ready
+						? 'opacity-100'
+						: 'opacity-0'}"
+					style="transform: translateX({indicator.x}px); width: {indicator.width}px;"
+					aria-hidden="true"
+				></span>
+				{#each install.targets as target, i (target.id)}
 					<button
+						bind:this={tabs[i]}
 						type="button"
 						role="tab"
-						aria-selected={activeTargetId === target.id}
-						class="flex min-h-9 shrink-0 snap-start touch-manipulation select-none items-center gap-1.5 rounded-xs px-3 py-1.5 font-sans text-xs font-medium tracking-tight transition-all duration-120 active:scale-[0.96] sm:min-h-10 sm:gap-2 sm:px-3.5 {activeTargetId ===
-						target.id
-							? 'bg-ink-800 text-ink-50 shadow-xs'
-							: 'text-ink-400 hover:bg-ink-900 hover:text-ink-200'}"
+						id="install-tab-{target.id}"
+						aria-selected={activeId === target.id}
 						aria-controls="install-panel"
-						onclick={() => (activeTargetId = target.id)}
+						tabindex={activeId === target.id ? 0 : -1}
+						class="relative z-10 flex min-h-9 shrink-0 touch-manipulation select-none items-center whitespace-nowrap rounded-full px-4 text-sm font-medium transition-colors duration-150 {activeId ===
+						target.id
+							? 'text-ink-50'
+							: 'text-ink-400 hover:text-ink-100'}"
+						onclick={() => select(target.id)}
+						onkeydown={(e) => onKeydown(e, i)}
 					>
-						<span>{target.label}</span>
-						<span
-							class="text-[0.6875rem] font-normal {activeTargetId === target.id
-								? 'text-ink-400'
-								: 'text-ink-600'}"
-						>
-							{target.badge}
-						</span>
+						{target.label}
 					</button>
 				{/each}
 			</div>
 		</div>
 
-		<!-- Active platform install card -->
-		<div id="install-panel" class="mt-4 max-w-3xl min-w-0 overflow-hidden rounded-xs border border-ink-800 bg-ink-900/40" role="tabpanel" tabindex="0">
-			<!-- Header / Method info -->
-			<div
-				class="flex flex-wrap items-center justify-between gap-2 border-b border-ink-800 bg-ink-900/80 px-3.5 py-2.5 sm:px-5"
-			>
-				<span class="text-xs font-semibold leading-snug text-ink-50">{activeTarget.method}</span>
-				<CopyButton text={activeTarget.command} label="Copy" />
+		<div
+			id="install-panel"
+			class="surface mt-4 min-w-0 p-5 sm:p-6"
+			role="tabpanel"
+			aria-labelledby="install-tab-{active.id}"
+		>
+			<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+				<h3 class="text-[0.9375rem] font-semibold text-ink-50">{active.method}</h3>
+				<span class="text-xs text-ink-500">{active.badge}</span>
 			</div>
 
-			<!-- Command snippet -->
-			<div class="p-3.5 sm:p-5">
-				<pre
-					class="overflow-x-auto rounded-xs border border-ink-800/80 bg-ink-950 p-3 sm:p-3.5 font-mono text-[0.8125rem] leading-relaxed text-ink-100"><code
-						>{activeTarget.command}</code
-					></pre>
+			<div class="mt-3 flex items-start gap-2 rounded-control bg-ink-950/80 p-1.5 pl-3.5 ring-1 ring-inset ring-ink-800/80">
+				<pre class="min-w-0 flex-1 overflow-x-auto py-1.5 font-mono text-[0.8125rem] leading-relaxed text-ink-100"><code>{active.command}</code></pre>
+				<CopyButton text={active.command} label="Copy command" />
+			</div>
+			<p class="mt-3 text-sm leading-relaxed text-ink-500">{active.note}</p>
 
-				<p class="mt-3 text-xs leading-relaxed text-ink-400">
-					{activeTarget.note}
-				</p>
-
-				{#if activeTarget.altCommand}
-					<div class="mt-4 border-t border-ink-800/70 pt-3.5 sm:mt-5 sm:pt-4">
-						<div class="flex flex-wrap items-center justify-between gap-2">
-							<span class="text-xs font-medium leading-snug text-ink-300">
-								Alternative: {activeTarget.altMethod}
-							</span>
-							<CopyButton text={activeTarget.altCommand} label="Copy" variant="inline" />
-						</div>
-						<pre
-							class="mt-2 overflow-x-auto rounded-xs border border-ink-800/60 bg-ink-950/80 p-2.5 sm:p-3 font-mono text-xs text-ink-300"><code
-								>{activeTarget.altCommand}</code
-							></pre>
-					</div>
-				{/if}
+			<div class="mt-6 border-t border-ink-800/80 pt-5">
+				<h4 class="text-sm font-medium text-ink-300">{active.altMethod}</h4>
+				<div class="mt-2.5 flex items-start gap-2 rounded-control bg-ink-950/60 p-1.5 pl-3.5">
+					<pre class="min-w-0 flex-1 overflow-x-auto py-1.5 font-mono text-xs leading-relaxed text-ink-300"><code>{active.altCommand}</code></pre>
+					<CopyButton text={active.altCommand} label="Copy command" />
+				</div>
 			</div>
 		</div>
 
-		<!-- Fallback release archives note -->
-		<div class="mt-6 flex max-w-3xl items-start gap-2 text-xs text-ink-400">
-			<svg
-				class="mt-0.5 h-4 w-4 shrink-0 text-ink-500"
-				viewBox="0 0 16 16"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="1.5"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				aria-hidden="true"
-			>
-				<circle cx="8" cy="8" r="6.25" />
-				<path d="M8 7v4.5M8 4.75h.01" />
-			</svg>
-			<span class="leading-relaxed">
-				{install.fallbackArchive.text}
-				<a
-					href={install.fallbackArchive.href}
-					target="_blank"
-					rel="noreferrer"
-					class="text-ink-200 underline decoration-ink-600 underline-offset-4 transition-colors hover:text-ink-50 hover:decoration-ink-300"
-				>
-					{install.fallbackArchive.linkText}
-				</a>.
-			</span>
-		</div>
+		<p class="mt-5 text-sm leading-relaxed text-ink-500">
+			{install.fallbackArchive.text}
+			<a class="text-link" href={install.fallbackArchive.href} target="_blank" rel="noreferrer">
+				{install.fallbackArchive.linkText}</a
+			>.
+		</p>
 	</div>
-</section>
+</Section>
