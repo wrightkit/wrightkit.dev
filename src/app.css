@@ -5,8 +5,11 @@
  * Neutral ink scale + one orange accent, in light and dark appearances.
  * Every ink step is a light-dark() pair: 50 is always the strongest text and
  * 950 the page background, so components never branch on the theme. The
- * appearance follows `color-scheme`, which the theme switcher pins on <html>
- * and `.scheme-dark` pins on always-dark islands such as the terminal.
+ * appearance follows `color-scheme` on <html>: the system preference by
+ * default, or the choice the theme switcher pins through data-theme.
+ * Tailwind's CSS lowering resolves light-dark() once on :root, so a nested
+ * color-scheme does not flip these tokens; always-dark islands such as the
+ * terminal use fixed colors instead.
  * Type is the platform system stack (optical sizing and tracking tables ship
  * with the OS fonts). Mono is reserved for actual code, not chrome.
  * Tracking is size-specific: display sizes tighten, small labels loosen.
