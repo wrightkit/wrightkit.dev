@@ -12,7 +12,7 @@ interface Block {
 
 interface SectionCopy {
 	title: string;
-	lead: string;
+	lead?: string;
 }
 
 /**
@@ -57,13 +57,11 @@ export interface Messages {
 		items: Record<ToolingId, Block>;
 	};
 	agents: SectionCopy & {
-		developers: { title: string; points: Tuple<string, 4> };
-		codingAgents: { title: string; points: Tuple<string, 4> };
-		loop: {
-			title: string;
-			lead: string;
-			steps: Tuple<Block, 5>;
-		};
+		/** What ships today. */
+		capabilities: Tuple<Block, 3>;
+		/** Planned features; each card carries the `upcomingBadge` label. */
+		upcoming: Tuple<Block, 4>;
+		upcomingBadge: string;
 	};
 	languages: SectionCopy & {
 		items: Record<LanguageId, { name: string; status: string; body: string }>;
@@ -72,7 +70,6 @@ export interface Messages {
 			lead: string;
 			criteriaLabel: string;
 			criteria: Tuple<string, 7>;
-			notes: Tuple<string, 3>;
 		};
 	};
 	install: SectionCopy & {

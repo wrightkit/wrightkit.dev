@@ -5,7 +5,7 @@ const en: Messages = {
 	meta: {
 		title: 'WrightKit: Tooling for Overwatch Workshop development',
 		description:
-			'WrightKit is tooling for Overwatch Workshop development. Its CLI, Wright, checks, lints, and analyzes real Workshop and OverPy projects, for developers and their coding agents.'
+			'WrightKit is tooling for Overwatch Workshop development. Its CLI, Wright, checks, lints, and analyzes Workshop and OverPy projects, for developers and their coding agents.'
 	},
 	ui: {
 		skipToContent: 'Skip to content',
@@ -30,8 +30,8 @@ const en: Messages = {
 	},
 	hero: {
 		eyebrow: 'For Workshop developers and coding agents',
-		headline: 'Workshop tooling that shows its work.',
-		lead: 'Wright checks your Workshop and OverPy code for errors and server-load risks. Every finding points to the exact line and says how sure it is. Your editor, your CI, and your coding agent get the same results.',
+		headline: 'Catch Workshop bugs before you load the game.',
+		lead: 'Wright finds errors and server-heavy code in Workshop and OverPy projects and points to the exact line. Use it in your terminal, editor, or CI, or let your coding agent run it.',
 		primaryCta: 'Install Wright',
 		secondaryCta: 'View on GitHub'
 	},
@@ -40,91 +40,92 @@ const en: Messages = {
 		label: 'Example wright session'
 	},
 	tooling: {
-		title: 'Built for checking real projects.',
-		lead: 'Checks, lints, and analysis read your code the same way, so every result has a fixed code and an exact location. Compiling between languages is there to support these checks.',
+		title: 'What Wright does.',
 		items: {
 			check: {
-				title: 'Diagnostics',
-				body: 'Errors and warnings, each with a fixed code, a severity, and the exact source range.'
+				title: 'Check',
+				body: 'Reports errors and warnings with the file and line. Each kind of problem has a fixed code you can look up.'
 			},
 			lint: {
-				title: 'High-confidence lints',
-				body: 'A small set of built-in rules for loops, waits, and conditions that load the server. Each finding says how strong its evidence is.'
+				title: 'Lint',
+				body: 'Flags code that runs but causes trouble, such as a While loop with no Wait, or the same condition checked twice in one rule. Turn rules off or change their severity per project.'
 			},
 			analyze: {
-				title: 'Analysis',
-				body: 'Hot spots, loops and waits, and variables shared between rules. Every fact says whether it is certain or a heuristic.'
+				title: 'Analyze',
+				body: 'Shows your longest and most branched rules, and the variables shared by the most rules.'
 			},
 			inspect: {
-				title: 'Inspection',
-				body: 'The full structure and meaning of a program, for tools that need more than a summary.'
+				title: 'Inspect',
+				body: 'Lists every rule and variable in a project, and everywhere each one is used.'
 			},
 			lsp: {
 				title: 'Editor support',
-				body: 'wright-lsp adds hover, go to definition, references, completion, rename, and live diagnostics to any editor that speaks LSP.'
+				body: 'wright-lsp shows errors as you type, with go to definition, completion, and rename, in any editor that supports LSP.'
 			},
 			ci: {
 				title: 'CI',
-				body: 'Documented exit codes, one JSON format for every result, and automatic annotations in GitHub Actions.'
+				body: 'Run Wright in GitHub Actions and problems show up on the pull request.'
 			}
 		}
 	},
 	agents: {
-		title: 'One set of tools for you and your coding agent.',
-		lead: 'Your agent gets the same results you do, as stable JSON. It does not have to scrape terminal output or parse code itself. WrightKit gives agents Workshop tooling; it is not an agent framework.',
-		developers: {
-			title: 'For developers',
-			points: [
-				'Clear terminal output that points to the problem line',
-				'Editor integration through wright-lsp',
-				'Per-project lint settings: turn a rule off or change its severity',
-				'Pull request annotations when Wright runs in GitHub Actions'
-			]
-		},
-		codingAgents: {
-			title: 'For coding agents',
-			points: [
-				'One versioned JSON format for every command',
-				'Fixed diagnostic codes, rule IDs, and exit codes to branch on',
-				'Batches of edits checked as a whole; overlapping or order-dependent edits are refused',
-				'The wright Agent Skill, published in wrightkit/skills'
-			]
-		},
-		loop: {
-			title: 'Where this is heading',
-			lead: 'The goal: you describe what you want, and an agent uses WrightKit for every step below, so you can focus on design instead of Workshop syntax. Parts of this work today; a versioned agent contract is still in progress.',
-			steps: [
-				{ title: 'Inspect', body: 'Read the project, its rules, and dependencies.' },
-				{ title: 'Edit', body: 'Make targeted source changes that are checked first.' },
-				{ title: 'Check', body: 'Re-run diagnostics and lints.' },
-				{ title: 'Assess', body: 'Estimate cost and flag server-load risk.' },
-				{ title: 'Report', body: 'Say what cannot be proven without running it.' }
-			]
-		}
+		title: 'Tools for coding agents.',
+		capabilities: [
+			{
+				title: 'JSON output',
+				body: 'Every command supports --format json, in one versioned format.'
+			},
+			{
+				title: 'Stable codes',
+				body: 'Diagnostic codes, rule IDs, and exit codes stay fixed, so an agent can decide its next step from them.'
+			},
+			{
+				title: 'Agent Skill',
+				body: 'Install the wright skill from wrightkit/skills so your agent knows how to use Wright.'
+			}
+		],
+		upcoming: [
+			{
+				title: 'From request to change',
+				body: 'Describe what you want. The agent reads, edits, and checks the project with Wright.'
+			},
+			{
+				title: 'Checked edits',
+				body: 'Wright checks an agent’s edits before they are written to your files.'
+			},
+			{
+				title: 'Project queries',
+				body: 'Agents ask for rules, variables, references, and call relationships directly.'
+			},
+			{
+				title: 'Cost estimates',
+				body: 'See how much server load a change adds.'
+			}
+		],
+		upcomingBadge: 'Coming soon'
 	},
 	languages: {
 		title: 'Workshop at the center, OverPy and OSTW around it.',
-		lead: 'Each language has its own implementation, and conversions between them go through Workshop instead of one-off bridges. Support is added where real projects need it.',
 		items: {
 			workshop: {
 				name: 'Workshop',
 				status: 'Supported',
-				body: 'Wright treats it as source you write: parsing, validation, analysis, standard-form output, and en-US ↔ zh-CN conversion.'
+				body: 'Full support for native Workshop syntax, including conversion between English and Chinese code.'
 			},
 			overpy: {
 				name: 'OverPy',
 				status: 'Partial',
-				body: 'Check, lint, and analyze existing OverPy projects with Wright. Compiling to Workshop covers the supported syntax; anything else gets a clear diagnostic.'
+				body: 'Check, lint, and analyze OverPy projects, and compile them to Workshop.'
 			},
 			ostw: {
 				name: 'OSTW',
 				status: 'In development',
-				body: 'deltin-rs handles parsing, projects, and type analysis. Compiling advanced features is unfinished, and Wright does not support OSTW yet.'
+				body: 'The deltin-rs implementation is in progress. Wright support comes after it.'
 			}
 		},
 		compatibility: {
-			title: 'What “compatible” means',
-			lead: 'For OverPy and OSTW, the original compiler is the reference. Wright and the original compile the same source, and the two Workshop results are compared structure by structure.',
+			title: 'Compatibility',
+			lead: 'The original OverPy and OSTW compilers are the reference. Wright’s output is compared with theirs on these points.',
 			criteriaLabel: 'What gets compared',
 			criteria: [
 				'Rule order',
@@ -134,17 +135,12 @@ const en: Messages = {
 				'How values are built',
 				'Variable names and indices',
 				'Element count'
-			],
-			notes: [
-				'Formatting, whitespace, and comments do not count. Text diffs are never the measure.',
-				'Any difference from the original output, even for an apparent upstream bug, needs an approved, recorded exception.',
-				'New heroes, maps, actions, and settings land in workshop-rs without waiting for upstream releases.'
 			]
 		}
 	},
 	install: {
 		title: 'Get Wright.',
-		lead: 'One install gives you wright and wright-lsp. The language engines also publish their own libraries from their repositories.',
+		lead: 'Installs the wright and wright-lsp commands.',
 		platformLabel: 'Platform',
 		targets: {
 			macos: {
@@ -192,15 +188,15 @@ const en: Messages = {
 	ecosystem: {
 		eyebrow: 'Open source',
 		title: 'How WrightKit fits together.',
-		lead: 'Wright is what you install. The language engines under it are separate projects you can also use on their own, each with its own tests, releases, and license.',
+		lead: 'Wright is what you install. The language implementations under it are separate projects you can also use on their own.',
 		principles: [
 			{
 				title: 'Honest about limits',
-				body: 'Wright explains how it reached each result and flags what it cannot prove. It does not promise how code behaves on a live server.'
+				body: 'Wright marks what it cannot confirm. It does not promise how code behaves on a live server.'
 			},
 			{
 				title: 'Technical facts only',
-				body: 'WrightKit tracks verified Workshop facts such as the element catalog and resource limits. It does not judge balance or game design.'
+				body: 'Only verified Workshop data such as the element catalog and resource limits. No opinions on balance or game design.'
 			},
 			{
 				title: 'Small, predictable core',
@@ -208,13 +204,12 @@ const en: Messages = {
 			}
 		],
 		repos: {
-			wright: 'The CLI and language server: diagnostics, lint, analysis, editor and CI integration.',
-			'workshop-rs':
-				'The Workshop core: element catalog, parsing, validation, localization, and output.',
-			'opy-rs': 'OverPy implementation with semantic analysis and compilation to Workshop.',
+			wright: 'The CLI and language server.',
+			'workshop-rs': 'The Workshop core: element catalog, parsing, and validation.',
+			'opy-rs': 'The OverPy implementation, including compiling to Workshop.',
 			'deltin-rs': 'DeltinScript / OSTW implementation (in development).',
 			'language-provider-protocol': 'Versioned protocol that connects Wright to language implementations.',
-			skills: 'The wright Agent Skill for coding agents.',
+			skills: 'The wright skill for coding agents.',
 			'homebrew-tap': 'Homebrew formula for Wright.'
 		},
 		nonGoals: {

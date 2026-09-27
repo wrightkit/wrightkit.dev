@@ -31,26 +31,19 @@
 		{/each}
 	</ul>
 
-	<div class="surface mt-4 grid gap-8 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12">
-		<div>
-			<h3 class="text-[1.0625rem] font-semibold tracking-[-0.012em] text-ink-50">
-				{copy.compatibility.title}
-			</h3>
-			<p class="mt-2 text-[0.9375rem] leading-relaxed text-pretty text-ink-400">
-				{copy.compatibility.lead}
-			</p>
-			<ul
-				class="mt-5 grid gap-x-6 gap-y-2 text-[0.9375rem] text-ink-200 sm:grid-cols-2"
-				aria-label={copy.compatibility.criteriaLabel}
-			>
-				{#each copy.compatibility.criteria as criterion, i (i)}
-					<li class="border-t border-ink-800 pt-2">{criterion}</li>
-				{/each}
-			</ul>
-		</div>
-		<ul class="space-y-4 border-t border-ink-800 pt-6 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
-			{#each copy.compatibility.notes as note, i (i)}
-				<li class="text-[0.9375rem] leading-relaxed text-ink-300">{note}</li>
+	<div class="surface mt-4 p-5 sm:p-8">
+		<h3 class="text-[1.0625rem] font-semibold tracking-[-0.012em] text-ink-50">
+			{copy.compatibility.title}
+		</h3>
+		<p class="mt-2 max-w-2xl text-[0.9375rem] leading-relaxed text-pretty text-ink-400">
+			{copy.compatibility.lead}
+		</p>
+		<ul
+			class="mt-5 grid gap-x-6 gap-y-2 text-[0.9375rem] text-ink-200 sm:grid-cols-2 lg:grid-cols-4"
+			aria-label={copy.compatibility.criteriaLabel}
+		>
+			{#each copy.compatibility.criteria as criterion, i (i)}
+				<li class="border-t border-ink-800 pt-2">{criterion}</li>
 			{/each}
 		</ul>
 	</div>

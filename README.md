@@ -25,9 +25,11 @@ implementation:
 - `language-provider-protocol` for LPP protocol contracts.
 
 Do not treat an issue state, an unreleased branch, or a hidden command as proof
-that a capability ships. Describe direction (for example the intent-driven
-agent loop) as direction, not as current behavior. Keep internal terms such as
-WIR, HIR, frontend, and provider out of primary homepage messaging.
+that a capability ships. Planned features go in the agents section's "Coming
+soon" cards, never in current-capability copy. Keep internal terms such as
+WIR, HIR, frontend, and provider out of primary homepage messaging. Say what a
+feature does for a Workshop developer; implementation background belongs in the
+owning repository's docs, not on the homepage.
 
 Locale-independent data (URLs, commands, repository names, support status,
 and the hero terminal) lives in `src/lib/site.ts`. The hero terminal shows real
