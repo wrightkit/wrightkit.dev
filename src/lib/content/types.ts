@@ -1,5 +1,12 @@
 import type { ThemePreference } from '$lib/theme.svelte';
-import type { InstallTargetId, LanguageId, NavSection, RepoName, ToolingId } from '$lib/site';
+import type {
+	ExampleId,
+	InstallTargetId,
+	LanguageId,
+	NavSection,
+	StartStepId,
+	ToolingId
+} from '$lib/site';
 
 type Tuple<T, N extends number, R extends T[] = []> = R['length'] extends N
 	? readonly [...R]
@@ -41,7 +48,7 @@ export interface Messages {
 		copyInstall: string;
 		copied: string;
 	};
-	nav: Record<NavSection, string>;
+	nav: Record<NavSection, string> & { docs: string };
 	hero: {
 		eyebrow: string;
 		headline: string;
@@ -53,24 +60,23 @@ export interface Messages {
 		title: string;
 		label: string;
 	};
+	start: SectionCopy & {
+		steps: Record<StartStepId, Block>;
+	};
+	features: SectionCopy & {
+		examples: Record<ExampleId, Block>;
+	};
 	tooling: SectionCopy & {
 		items: Record<ToolingId, Block>;
+	};
+	languages: SectionCopy & {
+		items: Record<LanguageId, { name: string; status: string; body: string }>;
 	};
 	agents: SectionCopy & {
 		/** What ships today. */
 		capabilities: Tuple<Block, 3>;
-		/** Planned features; each card carries the `upcomingBadge` label. */
-		upcoming: Tuple<Block, 4>;
-		upcomingBadge: string;
-	};
-	languages: SectionCopy & {
-		items: Record<LanguageId, { name: string; status: string; body: string }>;
-		compatibility: {
-			title: string;
-			lead: string;
-			criteriaLabel: string;
-			criteria: Tuple<string, 7>;
-		};
+		upcomingLabel: string;
+		upcoming: Tuple<string, 4>;
 	};
 	install: SectionCopy & {
 		platformLabel: string;
@@ -81,14 +87,8 @@ export interface Messages {
 		/** Sentence around the Releases link, split so each locale can place the link naturally. */
 		releases: { before: string; link: string; after: string };
 	};
-	ecosystem: SectionCopy & {
-		/** Only the ecosystem section keeps a kicker: it adds "open source", which the title doesn't say. */
-		eyebrow: string;
-		principles: Tuple<Block, 3>;
-		repos: Record<RepoName, string>;
-		nonGoals: { title: string; items: Tuple<string, 6> };
-	};
 	footer: {
 		note: string;
+		openSource: string;
 	};
 }

@@ -380,6 +380,14 @@
 	line-height: 1.7;
 }
 
+/* Workshop snippets in the zh-CN client's syntax mix Latin and CJK; keep the
+   monospace face and fall back to a CJK face for Chinese element names. */
+:lang(zh) :is(code, pre, kbd, samp, .font-mono) {
+	font-family:
+		ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'PingFang SC', 'Hiragino Sans GB',
+		'Microsoft YaHei', 'Noto Sans CJK SC', 'Source Han Sans SC', monospace;
+}
+
 :lang(zh) :is(h1, h2, h3, h4, .btn, .eyebrow) {
 	letter-spacing: 0;
 }

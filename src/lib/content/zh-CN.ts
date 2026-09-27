@@ -12,7 +12,7 @@ const zhCN: Messages = {
 	meta: {
 		title: 'WrightKit：守望先锋地图工坊开发工具',
 		description:
-			'Wright 检查、lint 和分析守望先锋地图工坊与 OverPy 代码，编辑器、CI 和 AI 编程助手里都能用。'
+			'Wright 检查守望先锋地图工坊和 OverPy 代码里的错误和拖累服务器的循环。把游戏里的代码复制出来，结果精确到行。'
 	},
 	ui: {
 		skipToContent: '跳到正文',
@@ -30,48 +30,99 @@ const zhCN: Messages = {
 		copied: '已复制到剪贴板'
 	},
 	nav: {
-		tooling: '功能',
-		agents: 'AI 助手',
+		start: '上手',
+		features: '功能',
 		languages: '语言支持',
-		install: '安装'
+		install: '安装',
+		docs: '文档'
 	},
 	hero: {
-		eyebrow: '面向地图工坊开发者和 AI 编程助手',
+		eyebrow: '守望先锋地图工坊 · OverPy',
 		headline: '写地图工坊，\u200b心里有数。',
-		lead: 'Wright 检查、lint 和分析守望先锋地图工坊与 OverPy 代码。进游戏之前，就能发现错误。',
+		lead: '把代码从游戏里复制出来，Wright 帮你找出错误和拖累服务器的循环，精确到行，不用进房间测试。',
 		primaryCta: '安装 Wright',
 		secondaryCta: '在 GitHub 上查看'
 	},
 	terminal: {
 		title: '终端',
-		label: 'wright 使用示例'
+		label: '对从游戏复制的规则运行 wright lint'
+	},
+	start: {
+		title: '复制，保存，检查。',
+		steps: {
+			copy: {
+				title: '从游戏复制',
+				body: '像平时分享代码那样，复制规则或整套设置。'
+			},
+			save: {
+				title: '粘贴成文件',
+				body: '存成文本文件，比如 rules.txt。中英文客户端的代码都可以。'
+			},
+			check: {
+				title: '运行 Wright',
+				body: '每条结果都指向文件里的具体行。改好后粘回游戏。'
+			}
+		}
+	},
+	features: {
+		title: '能查出什么。',
+		examples: {
+			typo: {
+				title: '写错名字',
+				body: '动作或值的名字写错了，粘回游戏前就能发现。'
+			},
+			noWait: {
+				title: '没有等待的 While',
+				body: '循环一直不停，容易让服务器过载。'
+			},
+			minWait: {
+				title: '只等 0.016 秒',
+				body: '循环会以游戏允许的最快速度运行。'
+			},
+			losInLoop: {
+				title: '循环里做视线检测',
+				body: '每一轮都算一次几何检测，开销可能很大。'
+			}
+		}
 	},
 	tooling: {
-		title: '从写下第一行，\u200b到提交 PR。',
+		title: '更多工具。',
 		items: {
-			check: {
-				title: '检查',
-				body: '在游戏报错之前发现错误。每条诊断都有编号和精确位置。'
-			},
-			lint: {
-				title: 'Lint',
-				body: '揪出没有等待的循环和重复的条件，以及其他拖累服务器的写法。'
-			},
 			analyze: {
 				title: '分析',
-				body: '看清哪些规则最复杂，哪些变量被最多规则共用。'
+				body: '找出最复杂的规则，以及被最多规则共用的变量。'
 			},
 			inspect: {
 				title: '结构',
-				body: '所有规则、变量和引用，一目了然。'
+				body: '项目里所有规则、变量和引用。'
 			},
 			lsp: {
 				title: '编辑器',
-				body: '边写边报错，支持跳转、补全和重命名。任何支持 LSP 的编辑器都能用。'
+				body: '在支持语言服务器的编辑器里边写边报错，还能跳转、补全和重命名。VS Code 扩展暂时还没有。'
 			},
 			ci: {
 				title: 'CI',
 				body: '在 GitHub Actions 中运行，问题直接标在 PR 上。'
+			}
+		}
+	},
+	languages: {
+		title: '地图工坊、OverPy 和 OSTW。',
+		items: {
+			workshop: {
+				name: '地图工坊',
+				status: '已支持',
+				body: '完整支持原生语法，英文和简体中文客户端的代码都能直接检查。'
+			},
+			overpy: {
+				name: 'OverPy',
+				status: '部分支持',
+				body: '照常写 .opy。Wright 负责检查，并编译成地图工坊代码，结果以原版 OverPy 编译器为准。'
+			},
+			ostw: {
+				name: 'OSTW',
+				status: '开发中',
+				body: 'deltin-rs 开发中，之后接入 Wright。'
 			}
 		}
 	},
@@ -91,59 +142,8 @@ const zhCN: Messages = {
 				body: '装上 wrightkit/skills 里的 wright skill，助手就会用 Wright。'
 			}
 		],
-		upcoming: [
-			{
-				title: '从需求到改动',
-				body: '说出需求，助手用 Wright 改好并检查。'
-			},
-			{
-				title: '修改先校验',
-				body: '修改在写入文件前先过校验。'
-			},
-			{
-				title: '项目查询',
-				body: '按需查询规则和变量，以及引用和调用关系。'
-			},
-			{
-				title: '开销评估',
-				body: '上线前就知道改动的服务器开销。'
-			}
-		],
-		upcomingBadge: '即将推出'
-	},
-	languages: {
-		title: '地图工坊、OverPy 和 OSTW。',
-		items: {
-			workshop: {
-				name: '地图工坊',
-				status: '已支持',
-				body: '完整支持原生语法，中英文代码互转。'
-			},
-			overpy: {
-				name: 'OverPy',
-				status: '部分支持',
-				body: '检查、lint 和分析 OverPy 项目，编译成地图工坊代码。'
-			},
-			ostw: {
-				name: 'OSTW',
-				status: '开发中',
-				body: 'deltin-rs 开发中，之后接入 Wright。'
-			}
-		},
-		compatibility: {
-			title: '兼容性',
-			lead: 'OverPy 和 OSTW 的编译结果，逐项对照原版编译器。',
-			criteriaLabel: '比对内容',
-			criteria: [
-				'规则顺序',
-				'用到的动作和值',
-				'控制流',
-				'条件结构',
-				'值的构建方式',
-				'变量名与索引',
-				'元素数量'
-			]
-		}
+		upcomingLabel: '即将推出',
+		upcoming: ['从需求到改动', '修改先校验', '项目查询', '开销评估']
 	},
 	install: {
 		title: '获取 Wright。',
@@ -192,47 +192,9 @@ const zhCN: Messages = {
 			after: '。'
 		}
 	},
-	ecosystem: {
-		eyebrow: '开源',
-		title: 'WrightKit 的组成。',
-		lead: '你安装的是 Wright。每种语言都有自己的开源项目。',
-		principles: [
-			{
-				title: '说清局限',
-				body: '确认不了的，Wright 会直说。线上服务器的表现，它不打包票。'
-			},
-			{
-				title: '只讲事实',
-				body: '只收录验证过的地图工坊数据，不评判平衡和玩法。'
-			},
-			{
-				title: '少误报',
-				body: '内置规则从严，更宽的检查放进可选规则集。'
-			}
-		],
-		repos: {
-			wright: '命令行工具和语言服务器。',
-			'workshop-rs': '地图工坊核心，包括元素目录、解析和校验。',
-			'opy-rs': 'OverPy 编译器和语义分析。',
-			'deltin-rs': 'DeltinScript / OSTW（开发中）。',
-			'language-provider-protocol': 'Wright 与各语言实现之间的协议。',
-			skills: 'AI 编程助手用的 wright skill。',
-			'homebrew-tap': 'Homebrew 安装配方。'
-		},
-		nonGoals: {
-			title: '不做什么',
-			items: [
-				'通用编译器框架',
-				'完整的 IDE',
-				'项目托管',
-				'通用 AI Agent 框架',
-				'游戏运行模拟器',
-				'转译器合集'
-			]
-		}
-	},
 	footer: {
-		note: '守望先锋地图工坊开发工具。'
+		note: '守望先锋地图工坊开发工具。',
+		openSource: '开源'
 	}
 };
 

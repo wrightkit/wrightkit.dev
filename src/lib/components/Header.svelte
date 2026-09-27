@@ -6,13 +6,15 @@
 	import Wordmark from './Wordmark.svelte';
 	import ThemeSwitcher from './ThemeSwitcher.svelte';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
-	import { navSections, site } from '$lib/site';
+	import { navSections, pageSections, site } from '$lib/site';
 	import { currentMessages } from '$lib/content';
 
 	const t = $derived(currentMessages());
 	const nav = $derived([
-		...navSections.map((id) => ({ label: t.nav[id], href: `#${id}`, external: false })),
-		{ label: 'GitHub', href: site.org, external: true }
+		...navSections.map((id) => ({ label: t.nav[id], href: `#${id}`, external: false, wideOnly: false })),
+		// Docs stays in the mobile sheet but joins the desktop bar only when it fits.
+		{ label: t.nav.docs, href: site.docs, external: true, wideOnly: true },
+		{ label: 'GitHub', href: site.org, external: true, wideOnly: false }
 	]);
 
 	let isOpen = $state(false);
@@ -42,7 +44,7 @@
 	// Wayfinding: the section crossing the middle of the viewport. It highlights the
 	// nav link and tells the language switcher where to land in the other locale.
 	$effect(() => {
-		const tracked: string[] = [...navSections, 'ecosystem'];
+		const tracked: string[] = [...pageSections];
 		const targets = tracked
 			.map((id) => document.getElementById(id))
 			.filter((el): el is HTMLElement => el !== null);
@@ -87,7 +89,7 @@
 				<a
 					href={item.href}
 					aria-current={current === item.href ? 'location' : undefined}
-					class="inline-flex min-h-9 items-center rounded-full px-3.5 text-sm font-medium transition-colors duration-150 active:text-ink-50 {current ===
+					class="{item.wideOnly ? 'hidden lg:inline-flex' : 'inline-flex'} min-h-9 items-center whitespace-nowrap rounded-full px-3 text-sm font-medium transition-colors duration-150 active:text-ink-50 lg:px-3.5 {current ===
 					item.href
 						? 'bg-ink-800/70 text-ink-50'
 						: 'text-ink-400 hover:text-ink-50'}"

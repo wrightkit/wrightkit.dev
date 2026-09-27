@@ -52,8 +52,9 @@ const pages = [
 const literals = [
 	'curl -fsSL https://wrightkit.dev/install.sh | bash',
 	'brew install wrightkit/tap/wright',
-	'wright check src/main.opy',
-	"error[unknown-member]: unknown member 'setHealht'"
+	'wright lint rules.txt',
+	'warning[min-wait-loop]: loop body waits at the workshop minimum rate',
+	'warning[while-without-wait]: loop body contains no wait call'
 ];
 
 for (const page of pages) {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Wordmark from './Wordmark.svelte';
-	import { site } from '$lib/site';
+	import { repos, site } from '$lib/site';
 	import { currentMessages } from '$lib/content';
 
 	const t = $derived(currentMessages());
@@ -11,6 +11,12 @@
 		<div class="flex flex-col gap-1">
 			<Wordmark compact />
 			<p>{t.footer.note}</p>
+			<p class="mt-3 flex flex-wrap gap-x-3 gap-y-1">
+				<span class="text-ink-400">{t.footer.openSource}</span>
+				{#each repos as item (item.repo)}
+					<a class="text-link font-mono text-xs leading-5 text-ink-500" href={item.href} target="_blank" rel="noreferrer">{item.repo}</a>
+				{/each}
+			</p>
 		</div>
 		<p class="flex flex-wrap gap-x-2 sm:justify-end">
 			<span>© 2026 {site.name}</span>

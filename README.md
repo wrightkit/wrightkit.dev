@@ -26,14 +26,17 @@ implementation:
 
 Do not treat an issue state, an unreleased branch, or a hidden command as proof
 that a capability ships. Planned features go in the agents section's "Coming
-soon" cards, never in current-capability copy. Keep internal terms such as
+soon" line, never in current-capability copy. Keep internal terms such as
 WIR, HIR, frontend, and provider out of primary homepage messaging. Say what a
 feature does for a Workshop developer; implementation background belongs in the
 owning repository's docs, not on the homepage.
 
 Locale-independent data (URLs, commands, repository names, support status,
-and the hero terminal) lives in `src/lib/site.ts`. The hero terminal shows real
-`wright` output; refresh it when the CLI output changes.
+the hero terminal, and the "What it catches" examples) lives in
+`src/lib/site.ts`. The terminal and every example show real `wright` output:
+each example has a Workshop snippet per locale, written in that game client's
+syntax, and must be re-run through `wright lint` when edited or when the CLI
+output changes.
 
 ## Localization
 

@@ -5,7 +5,7 @@ const en: Messages = {
 	meta: {
 		title: 'WrightKit: Tooling for Overwatch Workshop development',
 		description:
-			'Wright checks, lints, and analyzes Overwatch Workshop and OverPy code, from your editor to CI to your coding agent.'
+			'Wright checks Overwatch Workshop and OverPy code for errors and server-heavy loops. Copy your code out of the game and get findings down to the line.'
 	},
 	ui: {
 		skipToContent: 'Skip to content',
@@ -23,48 +23,99 @@ const en: Messages = {
 		copied: 'Copied to clipboard'
 	},
 	nav: {
-		tooling: 'Tooling',
-		agents: 'Agents',
+		start: 'Get started',
+		features: 'Features',
 		languages: 'Languages',
-		install: 'Install'
+		install: 'Install',
+		docs: 'Docs'
 	},
 	hero: {
-		eyebrow: 'For Workshop developers and coding agents',
+		eyebrow: 'For Overwatch Workshop and OverPy',
 		headline: 'Workshop code, checked.',
-		lead: 'Wright checks, lints, and analyzes Overwatch Workshop and OverPy code. Catch errors before you load the game.',
+		lead: 'Copy your code out of the game. Wright finds errors and server-heavy loops, down to the line, before you test in a match.',
 		primaryCta: 'Install Wright',
 		secondaryCta: 'View on GitHub'
 	},
 	terminal: {
 		title: 'Terminal',
-		label: 'Example wright session'
+		label: 'wright lint on rules copied from the game'
+	},
+	start: {
+		title: 'Copy. Save. Check.',
+		steps: {
+			copy: {
+				title: 'Copy from the game',
+				body: 'Copy your rules or full game settings, the same way you would to share them.'
+			},
+			save: {
+				title: 'Paste into a file',
+				body: 'Save it as a text file, such as rules.txt. English and Chinese client code both work.'
+			},
+			check: {
+				title: 'Run Wright',
+				body: 'Each finding points to a line in the file. Fix it, then paste it back into the game.'
+			}
+		}
+	},
+	features: {
+		title: 'What it catches.',
+		examples: {
+			typo: {
+				title: 'Typos',
+				body: 'A misspelled action or value, caught before you paste the code back.'
+			},
+			noWait: {
+				title: 'While without Wait',
+				body: 'A loop that never pauses can overload the server.'
+			},
+			minWait: {
+				title: 'Waiting 0.016 seconds',
+				body: 'The loop runs as fast as the game allows.'
+			},
+			losInLoop: {
+				title: 'Line of sight in a loop',
+				body: 'A geometry check repeated on every pass can get expensive.'
+			}
+		}
 	},
 	tooling: {
-		title: 'From first line to pull request.',
+		title: 'More tools.',
 		items: {
-			check: {
-				title: 'Check',
-				body: 'Catch errors before the game does. Every diagnostic has a code and an exact location.'
-			},
-			lint: {
-				title: 'Lint',
-				body: 'Flag loops without a Wait, duplicate conditions, and other code that strains the server.'
-			},
 			analyze: {
 				title: 'Analyze',
-				body: 'See your most complex rules and the variables most rules share.'
+				body: 'Your most complex rules and the variables most rules share.'
 			},
 			inspect: {
 				title: 'Inspect',
-				body: 'Every rule, variable, and reference in one view.'
+				body: 'Every rule, variable, and reference in a project.'
 			},
 			lsp: {
 				title: 'Editor',
-				body: 'Diagnostics as you type, plus go to definition, completion, and rename. Works in any LSP editor.'
+				body: 'Errors as you type, plus go to definition, completion, and rename, in editors that support language servers. No VS Code extension yet.'
 			},
 			ci: {
 				title: 'CI',
-				body: 'Findings show up right on your pull request in GitHub Actions.'
+				body: 'Run Wright in GitHub Actions and findings show up on the pull request.'
+			}
+		}
+	},
+	languages: {
+		title: 'Workshop, OverPy, and OSTW.',
+		items: {
+			workshop: {
+				name: 'Workshop',
+				status: 'Supported',
+				body: 'Full native syntax. Code from the English or Chinese client works as is.'
+			},
+			overpy: {
+				name: 'OverPy',
+				status: 'Partial',
+				body: 'Keep your .opy files. Wright checks them and compiles them to Workshop, with output held to the original OverPy compiler.'
+			},
+			ostw: {
+				name: 'OSTW',
+				status: 'In development',
+				body: 'deltin-rs is in progress. Wright support follows.'
 			}
 		}
 	},
@@ -84,59 +135,8 @@ const en: Messages = {
 				body: 'Teach your agent Wright with the skill in wrightkit/skills.'
 			}
 		],
-		upcoming: [
-			{
-				title: 'Request to change',
-				body: 'Describe the feature. Your agent builds and checks it with Wright.'
-			},
-			{
-				title: 'Checked edits',
-				body: 'Edits are validated before they touch your files.'
-			},
-			{
-				title: 'Project queries',
-				body: 'Rules, variables, references, and call graphs on request.'
-			},
-			{
-				title: 'Cost estimates',
-				body: 'Know the server cost of a change before you ship it.'
-			}
-		],
-		upcomingBadge: 'Coming soon'
-	},
-	languages: {
-		title: 'Workshop, OverPy, and OSTW.',
-		items: {
-			workshop: {
-				name: 'Workshop',
-				status: 'Supported',
-				body: 'Full native syntax support, in English and Chinese. Convert between the two.'
-			},
-			overpy: {
-				name: 'OverPy',
-				status: 'Partial',
-				body: 'Check, lint, and analyze OverPy projects. Compile them to Workshop.'
-			},
-			ostw: {
-				name: 'OSTW',
-				status: 'In development',
-				body: 'deltin-rs is in progress. Wright support follows.'
-			}
-		},
-		compatibility: {
-			title: 'Compatibility',
-			lead: 'OverPy and OSTW output is compared with the original compilers, structure by structure.',
-			criteriaLabel: 'What gets compared',
-			criteria: [
-				'Rule order',
-				'Which actions and values are used',
-				'Control flow',
-				'Condition structure',
-				'How values are built',
-				'Variable names and indices',
-				'Element count'
-			]
-		}
+		upcomingLabel: 'Coming soon',
+		upcoming: ['Request to change', 'Checked edits', 'Project queries', 'Cost estimates']
 	},
 	install: {
 		title: 'Get Wright.',
@@ -185,47 +185,9 @@ const en: Messages = {
 			after: '.'
 		}
 	},
-	ecosystem: {
-		eyebrow: 'Open source',
-		title: 'How it fits together.',
-		lead: 'Wright is the tool you install. Each language lives in its own open-source project.',
-		principles: [
-			{
-				title: 'Honest',
-				body: 'Wright tells you what it can’t verify, and makes no promises about a live server.'
-			},
-			{
-				title: 'Just the facts',
-				body: 'Verified Workshop data. No calls on balance or game design.'
-			},
-			{
-				title: 'Few false positives',
-				body: 'Built-in rules stay strict. Broader checks go in optional rule sets.'
-			}
-		],
-		repos: {
-			wright: 'CLI and language server.',
-			'workshop-rs': 'Workshop core: elements, parsing, validation.',
-			'opy-rs': 'OverPy compiler and analysis.',
-			'deltin-rs': 'DeltinScript / OSTW (in development).',
-			'language-provider-protocol': 'Protocol between Wright and language implementations.',
-			skills: 'wright skill for coding agents.',
-			'homebrew-tap': 'Homebrew formula.'
-		},
-		nonGoals: {
-			title: 'Not in scope',
-			items: [
-				'A generic compiler framework',
-				'A full IDE',
-				'Project hosting',
-				'A generic AI agent framework',
-				'A game runtime simulator',
-				'A transpiler collection'
-			]
-		}
-	},
 	footer: {
-		note: 'Tooling for Overwatch Workshop development.'
+		note: 'Tooling for Overwatch Workshop development.',
+		openSource: 'Open source'
 	}
 };
 

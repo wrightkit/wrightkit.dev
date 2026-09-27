@@ -1,10 +1,11 @@
 <script lang="ts">
 	import Hero from '$lib/components/Hero.svelte';
+	import StartSection from '$lib/components/StartSection.svelte';
+	import FeaturesSection from '$lib/components/FeaturesSection.svelte';
 	import ToolingSection from '$lib/components/ToolingSection.svelte';
 	import AgentsSection from '$lib/components/AgentsSection.svelte';
 	import LanguagesSection from '$lib/components/LanguagesSection.svelte';
 	import InstallSection from '$lib/components/InstallSection.svelte';
-	import EcosystemSection from '$lib/components/EcosystemSection.svelte';
 	import { site } from '$lib/site';
 	import { defaultLocale, localeInfo, localePath, locales, type Locale } from '$lib/locales';
 	import { currentLocale, currentMessages } from '$lib/content';
@@ -38,8 +39,9 @@
 </svelte:head>
 
 <Hero />
+<StartSection />
+<FeaturesSection />
 <ToolingSection />
-<AgentsSection />
 <LanguagesSection />
+<AgentsSection />
 <InstallSection />
-<EcosystemSection />

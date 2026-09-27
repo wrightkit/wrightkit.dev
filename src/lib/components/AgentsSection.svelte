@@ -16,15 +16,16 @@
 		{/each}
 	</ul>
 
-	<ul class="mt-3 grid gap-3 sm:mt-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
-		{#each agents.upcoming as item, i (i)}
-			<li class="flex flex-col rounded-card border border-dashed border-ink-800 p-5 sm:p-6">
-				<span class="self-start rounded-full px-2.5 py-0.5 text-xs font-medium text-ink-400 ring-1 ring-inset ring-ink-800">
-					{agents.upcomingBadge}
-				</span>
-				<h3 class="mt-4 text-[1.0625rem] font-semibold tracking-[-0.012em] text-ink-200">{item.title}</h3>
-				<p class="mt-2 text-[0.9375rem] leading-relaxed text-ink-500">{item.body}</p>
-			</li>
-		{/each}
-	</ul>
+	<div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.9375rem] text-ink-500">
+		<span class="rounded-full px-2.5 py-0.5 text-xs font-medium text-ink-400 ring-1 ring-inset ring-ink-800">
+			{agents.upcomingLabel}
+		</span>
+		<ul class="flex flex-wrap gap-x-2 gap-y-1">
+			{#each agents.upcoming as item, i (i)}
+				<li class="flex gap-2">
+					{#if i > 0}<span class="text-ink-700" aria-hidden="true">·</span>{/if}{item}
+				</li>
+			{/each}
+		</ul>
+	</div>
 </Section>

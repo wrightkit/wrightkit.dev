@@ -7,7 +7,7 @@
 </script>
 
 <Section id="tooling" title={t.tooling.title} lead={t.tooling.lead}>
-	<ul class="mt-10 grid gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+	<ul class="mt-10 grid gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
 		{#each tooling as item (item.id)}
 			<li class="surface flex flex-col p-5 sm:p-6">
 				<h3 class="text-[1.0625rem] font-semibold tracking-[-0.012em] text-ink-50">{t.tooling.items[item.id].title}</h3>

@@ -10,6 +10,7 @@
 		prompt: 'text-[#f7f7f5]',
 		error: 'text-[#ff7b72]',
 		warning: 'text-[#ff9a4d]',
+		info: 'text-[#79c0ff]',
 		dim: 'text-[#85857e]',
 		blank: ''
 	} as const;
