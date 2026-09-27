@@ -4,7 +4,7 @@
 	import { prefersReducedMotion } from 'svelte/motion';
 	import { MediaQuery } from 'svelte/reactivity';
 	import Wordmark from './Wordmark.svelte';
-	import { nav, site } from '$lib/site';
+	import { nav } from '$lib/site';
 
 	let isOpen = $state(false);
 	let current = $state('');
@@ -154,18 +154,7 @@
 					{/each}
 				</nav>
 
-				<div class="mt-5 grid grid-cols-2 gap-2.5">
-					<a href="#install" class="btn btn-primary" onclick={closeMenu}>Install Wright</a>
-					<a
-						href={site.github}
-						target="_blank"
-						rel="noreferrer"
-						class="btn btn-ghost"
-						onclick={closeMenu}
-					>
-						GitHub
-					</a>
-				</div>
+				<a href="#install" class="btn btn-primary mt-5 w-full" onclick={closeMenu}>Install Wright</a>
 			</div>
 		</div>
 	{/if}

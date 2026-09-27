@@ -1,14 +1,5 @@
 <script lang="ts">
-	let {
-		text,
-		label = 'Copy',
-		showLabel = false
-	}: {
-		text: string;
-		/** Accessible name; shown next to the icon when showLabel is true. */
-		label?: string;
-		showLabel?: boolean;
-	} = $props();
+	let { text, label = 'Copy' }: { text: string; label?: string } = $props();
 
 	let copied = $state(false);
 	let timeoutId: ReturnType<typeof setTimeout> | undefined;
@@ -45,13 +36,11 @@
 
 <button
 	type="button"
-	class="relative inline-flex h-8 shrink-0 touch-manipulation select-none items-center justify-center gap-1.5 rounded-full text-xs font-medium transition-[background-color,color,transform] duration-150 active:scale-[0.92] active:duration-75 after:absolute after:-inset-1.5 after:content-[''] {showLabel
-		? 'px-3'
-		: 'w-8'} {copied
+	class="relative inline-flex h-8 w-8 shrink-0 touch-manipulation select-none items-center justify-center rounded-full transition-[background-color,color,transform] duration-150 active:scale-[0.92] active:duration-75 after:absolute after:-inset-1.5 after:content-[''] {copied
 		? 'bg-accent-500/15 text-accent-400'
 		: 'bg-ink-800/80 text-ink-300 hover:bg-ink-700 hover:text-ink-50'}"
 	onclick={handleCopy}
-	aria-label={showLabel ? undefined : label}
+	aria-label={label}
 	title={label}
 >
 	{#if copied}
@@ -64,6 +53,5 @@
 			<path d="M3.5 10.5V4.5a1 1 0 0 1 1-1h6" />
 		</svg>
 	{/if}
-	{#if showLabel}<span>{copied ? 'Copied' : label}</span>{/if}
 	<span class="sr-only" aria-live="polite">{copied ? 'Copied to clipboard' : ''}</span>
 </button>

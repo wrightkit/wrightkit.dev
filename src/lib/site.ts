@@ -11,7 +11,6 @@
 
 export const site = {
 	name: 'WrightKit',
-	product: 'Wright',
 	brand: 'WrightKit',
 	url: 'https://wrightkit.dev',
 	tagline: 'Tooling for Overwatch Workshop development',
@@ -39,7 +38,7 @@ export const nav = [
 ] satisfies readonly NavItem[];
 
 export const hero = {
-	eyebrow: 'For Overwatch Workshop developers and coding agents',
+	eyebrow: 'For Workshop developers and coding agents',
 	headline: 'Workshop tooling that shows its work.',
 	lead: 'Wright checks, lints, and analyzes raw Workshop and OverPy projects. Every finding points to the exact line and says how sure it is, and the same results come as structured data for your editor, your CI, and your coding agent.',
 	primaryCta: { label: 'Install Wright', href: '#install' },
