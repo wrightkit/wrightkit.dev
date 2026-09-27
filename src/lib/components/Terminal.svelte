@@ -20,7 +20,7 @@
 		<span class="text-xs font-medium text-ink-500">{terminal.title}</span>
 	</figcaption>
 	<pre
-		class="no-scrollbar overflow-x-auto px-4 pb-5 pt-1 font-mono text-[0.75rem] leading-[1.7] sm:px-5 sm:text-[0.8125rem]"
+		class="whitespace-pre-wrap break-words px-4 pb-5 pt-1 font-mono text-[0.75rem] leading-[1.7] sm:px-5 sm:text-[0.8125rem]"
 		aria-label="Example wright session"><code
 			>{#each terminal.lines as line, i (i)}<span class="block min-h-[1.7em] {tone[line.kind]}"
 					>{#if line.kind === 'prompt'}<span class="select-none text-ink-600">$ </span

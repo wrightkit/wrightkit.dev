@@ -39,9 +39,9 @@ export const nav = [
 ] satisfies readonly NavItem[];
 
 export const hero = {
-	eyebrow: 'Overwatch Workshop tooling',
-	headline: 'Understand, check, and change Workshop code with confidence.',
-	lead: 'Wright reads raw Workshop and OverPy projects, then tells you what is wrong, what is risky, and exactly where. The same results come as structured data for your editor, your CI, and your coding agent.',
+	eyebrow: 'For Overwatch Workshop developers and coding agents',
+	headline: 'Workshop tooling that shows its work.',
+	lead: 'Wright checks, lints, and analyzes raw Workshop and OverPy projects. Every finding points to the exact line and says how sure it is, and the same results come as structured data for your editor, your CI, and your coding agent.',
 	primaryCta: { label: 'Install Wright', href: '#install' },
 	secondaryCta: { label: 'View on GitHub', href: site.github },
 	quickInstall: 'curl -fsSL https://wrightkit.dev/install.sh | bash'
@@ -68,7 +68,7 @@ export const terminal = {
 
 export const tooling = {
 	eyebrow: 'Tooling first',
-	title: 'Every result points to a line of code.',
+	title: 'Built for checking real projects.',
 	lead: 'Diagnostics, lints, and analysis share one semantic model, so each result carries a stable code and a source location. Compilation exists to connect languages; it is not the point.',
 	items: [
 		{
