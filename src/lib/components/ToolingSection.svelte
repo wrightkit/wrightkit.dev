@@ -6,7 +6,7 @@
 	const t = $derived(currentMessages());
 </script>
 
-<Section id="tooling" eyebrow={t.tooling.eyebrow} title={t.tooling.title} lead={t.tooling.lead}>
+<Section id="tooling" title={t.tooling.title} lead={t.tooling.lead}>
 	<ul class="mt-10 grid gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
 		{#each tooling as item (item.id)}
 			<li class="surface flex flex-col p-5 sm:p-6">

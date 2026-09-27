@@ -16,7 +16,7 @@
 </script>
 
 <figure
-	class="min-w-0 overflow-hidden rounded-card bg-[#1a1a17] shadow-2xl ring-1 shadow-black/25 ring-white/[0.06] ring-inset [color-scheme:dark]"
+	class="min-w-0 overflow-hidden rounded-card bg-[#1a1a17] shadow-md ring-1 shadow-black/15 ring-white/[0.06] ring-inset [color-scheme:dark]"
 >
 	<figcaption class="flex items-center gap-3 px-4 py-3">
 		<span class="flex gap-1.5" aria-hidden="true">

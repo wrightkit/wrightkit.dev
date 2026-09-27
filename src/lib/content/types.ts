@@ -11,7 +11,6 @@ interface Block {
 }
 
 interface SectionCopy {
-	eyebrow: string;
 	title: string;
 	lead: string;
 }
@@ -86,6 +85,8 @@ export interface Messages {
 		releases: { before: string; link: string; after: string };
 	};
 	ecosystem: SectionCopy & {
+		/** Only the ecosystem section keeps a kicker: it adds "open source", which the title doesn't say. */
+		eyebrow: string;
 		principles: Tuple<Block, 3>;
 		repos: Record<RepoName, string>;
 		nonGoals: { title: string; items: Tuple<string, 6> };

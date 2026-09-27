@@ -40,9 +40,8 @@ const en: Messages = {
 		label: 'Example wright session'
 	},
 	tooling: {
-		eyebrow: 'Tooling first',
 		title: 'Built for checking real projects.',
-		lead: 'Checks, lints, and analysis read your code the same way, so every result has a fixed code and an exact location. Compilation is there to connect languages. It is not the main job.',
+		lead: 'Checks, lints, and analysis read your code the same way, so every result has a fixed code and an exact location. Compiling between languages is there to support these checks.',
 		items: {
 			check: {
 				title: 'Diagnostics',
@@ -71,9 +70,8 @@ const en: Messages = {
 		}
 	},
 	agents: {
-		eyebrow: 'Developers and agents',
 		title: 'One set of tools for you and your coding agent.',
-		lead: 'Your agent gets the same results you do, as stable JSON. No scraping terminal output, no homemade parsers. WrightKit gives agents Workshop tooling; it is not an agent framework.',
+		lead: 'Your agent gets the same results you do, as stable JSON. It does not have to scrape terminal output or parse code itself. WrightKit gives agents Workshop tooling; it is not an agent framework.',
 		developers: {
 			title: 'For developers',
 			points: [
@@ -105,14 +103,13 @@ const en: Messages = {
 		}
 	},
 	languages: {
-		eyebrow: 'Languages',
 		title: 'Workshop at the center, OverPy and OSTW around it.',
-		lead: 'Each language has its own implementation, and conversions between them go through Workshop instead of one-off bridges. Support grows with real projects, not a feature checklist.',
+		lead: 'Each language has its own implementation, and conversions between them go through Workshop instead of one-off bridges. Support is added where real projects need it.',
 		items: {
 			workshop: {
 				name: 'Workshop',
 				status: 'Supported',
-				body: 'A language you write in, not just compiler output. Parsing, validation, analysis, standard-form output, and en-US ↔ zh-CN conversion.'
+				body: 'Wright treats it as source you write: parsing, validation, analysis, standard-form output, and en-US ↔ zh-CN conversion.'
 			},
 			overpy: {
 				name: 'OverPy',
@@ -146,7 +143,6 @@ const en: Messages = {
 		}
 	},
 	install: {
-		eyebrow: 'Install',
 		title: 'Get Wright.',
 		lead: 'One install gives you wright and wright-lsp. The language engines also publish their own libraries from their repositories.',
 		platformLabel: 'Platform',
@@ -203,7 +199,7 @@ const en: Messages = {
 				body: 'Wright explains how it reached each result and flags what it cannot prove. It does not promise how code behaves on a live server.'
 			},
 			{
-				title: 'Technical, not taste',
+				title: 'Technical facts only',
 				body: 'WrightKit tracks verified Workshop facts such as the element catalog and resource limits. It does not judge balance or game design.'
 			},
 			{

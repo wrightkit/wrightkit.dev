@@ -51,9 +51,9 @@
 
 	<div class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-baseline sm:gap-5">
 		<h3 class="shrink-0 text-sm font-medium text-ink-300">{ecosystem.nonGoals.title}</h3>
-		<ul class="flex flex-wrap gap-2">
+		<ul class="flex flex-wrap gap-x-2 gap-y-1 text-sm text-ink-500">
 			{#each ecosystem.nonGoals.items as item, i (i)}
-				<li class="rounded-full px-3 py-1 text-[0.8125rem] text-ink-500 ring-1 ring-inset ring-ink-800">{item}</li>
+				<li class="after:ml-2 after:text-ink-700 after:content-['·'] last:after:content-none">{item}</li>
 			{/each}
 		</ul>
 	</div>

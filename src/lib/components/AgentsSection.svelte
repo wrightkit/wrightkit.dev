@@ -7,7 +7,7 @@
 	const columns = $derived([agents.developers, agents.codingAgents]);
 </script>
 
-<Section id="agents" eyebrow={agents.eyebrow} title={agents.title} lead={agents.lead}>
+<Section id="agents" title={agents.title} lead={agents.lead}>
 	<div class="mt-10 grid gap-3 sm:mt-14 sm:gap-4 md:grid-cols-2">
 		{#each columns as column, c (c)}
 			<div class="surface p-5 sm:p-7">

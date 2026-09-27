@@ -7,14 +7,8 @@
 	const t = $derived(currentMessages());
 </script>
 
-<section class="relative overflow-hidden">
-	<!-- Soft accent glow; static, so it adds depth without motion. -->
-	<div
-		class="pointer-events-none absolute -top-40 left-1/2 h-[28rem] w-[56rem] -translate-x-1/2 rounded-full bg-accent-500/[0.07] blur-3xl"
-		aria-hidden="true"
-	></div>
-
-	<div class="container-site relative pb-16 pt-14 sm:pb-24 sm:pt-24 lg:pb-28 lg:pt-28">
+<section>
+	<div class="container-site pb-16 pt-14 sm:pb-24 sm:pt-24 lg:pb-28 lg:pt-28">
 		<div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-16">
 			<div class="min-w-0">
 				<p class="eyebrow">{t.hero.eyebrow}</p>

@@ -65,7 +65,7 @@
 	});
 </script>
 
-<Section id="install" eyebrow={install.eyebrow} title={install.title} lead={install.lead}>
+<Section id="install" title={install.title} lead={install.lead}>
 	<div class="mt-10 max-w-3xl sm:mt-12">
 		<div class="no-scrollbar -mx-1 overflow-x-auto px-1 py-1">
 			<div

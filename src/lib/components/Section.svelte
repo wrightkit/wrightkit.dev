@@ -22,7 +22,7 @@
 			{#if eyebrow}
 				<p class="eyebrow">{eyebrow}</p>
 			{/if}
-			<h2 id="{id}-title" class="mt-2.5 text-title font-semibold text-balance text-ink-50">{title}</h2>
+			<h2 id="{id}-title" class="{eyebrow ? 'mt-2.5' : ''} text-title font-semibold text-balance text-ink-50">{title}</h2>
 			{#if lead}
 				<p class="mt-4 max-w-2xl text-lead text-pretty text-ink-400">{lead}</p>
 			{/if}

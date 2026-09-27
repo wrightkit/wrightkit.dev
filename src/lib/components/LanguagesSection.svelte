@@ -13,7 +13,7 @@
 	};
 </script>
 
-<Section id="languages" eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead}>
+<Section id="languages" title={copy.title} lead={copy.lead}>
 	<ul class="mt-10 grid gap-3 sm:mt-14 sm:gap-4 md:grid-cols-3">
 		{#each languages as item (item.id)}
 			<li class="surface flex flex-col p-5 sm:p-6">
@@ -39,11 +39,12 @@
 			<p class="mt-2 text-[0.9375rem] leading-relaxed text-pretty text-ink-400">
 				{copy.compatibility.lead}
 			</p>
-			<ul class="mt-5 flex flex-wrap gap-2" aria-label={copy.compatibility.criteriaLabel}>
+			<ul
+				class="mt-5 grid gap-x-6 gap-y-2 text-[0.9375rem] text-ink-200 sm:grid-cols-2"
+				aria-label={copy.compatibility.criteriaLabel}
+			>
 				{#each copy.compatibility.criteria as criterion, i (i)}
-					<li class="rounded-full bg-ink-950/80 px-3 py-1 text-[0.8125rem] text-ink-200 ring-1 ring-inset ring-ink-800">
-						{criterion}
-					</li>
+					<li class="border-t border-ink-800 pt-2">{criterion}</li>
 				{/each}
 			</ul>
 		</div>

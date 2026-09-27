@@ -38,7 +38,7 @@ const zhCN: Messages = {
 	hero: {
 		eyebrow: '面向地图工坊开发者与 AI 编程助手',
 		headline: '有理有据的\u200b地图工坊工具。',
-		lead: 'Wright 检查你的地图工坊和 OverPy 代码，找出错误和服务器负载隐患。每条结果都精确到行，并标明置信程度。你的编辑器、CI 与 AI 编程助手获得完全一致的结果。',
+		lead: 'Wright 检查你的地图工坊和 OverPy 代码，找出错误和服务器负载隐患。每条结果都精确到行，并注明有多大把握。编辑器、CI 和 AI 编程助手拿到的是同一份结果。',
 		primaryCta: '安装 Wright',
 		secondaryCta: '在 GitHub 上查看'
 	},
@@ -47,25 +47,24 @@ const zhCN: Messages = {
 		label: 'wright 使用示例'
 	},
 	tooling: {
-		eyebrow: '工具优先',
-		title: '专为检查\u200b真实项目打造。',
-		lead: '检查、lint 和分析以同一种方式理解你的代码，每条结果都具备固定编号与精确位置。编译只负责连通不同语言，并非核心工作。',
+		title: '为检查\u200b真实项目而做。',
+		lead: '检查、lint 和分析用同一种方式理解你的代码，所以每条结果都有固定编号和精确位置。编译用来打通不同语言，为这些检查服务。',
 		items: {
 			check: {
 				title: '诊断',
-				body: '错误与警告均带有固定编号、严重级别和精确的源码位置。'
+				body: '每条错误和警告都带有固定编号、严重级别和精确的源码位置。'
 			},
 			lint: {
 				title: '高置信度 lint 规则',
-				body: '一组精简的内置规则，专门排查会加重服务器负载的循环、等待和条件结构。每条结果均注明证据的充分程度。'
+				body: '一小组内置规则，专门找出会加重服务器负载的循环、等待和条件写法。每条结果都说明证据有多充分。'
 			},
 			analyze: {
 				title: '代码分析',
-				body: '找出性能热点、循环与等待，以及多条规则共用的变量。每项结论均标明确凿事实与启发式推测。'
+				body: '找出控制流热点、循环与等待，以及多条规则共用的变量。每项结论都标明是确定的还是推测的。'
 			},
 			inspect: {
 				title: '结构查看',
-				body: '完整呈现程序的结构和语义，供需要深入细节的工具使用。'
+				body: '完整呈现程序的结构和语义，给需要详细信息的工具用。'
 			},
 			lsp: {
 				title: '编辑器支持',
@@ -73,68 +72,66 @@ const zhCN: Messages = {
 			},
 			ci: {
 				title: 'CI 集成',
-				body: '退出码有清晰文档说明，所有结果统一为 JSON 格式，并在 GitHub Actions 中自动标注问题。'
+				body: '退出码都有文档，所有结果统一为 JSON 格式，在 GitHub Actions 中自动标注问题。'
 			}
 		}
 	},
 	agents: {
-		eyebrow: '开发者与 AI 助手',
 		title: '你和 AI 编程助手，用同一套工具。',
-		lead: 'AI 助手获得与你完全一致的结果，且采用格式稳定的 JSON，无需解析终端输出，亦无需自行编写解析器。WrightKit 为 AI 助手提供地图工坊工具支持，但其本身并非 Agent 框架。',
+		lead: 'AI 助手拿到的结果和你看到的一样，格式是稳定的 JSON，不用解析终端输出，也不用自己写解析器。WrightKit 给 AI 助手提供地图工坊工具，它本身不是 Agent 框架。',
 		developers: {
 			title: '面向开发者',
 			points: [
-				'清晰的终端输出，直接定位出问题的那一行',
-				'通过 wright-lsp 深度接入常用编辑器',
-				'按项目配置 lint：可自由关闭规则或调整严重级别',
+				'终端输出直接指向出问题的那一行',
+				'通过 wright-lsp 接入支持 LSP 的编辑器',
+				'按项目配置 lint：关闭规则或调整严重级别',
 				'在 GitHub Actions 中运行时，直接在 Pull Request 上标注问题'
 			]
 		},
 		codingAgents: {
 			title: '面向 AI 编程助手',
 			points: [
-				'所有命令统一输出同一种带版本约定的 JSON',
-				'固定不变的诊断编号、规则 ID 与退出码，便于做出分支判断',
-				'批量修改整体校验，自动拒绝彼此重叠或依赖执行顺序的修改',
-				'内置 wright Agent Skill，发布于 wrightkit/skills'
+				'所有命令都输出同一种带版本号的 JSON',
+				'诊断编号、规则 ID 和退出码固定不变，可以据此判断下一步',
+				'批量修改整体校验，拒绝相互重叠或依赖先后顺序的修改',
+				'wright Agent Skill，发布在 wrightkit/skills'
 			]
 		},
 		loop: {
-			title: '未来演进方向',
-			lead: '目标是：你只需描述需求，AI 助手借助 WrightKit 完成以下每一步，让你专注于玩法设计而非地图工坊的语法细节。其中部分能力现已可用，带版本约定的 Agent 接口协议仍在开发中。',
+			title: '接下来的方向',
+			lead: '目标是：你描述需求，AI 助手用 WrightKit 完成下面每一步，你专注于设计本身，不用操心地图工坊的语法细节。其中一部分现在已经可用，带版本号的 Agent 接口约定还在开发中。',
 			steps: [
 				{ title: '查看', body: '读取项目、规则与依赖关系。' },
-				{ title: '修改', body: '精准修改源码，改动均预先经过校验。' },
-				{ title: '检查', body: '重新运行诊断与 lint 规则。' },
+				{ title: '修改', body: '精准修改源码，改动先经过校验。' },
+				{ title: '检查', body: '重新运行诊断和 lint。' },
 				{ title: '评估', body: '估算资源开销，标出服务器负载风险。' },
-				{ title: '报告', body: '明确说明哪些行为未经实际运行便无法确认。' }
+				{ title: '报告', body: '说明哪些行为不实际运行就无法确认。' }
 			]
 		}
 	},
 	languages: {
-		eyebrow: '语言支持',
 		title: '以地图工坊为核心，\u200b连接 OverPy 与 OSTW。',
-		lead: '每种语言均有独立实现，语言间转换统一以地图工坊为中枢，而非各自搭桥。支持范围随真实项目需求扩展，而非机械对照功能清单堆砌。',
+		lead: '每种语言都有独立实现，语言之间的转换统一经过地图工坊。真实项目用到什么，就先支持什么。',
 		items: {
 			workshop: {
 				name: '地图工坊',
 				status: '已支持',
-				body: '可以直接编写的头等语言，而不单纯是编译产物。支持解析、校验、分析、规范化格式输出，以及英文 (en-US) 与简体中文 (zh-CN) 代码互转。'
+				body: 'Wright 把它当作你直接编写的源码：解析、校验、分析、规范格式输出，以及英文 (en-US) 与简体中文 (zh-CN) 代码互转。'
 			},
 			overpy: {
 				name: 'OverPy',
 				status: '部分支持',
-				body: '使用 Wright 检查、lint 和分析现有的 OverPy 项目。已支持的语法可直接编译至地图工坊，其余部分则给出明确诊断。'
+				body: '用 Wright 检查、lint 和分析现有的 OverPy 项目。已支持的语法可以编译到地图工坊，其余部分会给出明确的诊断。'
 			},
 			ostw: {
 				name: 'OSTW',
 				status: '开发中',
-				body: 'deltin-rs 已支持解析、项目管理与类型分析。高级特性的编译尚未完成，Wright 目前暂未支持 OSTW。'
+				body: 'deltin-rs 已经能处理解析、项目和类型分析。高级特性的编译还没完成，Wright 目前也还不支持 OSTW。'
 			}
 		},
 		compatibility: {
-			title: '何谓“兼容”',
-			lead: '对 OverPy 和 OSTW 而言，原版上游编译器就是既定基准。Wright 与原版编译器编译同一份源码，并将两端生成的地图工坊代码逐结构展开比对。',
+			title: '“兼容”是什么意思',
+			lead: '对 OverPy 和 OSTW 来说，原版编译器就是标准。Wright 和原版编译器编译同一份源码，再把两边生成的地图工坊代码按结构逐项比对。',
 			criteriaLabel: '比对内容',
 			criteria: [
 				'规则顺序',
@@ -146,16 +143,15 @@ const zhCN: Messages = {
 				'元素数量'
 			],
 			notes: [
-				'排版、空白字符与注释均不计入比对，绝不以纯文本差异衡量兼容性。',
-				'任何与原版输出的不一致，即使是为了规避上游疑似缺陷，也必须经过审核并明确记录为例外。',
-				'新英雄、新地图、新动作与新配置会第一时间合入 workshop-rs，无需等待原版编译器更新发布。'
+				'格式、空白和注释不算在内，也从不用文本差异来衡量。',
+				'和原版输出有任何不同，哪怕是为了绕开原版疑似的 bug，也必须经过批准并记录为例外。',
+				'新英雄、新地图、新动作和新设置直接加入 workshop-rs，不用等原版编译器更新。'
 			]
 		}
 	},
 	install: {
-		eyebrow: '安装',
 		title: '获取 Wright。',
-		lead: '一次安装即可获得 wright 与 wright-lsp。各语言引擎也在各自仓库中作为独立库发布。',
+		lead: '装一次就有 wright 和 wright-lsp。各语言引擎也在各自的仓库里单独发布库。',
 		platformLabel: '平台',
 		targets: {
 			macos: {
@@ -170,72 +166,72 @@ const zhCN: Messages = {
 				badge: 'x86_64',
 				method: '安装脚本',
 				altMethod: '自定义安装目录',
-				note: '下载对应的发布归档，并验证校验和。'
+				note: '下载对应的发布包，并验证校验和。'
 			},
 			windows: {
 				label: 'Windows',
 				badge: 'x86_64',
 				method: 'PowerShell 安装脚本',
 				altMethod: '自定义安装目录',
-				note: '下载对应的 Windows 发布归档，并验证校验和。'
+				note: '下载对应的 Windows 发布包，并验证校验和。'
 			},
 			ci: {
 				label: 'CI 与 AI 助手',
 				badge: '固定版本',
 				method: '安装指定版本',
 				altMethod: 'JSON 输出',
-				note: '将 WRIGHT_VERSION 设为 GitHub Releases 中的指定 tag，确保每次运行使用相同版本。'
+				note: '把 WRIGHT_VERSION 设为 GitHub Releases 里的某个 tag，每次运行都用同一个版本。'
 			},
 			source: {
 				label: '从源码构建',
 				badge: `Rust ${site.msrv}+`,
 				method: 'Cargo 构建',
 				altMethod: '运行测试',
-				note: '从 wrightkit/wright 源码检出并在本地构建。'
+				note: '克隆 wrightkit/wright 后在本地构建。'
 			}
 		},
 		releases: {
-			before: '各平台的发布归档与校验和均可在 ',
+			before: '各平台的发布包和校验和都在 ',
 			link: 'GitHub Releases 页面',
-			after: '获取。'
+			after: '。'
 		}
 	},
 	ecosystem: {
 		eyebrow: '开源',
 		title: 'WrightKit \u200b由哪些部分组成。',
-		lead: 'Wright 是面向开发者的核心集成工具。其底层的各个语言引擎均为独立项目，拥有各自的测试、版本发布与开源许可，亦可单独使用。',
+		lead: 'Wright 是你安装的工具。它底下的各个语言引擎都是独立项目，可以单独使用，各自有测试、版本发布和许可证。',
 		principles: [
 			{
 				title: '坦诚说明局限',
-				body: 'Wright 会说明每条结论从何而来，并如实标出无法确证的部分。它不轻许代码在真实服务器上的运行表现。'
+				body: 'Wright 会说明每条结论从何而来，并标出它无法确认的部分。它不保证代码在实际服务器上怎么运行。'
 			},
 			{
-				title: '只谈技术，不评玩法',
-				body: 'WrightKit 只记录经过验证的地图工坊技术事实（如元素目录与资源上限），不评判游戏平衡性或玩法设计。'
+				title: '只管技术事实',
+				body: 'WrightKit 只记录经过验证的地图工坊事实，比如元素目录和资源上限，不评判平衡性或玩法设计。'
 			},
 			{
 				title: '小而可靠的核心',
-				body: '内置规则力求极低误报，更宽泛的检查项放于可选规则集中。'
+				body: '内置规则尽量少误报，更宽泛的检查放在可选规则集里。'
 			}
 		],
 		repos: {
-			wright: '命令行工具与语言服务器：提供诊断、lint、分析，以及编辑器与 CI 集成。',
+			wright: '命令行工具和语言服务器：诊断、lint、分析，以及编辑器和 CI 集成。',
 			'workshop-rs': '地图工坊核心：元素目录、解析、校验、本地化和规范代码输出。',
-			'opy-rs': 'OverPy 语言实现，包含语义分析以及向地图工坊代码的编译。',
+			'opy-rs': 'OverPy 实现，包括语义分析和到地图工坊的编译。',
 			'deltin-rs': 'DeltinScript / OSTW 语言实现（开发中）。',
 			'language-provider-protocol': '连接 Wright 与各语言实现的版本化协议。',
 			skills: '供 AI 编程助手使用的 wright Agent Skill。',
 			'homebrew-tap': 'Wright 的 Homebrew 安装配方。'
 		},
 		nonGoals: {
-			title: '明确不做的方向',
+			title: '不做什么',
 			items: [
 				'通用编译器框架',
 				'完整的 IDE',
-				'项目托管平台',
+				'项目托管',
 				'通用 AI Agent 框架',
 				'游戏运行模拟器',
-				'纯转译器合集'
+				'转译器合集'
 			]
 		}
 	},
