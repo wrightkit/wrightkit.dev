@@ -1,5 +1,6 @@
 /**
- * Single source of truth for public copy and capability claims.
+ * English source of truth for public copy and capability claims.
+ * The Simplified Chinese translation lives in site.zh-CN.ts and should mirror this structure.
  *
  * Positioning follows wrightkit/.github docs/goal.md: Wright is the product,
  * tooling comes first, and compilation exists to serve tooling workflows.

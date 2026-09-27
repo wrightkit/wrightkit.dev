@@ -2,9 +2,15 @@
 	import { onMount, tick } from 'svelte';
 	import Section from './Section.svelte';
 	import CopyButton from './CopyButton.svelte';
-	import { install } from '$lib/site';
+	import { page } from '$app/state';
+	import { contentForPath } from '$lib/i18n';
+	import { install as installShape } from '$lib/site';
 
-	type TargetId = (typeof install.targets)[number]['id'];
+	let content = $derived(contentForPath(page.url.pathname));
+	let install = $derived(content.install);
+	let ui = $derived(content.ui);
+
+	type TargetId = (typeof installShape.targets)[number]['id'];
 
 	let activeId = $state<TargetId>('macos');
 	let active = $derived(install.targets.find((t) => t.id === activeId) ?? install.targets[0]);
@@ -66,7 +72,7 @@
 			<div
 				class="relative inline-flex gap-0.5 rounded-full bg-ink-900 p-1 ring-1 ring-inset ring-ink-50/[0.06]"
 				role="tablist"
-				aria-label="Platform"
+				aria-label={ui.platform}
 			>
 				<span
 					data-motion="move"
@@ -111,7 +117,7 @@
 
 			<div class="mt-3 flex items-start gap-2 rounded-control bg-ink-950/80 p-1.5 pl-3.5 ring-1 ring-inset ring-ink-800/80">
 				<pre class="min-w-0 flex-1 overflow-x-auto py-1.5 font-mono text-[0.8125rem] leading-relaxed text-ink-100"><code>{active.command}</code></pre>
-				<CopyButton text={active.command} label="Copy command" />
+				<CopyButton text={active.command} label={ui.copyCommand} copiedLabel={ui.copiedToClipboard} />
 			</div>
 			<p class="mt-3 text-sm leading-relaxed text-ink-500">{active.note}</p>
 
@@ -119,7 +125,7 @@
 				<h4 class="text-sm font-medium text-ink-300">{active.altMethod}</h4>
 				<div class="mt-2.5 flex items-start gap-2 rounded-control bg-ink-950/60 p-1.5 pl-3.5">
 					<pre class="min-w-0 flex-1 overflow-x-auto py-1.5 font-mono text-xs leading-relaxed text-ink-300"><code>{active.altCommand}</code></pre>
-					<CopyButton text={active.altCommand} label="Copy command" />
+					<CopyButton text={active.altCommand} label={ui.copyCommand} copiedLabel={ui.copiedToClipboard} />
 				</div>
 			</div>
 		</div>

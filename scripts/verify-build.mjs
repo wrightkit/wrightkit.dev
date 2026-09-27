@@ -41,3 +41,37 @@ for (const installer of installers) {
 		process.exit(1);
 	}
 }
+
+
+const homepageChecks = [
+	{
+		name: 'English homepage',
+		paths: [resolve(ROOT_DIR, 'build/index.html')],
+		lang: 'en',
+		marker: 'Workshop tooling that shows its work.'
+	},
+	{
+		name: 'Simplified Chinese homepage',
+		paths: [resolve(ROOT_DIR, 'build/zh-CN.html'), resolve(ROOT_DIR, 'build/zh-CN/index.html')],
+		lang: 'zh-CN',
+		marker: '让判断过程清楚可见的 Workshop 工具。'
+	}
+];
+
+for (const page of homepageChecks) {
+	const path = page.paths.find((candidate) => existsSync(candidate));
+	if (!path) {
+		console.error(`[verify-build] Error: ${page.name} was not prerendered.`);
+		process.exit(1);
+	}
+
+	const content = readFileSync(path, 'utf8');
+	if (!content.includes(`<html lang="${page.lang}">`)) {
+		console.error(`[verify-build] Error: ${page.name} has the wrong html lang attribute.`);
+		process.exit(1);
+	}
+	if (!content.includes(page.marker)) {
+		console.error(`[verify-build] Error: ${page.name} is missing localized homepage copy.`);
+		process.exit(1);
+	}
+}

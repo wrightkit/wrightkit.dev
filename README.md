@@ -29,8 +29,11 @@ that a capability ships. Describe direction (for example the intent-driven
 agent loop) as direction, not as current behavior. Keep internal terms such as
 WIR, HIR, frontend, and provider out of primary homepage messaging.
 
-All copy, navigation, and support claims live in `src/lib/site.ts`. The hero
-terminal shows real `wright` output; refresh it when the CLI output changes.
+English copy, navigation, and support claims live in `src/lib/site.ts`; the
+Simplified Chinese translation lives in `src/lib/site.zh-CN.ts`. `/` is the
+English homepage and `/zh-CN` is the Simplified Chinese homepage. Keep capability
+claims aligned across both locales, while commands and CLI output remain literal.
+The hero terminal shows real `wright` output; refresh it when the CLI output changes.
 
 ## Stack
 

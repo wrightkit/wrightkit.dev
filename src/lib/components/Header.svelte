@@ -5,7 +5,13 @@
 	import { MediaQuery } from 'svelte/reactivity';
 	import Wordmark from './Wordmark.svelte';
 	import ThemeSwitcher from './ThemeSwitcher.svelte';
-	import { nav } from '$lib/site';
+	import { page } from '$app/state';
+	import { contentForPath } from '$lib/i18n';
+
+	let content = $derived(contentForPath(page.url.pathname));
+	let nav = $derived(content.nav);
+	let ui = $derived(content.ui);
+	let language = $derived(content.language);
 
 	let isOpen = $state(false);
 	let current = $state('');
@@ -67,7 +73,7 @@
 		<Wordmark />
 
 		<div class="hidden md:flex md:items-center md:gap-3">
-		<nav aria-label="Primary" class="flex items-center gap-0.5">
+		<nav aria-label={ui.primaryNavigation} class="flex items-center gap-0.5">
 			{#each nav as item (item.href)}
 				<a
 					href={item.href}
@@ -82,6 +88,15 @@
 				</a>
 			{/each}
 		</nav>
+		<a
+			href={language.switchHref}
+			hreflang={language.switchHreflang}
+			lang={language.switchHreflang}
+			aria-label={language.switchAriaLabel}
+			class="inline-flex min-h-9 items-center rounded-full px-3 text-sm font-medium text-ink-400 transition-colors duration-150 hover:text-ink-50"
+		>
+			{language.switchLabel}
+		</a>
 		<ThemeSwitcher />
 		</div>
 
@@ -90,7 +105,7 @@
 			class="relative -mr-2 flex h-11 w-11 touch-manipulation items-center justify-center rounded-full text-ink-200 transition-transform duration-100 active:scale-[0.92] md:hidden"
 			aria-expanded={isOpen}
 			aria-controls="mobile-nav"
-			aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+			aria-label={isOpen ? ui.closeNavigationMenu : ui.openNavigationMenu}
 			onclick={() => (isOpen = !isOpen)}
 		>
 			<span class="relative block h-3 w-[1.125rem]" aria-hidden="true">
@@ -115,7 +130,7 @@
 		<button
 			type="button"
 			class="fixed inset-x-0 bottom-0 top-[calc(3.5rem+env(safe-area-inset-top))] z-30 bg-scrim md:hidden"
-			aria-label="Close navigation menu"
+			aria-label={ui.closeNavigationMenu}
 			tabindex="-1"
 			onclick={closeMenu}
 			transition:fade={{ duration: 200 }}
@@ -125,11 +140,11 @@
 			class="fixed inset-x-0 top-[calc(3.5rem+env(safe-area-inset-top))] z-40 max-h-[calc(100dvh-3.5rem-env(safe-area-inset-top))] overflow-y-auto rounded-b-card bg-ink-900/95 shadow-2xl shadow-black/30 backdrop-blur-2xl md:hidden"
 			role="dialog"
 			aria-modal="true"
-			aria-label="Navigation"
+			aria-label={ui.navigation}
 			transition:fly={sheetMotion}
 		>
 			<div class="container-site pb-[max(1.5rem,calc(1rem+env(safe-area-inset-bottom)))] pt-1">
-				<nav class="flex flex-col" aria-label="Mobile primary">
+				<nav class="flex flex-col" aria-label={ui.mobilePrimaryNavigation}>
 					{#each nav as item (item.href)}
 						<a
 							href={item.href}
@@ -163,10 +178,23 @@
 				</nav>
 
 				<div class="mt-5 flex items-center justify-between gap-4">
-					<span class="text-sm font-medium text-ink-400">Appearance</span>
+					<span class="text-sm font-medium text-ink-400">{ui.language}</span>
+					<a
+						href={language.switchHref}
+						hreflang={language.switchHreflang}
+						lang={language.switchHreflang}
+						aria-label={language.switchAriaLabel}
+						class="text-link text-sm font-medium text-ink-200"
+						onclick={closeMenu}
+					>
+						{language.switchLabel}
+					</a>
+				</div>
+				<div class="mt-4 flex items-center justify-between gap-4">
+					<span class="text-sm font-medium text-ink-400">{ui.appearance}</span>
 					<div class="w-56"><ThemeSwitcher labelled /></div>
 				</div>
-				<a href="#install" class="btn btn-primary mt-5 w-full" onclick={closeMenu}>Install Wright</a>
+				<a href="#install" class="btn btn-primary mt-5 w-full" onclick={closeMenu}>{ui.installWright}</a>
 			</div>
 		</div>
 	{/if}

@@ -1,14 +1,17 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { page } from '$app/state';
+	import { contentForPath } from '$lib/i18n';
 	import { theme, initTheme, setTheme, type ThemePreference } from '$lib/theme.svelte';
 
 	let { labelled = false }: { labelled?: boolean } = $props();
 
-	const options: { value: ThemePreference; label: string }[] = [
-		{ value: 'system', label: 'System' },
-		{ value: 'light', label: 'Light' },
-		{ value: 'dark', label: 'Dark' }
-	];
+	let ui = $derived(contentForPath(page.url.pathname).ui);
+	let options = $derived<{ value: ThemePreference; label: string }[]>([
+		{ value: 'system', label: ui.themeSystem },
+		{ value: 'light', label: ui.themeLight },
+		{ value: 'dark', label: ui.themeDark }
+	]);
 	let buttons: HTMLButtonElement[] = $state([]);
 
 	function onKeydown(e: KeyboardEvent, index: number) {
@@ -25,7 +28,7 @@
 
 <div
 	role="radiogroup"
-	aria-label="Appearance"
+	aria-label={ui.appearance}
 	class="inline-flex gap-0.5 rounded-full bg-ink-900 p-0.5 ring-1 ring-inset ring-ink-800/60 {labelled
 		? 'w-full'
 		: ''}"

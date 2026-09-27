@@ -1,7 +1,12 @@
 <script lang="ts">
 	import Terminal from './Terminal.svelte';
 	import CopyButton from './CopyButton.svelte';
-	import { hero } from '$lib/site';
+	import { page } from '$app/state';
+	import { contentForPath } from '$lib/i18n';
+
+	let content = $derived(contentForPath(page.url.pathname));
+	let hero = $derived(content.hero);
+	let ui = $derived(content.ui);
 </script>
 
 <section class="relative overflow-hidden">
@@ -34,7 +39,7 @@
 				>
 					<span class="shrink-0 select-none font-mono text-xs text-ink-600" aria-hidden="true">$</span>
 					<code class="min-w-0 flex-1 truncate font-mono text-xs text-ink-200">{hero.quickInstall}</code>
-					<CopyButton text={hero.quickInstall} label="Copy install command" />
+					<CopyButton text={hero.quickInstall} label={ui.copyInstallCommand} copiedLabel={ui.copiedToClipboard} />
 				</div>
 			</div>
 

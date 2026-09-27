@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { terminal } from '$lib/site';
+	import { page } from '$app/state';
+	import { contentForPath } from '$lib/i18n';
+
+	let content = $derived(contentForPath(page.url.pathname));
+	let terminal = $derived(content.terminal);
+	let ui = $derived(content.ui);
 
 	// The terminal stays dark in both appearances, so it uses fixed colors
 	// rather than the theme-aware ink tokens.
@@ -25,7 +30,7 @@
 	</figcaption>
 	<pre
 		class="whitespace-pre-wrap break-words px-4 pb-5 pt-1 font-mono text-[0.75rem] leading-[1.7] sm:px-5 sm:text-[0.8125rem]"
-		aria-label="Example wright session"><code
+		aria-label={ui.terminalExample}><code
 			>{#each terminal.lines as line, i (i)}<span class="block min-h-[1.7em] {tone[line.kind]}"
 					>{#if line.kind === 'prompt'}<span class="select-none text-[#66665f]">$ </span
 						>{/if}{line.text}</span

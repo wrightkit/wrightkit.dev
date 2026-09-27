@@ -1,6 +1,11 @@
 <script lang="ts">
 	import Wordmark from './Wordmark.svelte';
-	import { site, footer } from '$lib/site';
+	import { page } from '$app/state';
+	import { contentForPath } from '$lib/i18n';
+
+	let content = $derived(contentForPath(page.url.pathname));
+	let site = $derived(content.site);
+	let footer = $derived(content.footer);
 </script>
 
 <footer class="border-t border-ink-800/70 pb-[max(2.5rem,calc(1.5rem+env(safe-area-inset-bottom)))] pt-8 sm:pt-10">

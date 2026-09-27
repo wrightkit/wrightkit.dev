@@ -1,6 +1,9 @@
 <script lang="ts">
 	import Section from './Section.svelte';
-	import { tooling } from '$lib/site';
+	import { page } from '$app/state';
+	import { contentForPath } from '$lib/i18n';
+
+	let tooling = $derived(contentForPath(page.url.pathname).tooling);
 </script>
 
 <Section id="tooling" eyebrow={tooling.eyebrow} title={tooling.title} lead={tooling.lead}>

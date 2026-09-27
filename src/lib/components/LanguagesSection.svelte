@@ -1,6 +1,12 @@
 <script lang="ts">
 	import Section from './Section.svelte';
-	import { languages, type SupportTone } from '$lib/site';
+	import { page } from '$app/state';
+	import { contentForPath } from '$lib/i18n';
+	import { type SupportTone } from '$lib/site';
+
+	let content = $derived(contentForPath(page.url.pathname));
+	let languages = $derived(content.languages);
+	let ui = $derived(content.ui);
 
 	const badge: Record<SupportTone, string> = {
 		supported: 'bg-accent-500/15 text-accent-400',
@@ -35,7 +41,7 @@
 			<p class="mt-2 text-[0.9375rem] leading-relaxed text-pretty text-ink-400">
 				{languages.compatibility.lead}
 			</p>
-			<ul class="mt-5 flex flex-wrap gap-2" aria-label="Compared structure">
+			<ul class="mt-5 flex flex-wrap gap-2" aria-label={ui.comparedStructure}>
 				{#each languages.compatibility.criteria as criterion (criterion)}
 					<li class="rounded-full bg-ink-950/80 px-3 py-1 text-[0.8125rem] text-ink-200 ring-1 ring-inset ring-ink-800">
 						{criterion}

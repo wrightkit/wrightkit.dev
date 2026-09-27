@@ -1,6 +1,9 @@
 <script lang="ts">
 	import Section from './Section.svelte';
-	import { ecosystem } from '$lib/site';
+	import { page } from '$app/state';
+	import { contentForPath } from '$lib/i18n';
+
+	let ecosystem = $derived(contentForPath(page.url.pathname).ecosystem);
 </script>
 
 <Section id="ecosystem" eyebrow={ecosystem.eyebrow} title={ecosystem.title} lead={ecosystem.lead}>
