@@ -75,8 +75,7 @@
 		color-scheme: light;
 	}
 
-	:root[data-theme='dark'],
-	.scheme-dark {
+	:root[data-theme='dark'] {
 		color-scheme: dark;
 	}
 
