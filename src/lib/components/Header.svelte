@@ -4,6 +4,7 @@
 	import { prefersReducedMotion } from 'svelte/motion';
 	import { MediaQuery } from 'svelte/reactivity';
 	import Wordmark from './Wordmark.svelte';
+	import ThemeSwitcher from './ThemeSwitcher.svelte';
 	import { nav } from '$lib/site';
 
 	let isOpen = $state(false);
@@ -61,7 +62,8 @@
 	<div class="container-site flex h-14 items-center justify-between gap-4">
 		<Wordmark />
 
-		<nav aria-label="Primary" class="hidden md:flex md:items-center md:gap-0.5">
+		<div class="hidden md:flex md:items-center md:gap-3">
+		<nav aria-label="Primary" class="flex items-center gap-0.5">
 			{#each nav as item (item.href)}
 				<a
 					href={item.href}
@@ -76,6 +78,8 @@
 				</a>
 			{/each}
 		</nav>
+		<ThemeSwitcher />
+		</div>
 
 		<button
 			type="button"
@@ -106,7 +110,7 @@
 		<!-- The menu is a modal task: dim and push the page back. -->
 		<button
 			type="button"
-			class="fixed inset-x-0 bottom-0 top-[calc(3.5rem+env(safe-area-inset-top))] z-30 bg-ink-950/60 md:hidden"
+			class="fixed inset-x-0 bottom-0 top-[calc(3.5rem+env(safe-area-inset-top))] z-30 bg-scrim md:hidden"
 			aria-label="Close navigation menu"
 			tabindex="-1"
 			onclick={closeMenu}
@@ -114,7 +118,7 @@
 		></button>
 		<div
 			id="mobile-nav"
-			class="fixed inset-x-0 top-[calc(3.5rem+env(safe-area-inset-top))] z-40 max-h-[calc(100dvh-3.5rem-env(safe-area-inset-top))] overflow-y-auto rounded-b-card bg-ink-900/95 shadow-2xl shadow-black/60 backdrop-blur-2xl md:hidden"
+			class="fixed inset-x-0 top-[calc(3.5rem+env(safe-area-inset-top))] z-40 max-h-[calc(100dvh-3.5rem-env(safe-area-inset-top))] overflow-y-auto rounded-b-card bg-ink-900/95 shadow-2xl shadow-black/30 backdrop-blur-2xl md:hidden"
 			role="dialog"
 			aria-modal="true"
 			aria-label="Navigation"
@@ -154,6 +158,10 @@
 					{/each}
 				</nav>
 
+				<div class="mt-5 flex items-center justify-between gap-4">
+					<span class="text-sm font-medium text-ink-400">Appearance</span>
+					<div class="w-56"><ThemeSwitcher labelled /></div>
+				</div>
 				<a href="#install" class="btn btn-primary mt-5 w-full" onclick={closeMenu}>Install Wright</a>
 			</div>
 		</div>

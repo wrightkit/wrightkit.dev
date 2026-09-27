@@ -3,8 +3,23 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-		<meta name="color-scheme" content="dark" />
-		<meta name="theme-color" content="#10100e" />
+		<meta name="color-scheme" content="light dark" />
+		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f6f4" />
+		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#10100e" />
+		<!-- Apply a saved appearance before first paint; keep in sync with src/lib/theme.svelte.ts. -->
+		<script>
+			(function () {
+				try {
+					var t = localStorage.getItem('wrightkit-theme');
+					if (t !== 'light' && t !== 'dark') return;
+					document.documentElement.dataset.theme = t;
+					var c = t === 'dark' ? '#10100e' : '#f6f6f4';
+					document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
+						m.content = c;
+					});
+				} catch (e) {}
+			})();
+		</script>
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" type="image/svg+xml" />

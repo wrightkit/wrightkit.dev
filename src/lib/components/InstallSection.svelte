@@ -70,7 +70,7 @@
 			>
 				<span
 					data-motion="move"
-					class="absolute bottom-1 left-0 top-1 rounded-full bg-ink-700/80 shadow-sm shadow-black/40 transition-[transform,width,opacity] duration-300 ease-(--ease-settle) {indicator.ready
+					class="absolute bottom-1 left-0 top-1 rounded-full bg-raised shadow-sm shadow-black/15 transition-[transform,width,opacity] duration-300 ease-(--ease-settle) {indicator.ready
 						? 'opacity-100'
 						: 'opacity-0'}"
 					style="transform: translateX({indicator.x}px); width: {indicator.width}px;"
