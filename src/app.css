@@ -68,7 +68,9 @@
 		--surface-highlight: light-dark(rgb(255 255 255 / 0), rgb(247 247 245 / 0.04));
 		--surface-shadow: light-dark(rgb(16 16 14 / 0.05), rgb(0 0 0 / 0));
 		--chrome-bg: light-dark(rgb(246 246 244 / 0.8), rgb(16 16 14 / 0.8));
-		--chrome-bg-scrolled: light-dark(rgb(246 246 244 / 0.9), rgb(16 16 14 / 0.88));
+		/* A lifted tint, distinct from the page, so the bar reads as its own layer. */
+		--chrome-bg-scrolled: light-dark(rgb(255 255 255 / 0.8), rgb(32 32 29 / 0.8));
+		--chrome-line: light-dark(rgb(16 16 14 / 0.07), rgb(247 247 245 / 0.07));
 		--chrome-fade: light-dark(rgb(246 246 244 / 0.85), rgb(16 16 14 / 0.85));
 	}
 
@@ -138,7 +140,8 @@
 	/*
 	 * Floating translucent chrome; content scrolls underneath. At the top of the
 	 * page it blends into the background; once content scrolls under it, the
-	 * material thickens and a scroll edge fade separates it from the content.
+	 * material lifts to its own tint, gains a hairline edge, and a scroll edge
+	 * fade separates it from the content.
 	 */
 	.chrome {
 		position: relative;
@@ -146,11 +149,14 @@
 		background: var(--chrome-bg);
 		backdrop-filter: blur(24px) saturate(180%);
 		-webkit-backdrop-filter: blur(24px) saturate(180%);
-		transition: background-color 200ms ease;
+		transition:
+			background-color 200ms ease,
+			box-shadow 200ms ease;
 	}
 
 	.chrome[data-scrolled] {
 		background: var(--chrome-bg-scrolled);
+		box-shadow: 0 1px 0 var(--chrome-line);
 	}
 
 	/* Scroll edge effect instead of a hard divider. */
