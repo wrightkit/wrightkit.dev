@@ -5,7 +5,17 @@
 	import { MediaQuery } from 'svelte/reactivity';
 	import Wordmark from './Wordmark.svelte';
 	import ThemeSwitcher from './ThemeSwitcher.svelte';
-	import { nav } from '$lib/site';
+	import LanguageSwitcher from './LanguageSwitcher.svelte';
+	import { navSections, pageSections, site } from '$lib/site';
+	import { currentMessages } from '$lib/content';
+
+	const t = $derived(currentMessages());
+	const nav = $derived([
+		...navSections.map((id) => ({ label: t.nav[id], href: `#${id}`, external: false, wideOnly: false })),
+		// Docs stays in the mobile sheet but joins the desktop bar only when it fits.
+		{ label: t.nav.docs, href: site.docs, external: true, wideOnly: true },
+		{ label: 'GitHub', href: site.org, external: true, wideOnly: false }
+	]);
 
 	let isOpen = $state(false);
 	let current = $state('');
@@ -31,17 +41,24 @@
 		};
 	});
 
-	// Wayfinding: highlight the section that crosses the middle of the viewport.
+	// Wayfinding: the section crossing the middle of the viewport. It highlights the
+	// nav link and tells the language switcher where to land in the other locale.
 	$effect(() => {
-		const targets = nav
-			.filter((item) => item.href.startsWith('#'))
-			.map((item) => document.querySelector<HTMLElement>(item.href))
+		const tracked: string[] = [...pageSections];
+		const targets = tracked
+			.map((id) => document.getElementById(id))
 			.filter((el): el is HTMLElement => el !== null);
+		// Track every section inside the band, so a section that passes through
+		// it (e.g. while a language switch re-renders the page) does not stick.
+		const inBand = new Set<string>();
 		const observer = new IntersectionObserver(
 			(entries) => {
 				for (const entry of entries) {
-					if (entry.isIntersecting) current = `#${entry.target.id}`;
+					if (entry.isIntersecting) inBand.add(entry.target.id);
+					else inBand.delete(entry.target.id);
 				}
+				const id = tracked.find((section) => inBand.has(section));
+				current = id ? `#${id}` : '';
 			},
 			{ rootMargin: '-45% 0px -50% 0px' }
 		);
@@ -66,13 +83,13 @@
 	<div class="container-site flex h-14 items-center justify-between gap-4">
 		<Wordmark />
 
-		<div class="hidden md:flex md:items-center md:gap-3">
-		<nav aria-label="Primary" class="flex items-center gap-0.5">
+		<div class="hidden md:flex md:items-center md:gap-2 lg:gap-3">
+		<nav aria-label={t.ui.primaryNav} class="flex items-center gap-0.5">
 			{#each nav as item (item.href)}
 				<a
 					href={item.href}
 					aria-current={current === item.href ? 'location' : undefined}
-					class="inline-flex min-h-9 items-center rounded-full px-3.5 text-sm font-medium transition-colors duration-150 active:text-ink-50 {current ===
+					class="{item.wideOnly ? 'hidden lg:inline-flex' : 'inline-flex'} min-h-9 items-center whitespace-nowrap rounded-full px-3 text-sm font-medium transition-colors duration-150 active:text-ink-50 lg:px-3.5 {current ===
 					item.href
 						? 'bg-ink-800/70 text-ink-50'
 						: 'text-ink-400 hover:text-ink-50'}"
@@ -82,7 +99,10 @@
 				</a>
 			{/each}
 		</nav>
-		<ThemeSwitcher />
+		<div class="flex items-center gap-1">
+			<LanguageSwitcher hash={current} />
+			<ThemeSwitcher />
+		</div>
 		</div>
 
 		<button
@@ -90,7 +110,7 @@
 			class="relative -mr-2 flex h-11 w-11 touch-manipulation items-center justify-center rounded-full text-ink-200 transition-transform duration-100 active:scale-[0.92] md:hidden"
 			aria-expanded={isOpen}
 			aria-controls="mobile-nav"
-			aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+			aria-label={isOpen ? t.ui.closeMenu : t.ui.openMenu}
 			onclick={() => (isOpen = !isOpen)}
 		>
 			<span class="relative block h-3 w-[1.125rem]" aria-hidden="true">
@@ -115,7 +135,7 @@
 		<button
 			type="button"
 			class="fixed inset-x-0 bottom-0 top-[calc(3.5rem+env(safe-area-inset-top))] z-30 bg-scrim md:hidden"
-			aria-label="Close navigation menu"
+			aria-label={t.ui.closeMenu}
 			tabindex="-1"
 			onclick={closeMenu}
 			transition:fade={{ duration: 200 }}
@@ -125,11 +145,11 @@
 			class="fixed inset-x-0 top-[calc(3.5rem+env(safe-area-inset-top))] z-40 max-h-[calc(100dvh-3.5rem-env(safe-area-inset-top))] overflow-y-auto rounded-b-card bg-ink-900/95 shadow-2xl shadow-black/30 backdrop-blur-2xl md:hidden"
 			role="dialog"
 			aria-modal="true"
-			aria-label="Navigation"
+			aria-label={t.ui.navigation}
 			transition:fly={sheetMotion}
 		>
 			<div class="container-site pb-[max(1.5rem,calc(1rem+env(safe-area-inset-bottom)))] pt-1">
-				<nav class="flex flex-col" aria-label="Mobile primary">
+				<nav class="flex flex-col" aria-label={t.ui.primaryNav}>
 					{#each nav as item (item.href)}
 						<a
 							href={item.href}
@@ -162,11 +182,15 @@
 					{/each}
 				</nav>
 
-				<div class="mt-5 flex items-center justify-between gap-4">
-					<span class="text-sm font-medium text-ink-400">Appearance</span>
-					<div class="w-56"><ThemeSwitcher labelled /></div>
+				<div class="mt-6">
+					<span class="text-sm font-medium text-ink-400">{t.ui.language}</span>
+					<div class="mt-2"><LanguageSwitcher variant="list" hash={current} onselect={closeMenu} /></div>
 				</div>
-				<a href="#install" class="btn btn-primary mt-5 w-full" onclick={closeMenu}>Install Wright</a>
+				<div class="mt-5 flex items-center justify-between gap-4">
+					<span class="text-sm font-medium text-ink-400">{t.ui.appearance}</span>
+					<div class="w-60 max-w-[65%]"><ThemeSwitcher labelled /></div>
+				</div>
+				<a href="#install" class="btn btn-primary mt-6 w-full" onclick={closeMenu}>{t.hero.primaryCta}</a>
 			</div>
 		</div>
 	{/if}
