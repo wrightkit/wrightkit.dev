@@ -41,5 +41,5 @@ jobs:
       - name: Svelte check
         run: pnpm check
 
-      - name: Build site and verify installer
+      - name: Build site
         run: pnpm build

@@ -43,7 +43,7 @@ export const hero = {
 	lead: 'Wright checks, lints, and analyzes raw Workshop and OverPy projects. Every finding points to the exact line and says how sure it is, and the same results come as structured data for your editor, your CI, and your coding agent.',
 	primaryCta: { label: 'Install Wright', href: '#install' },
 	secondaryCta: { label: 'View on GitHub', href: site.github },
-	quickInstall: 'curl -fsSL https://wrightkit.dev/install.sh | bash'
+	quickInstall: 'curl -fsSL https://install.wrightkit.dev/wright/install.sh | bash'
 } as const;
 
 export type TerminalLineKind = 'prompt' | 'error' | 'warning' | 'dim' | 'blank';
@@ -217,7 +217,7 @@ export const install = {
 			method: 'Homebrew',
 			command: 'brew install wrightkit/tap/wright',
 			altMethod: 'Installer script',
-			altCommand: 'curl -fsSL https://wrightkit.dev/install.sh | bash',
+			altCommand: 'curl -fsSL https://install.wrightkit.dev/wright/install.sh | bash',
 			note: 'Installs the released wright and wright-lsp binaries.'
 		},
 		{
@@ -225,9 +225,9 @@ export const install = {
 			label: 'Linux',
 			badge: 'x86_64',
 			method: 'Installer script',
-			command: 'curl -fsSL https://wrightkit.dev/install.sh | bash',
+			command: 'curl -fsSL https://install.wrightkit.dev/wright/install.sh | bash',
 			altMethod: 'Custom install directory',
-			altCommand: 'curl -fsSL https://wrightkit.dev/install.sh | bash -s -- --dir ~/.local/bin',
+			altCommand: 'curl -fsSL https://install.wrightkit.dev/wright/install.sh | bash -s -- --dir ~/.local/bin',
 			note: 'Downloads the matching release archive and verifies its checksum.'
 		},
 		{
@@ -235,10 +235,10 @@ export const install = {
 			label: 'Windows',
 			badge: 'x86_64',
 			method: 'PowerShell installer',
-			command: 'irm https://wrightkit.dev/install.ps1 | iex',
+			command: 'irm https://install.wrightkit.dev/wright/install.ps1 | iex',
 			altMethod: 'Custom install directory',
 			altCommand:
-				'$script = irm https://wrightkit.dev/install.ps1; & ([scriptblock]::Create($script)) -InstallDir "$HOME\\bin"',
+				'$script = irm https://install.wrightkit.dev/wright/install.ps1; & ([scriptblock]::Create($script)) -InstallDir "$HOME\\bin"',
 			note: 'Downloads the matching Windows release and verifies its checksum.'
 		},
 		{
@@ -247,7 +247,7 @@ export const install = {
 			badge: 'Pinned',
 			method: 'Pinned version',
 			command:
-				'curl -fsSL https://wrightkit.dev/install.sh | bash -s -- --version "$WRIGHT_VERSION"',
+			'curl -fsSL https://install.wrightkit.dev/wright/install.sh | bash -s -- --version "$WRIGHT_VERSION"',
 			altMethod: 'Machine-readable output',
 			altCommand: 'wright lint src/main.opy --format json',
 			note: 'Set WRIGHT_VERSION to a tag from GitHub Releases so every run uses the same build.'
