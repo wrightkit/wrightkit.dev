@@ -99,7 +99,7 @@ const zhCN: Messages = {
 		},
 		loop: {
 			title: '接下来的方向',
-			lead: '目标是：你描述需求，AI 助手用 WrightKit 完成下面每一步，你专注于设计本身，不用操心地图工坊的语法细节。其中一部分现在已经可用，带版本号的 Agent 接口约定还在开发中。',
+			lead: '目标是你描述需求，AI 助手用 WrightKit 完成下面每一步，你专注于设计本身，不用操心地图工坊的语法细节。其中一部分现在已经可用，带版本号的 Agent 接口约定还在开发中。',
 			steps: [
 				{ title: '查看', body: '读取项目、规则与依赖关系。' },
 				{ title: '修改', body: '精准修改源码，改动先经过校验。' },
@@ -116,7 +116,7 @@ const zhCN: Messages = {
 			workshop: {
 				name: '地图工坊',
 				status: '已支持',
-				body: 'Wright 把它当作你直接编写的源码：解析、校验、分析、规范格式输出，以及英文 (en-US) 与简体中文 (zh-CN) 代码互转。'
+				body: 'Wright 把它当作你直接编写的源码，支持解析、校验、分析、规范格式输出，以及英文 (en-US) 与简体中文 (zh-CN) 代码互转。'
 			},
 			overpy: {
 				name: 'OverPy',
@@ -131,7 +131,7 @@ const zhCN: Messages = {
 		},
 		compatibility: {
 			title: '“兼容”是什么意思',
-			lead: '对 OverPy 和 OSTW 来说，原版编译器就是标准。Wright 和原版编译器编译同一份源码，再把两边生成的地图工坊代码按结构逐项比对。',
+			lead: 'OverPy 和 OSTW 以原版编译器为标准。Wright 和原版编译器编译同一份源码，再把两边生成的地图工坊代码按结构逐项比对。',
 			criteriaLabel: '比对内容',
 			criteria: [
 				'规则顺序',
@@ -217,7 +217,7 @@ const zhCN: Messages = {
 		repos: {
 			wright: '命令行工具和语言服务器：诊断、lint、分析，以及编辑器和 CI 集成。',
 			'workshop-rs': '地图工坊核心：元素目录、解析、校验、本地化和规范代码输出。',
-			'opy-rs': 'OverPy 实现，包括语义分析和到地图工坊的编译。',
+			'opy-rs': 'OverPy 实现，包括语义分析以及编译到地图工坊。',
 			'deltin-rs': 'DeltinScript / OSTW 实现（开发中）。',
 			'language-provider-protocol': '连接 Wright 与各语言实现的版本化协议。',
 			skills: '供 AI 编程助手使用的 wright Agent Skill。',
