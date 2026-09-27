@@ -8,6 +8,7 @@
 		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#10100e" />
 		<!-- Apply a saved appearance before first paint; keep in sync with src/lib/theme.svelte.ts. -->
 		<script>
+			document.documentElement.dataset.js = '';
 			(function () {
 				try {
 					var t = localStorage.getItem('wrightkit-theme');

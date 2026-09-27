@@ -12,7 +12,7 @@ const zhCN: Messages = {
 	meta: {
 		title: 'WrightKit：守望先锋地图工坊开发工具',
 		description:
-			'Wright 检查守望先锋地图工坊和 OverPy 代码里的错误和拖累服务器的循环。把游戏里的代码复制出来，结果精确到行。'
+			'赶在玩家遇到之前，Wright 找出守望先锋地图工坊和 OverPy 代码里的错误和拖累服务器的写法，每一条都精确到行。'
 	},
 	ui: {
 		skipToContent: '跳到正文',
@@ -39,7 +39,7 @@ const zhCN: Messages = {
 	hero: {
 		eyebrow: '守望先锋地图工坊 · OverPy',
 		headline: '写地图工坊，\u200b心里有数。',
-		lead: '把代码从游戏里复制出来，Wright 帮你找出错误和拖累服务器的循环，精确到行，不用进房间测试。',
+		lead: '赶在玩家遇到之前，Wright 找出代码里的错误和拖累服务器的写法，每一条都精确到行。',
 		primaryCta: '安装 Wright',
 		secondaryCta: '在 GitHub 上查看'
 	},

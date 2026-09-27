@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '$lib/reveal';
 	import Section from './Section.svelte';
 	import { examples } from '$lib/site';
 	import { currentLocale, currentMessages } from '$lib/content';
@@ -15,8 +16,8 @@
 
 <Section id="features" title={t.features.title} lead={t.features.lead}>
 	<ul class="mt-10 grid gap-3 sm:mt-14 sm:gap-4 md:grid-cols-2">
-		{#each examples as example (example.id)}
-			<li class="surface flex min-w-0 flex-col p-5 sm:p-6">
+		{#each examples as example, i (example.id)}
+			<li class="surface flex min-w-0 flex-col p-5 sm:p-6" data-reveal style="--reveal-delay: {i * 70}ms" use:reveal>
 				<h3 class="text-[1.0625rem] font-semibold tracking-[-0.012em] text-ink-50">
 					{t.features.examples[example.id].title}
 				</h3>
@@ -25,7 +26,12 @@
 					<pre
 						class="overflow-x-auto rounded-control bg-ink-950/80 px-3.5 py-3 font-mono text-xs leading-[1.7] text-ink-200 [tab-size:4]"
 						lang={locale}><code>{example.code[locale]}</code></pre>
-					<p class="mt-2.5 break-words font-mono text-xs leading-relaxed {tone[example.kind]}">
+					<p
+						class="mt-2.5 break-words font-mono text-xs leading-relaxed {tone[example.kind]}"
+						data-reveal="fade"
+						style="--reveal-delay: {i * 70 + 450}ms"
+						use:reveal
+					>
 						{example.finding[locale]}
 					</p>
 				</div>

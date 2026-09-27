@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '$lib/reveal';
 	import type { Snippet } from 'svelte';
 
 	let {
@@ -18,7 +19,7 @@
 
 <section {id} class="scroll-target" aria-labelledby="{id}-title">
 	<div class="container-site py-16 sm:py-24 lg:py-28">
-		<div class="max-w-3xl">
+		<div class="max-w-3xl" data-reveal use:reveal>
 			{#if eyebrow}
 				<p class="eyebrow">{eyebrow}</p>
 			{/if}

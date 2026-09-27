@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '$lib/reveal';
 	import { onMount, tick } from 'svelte';
 	import Section from './Section.svelte';
 	import CopyButton from './CopyButton.svelte';
@@ -106,6 +107,9 @@
 		<div
 			id="install-panel"
 			class="surface mt-4 min-w-0 p-5 sm:p-6"
+		data-reveal
+		style="--reveal-delay: 70ms"
+		use:reveal
 			role="tabpanel"
 			aria-labelledby="install-tab-{active.id}"
 		>

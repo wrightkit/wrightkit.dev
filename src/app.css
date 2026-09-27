@@ -295,6 +295,34 @@
 	}
 }
 
+/* Scroll reveal (see $lib/reveal.ts). Elements start hidden only once JS is
+   known to run; the fallback animation shows them if hydration never lands. */
+:root[data-js] [data-reveal]:not([data-revealed]) {
+	opacity: 0;
+	transform: translateY(14px);
+	animation: reveal-fallback 0s 3s forwards;
+}
+
+:root[data-js] [data-reveal='fade']:not([data-revealed]) {
+	transform: none;
+}
+
+[data-reveal] {
+	transition:
+		opacity 600ms var(--ease-settle),
+		transform 800ms var(--ease-settle),
+		background-color 200ms ease,
+		box-shadow 200ms ease;
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+@keyframes reveal-fallback {
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
 /* Reduced motion keeps opacity/color feedback but drops movement and scaling. */
 @media (prefers-reduced-motion: reduce) {
 	html {
@@ -307,6 +335,15 @@
 
 	[data-motion='move'] {
 		transition-property: opacity, background-color, color !important;
+	}
+
+	:root[data-js] [data-reveal]:not([data-revealed]) {
+		transform: none;
+	}
+
+	[data-reveal] {
+		transition: opacity 300ms linear;
+		transition-delay: calc(var(--reveal-delay, 0ms) / 3);
 	}
 }
 

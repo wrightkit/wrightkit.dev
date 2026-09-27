@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '$lib/reveal';
 	import Section from './Section.svelte';
 	import { languages, type SupportTone } from '$lib/site';
 	import { currentMessages } from '$lib/content';
@@ -15,8 +16,8 @@
 
 <Section id="languages" title={copy.title} lead={copy.lead}>
 	<ul class="mt-10 grid gap-3 sm:mt-14 sm:gap-4 md:grid-cols-3">
-		{#each languages as item (item.id)}
-			<li class="surface flex flex-col p-5 sm:p-6">
+		{#each languages as item, i (item.id)}
+			<li class="surface flex flex-col p-5 sm:p-6" data-reveal style="--reveal-delay: {i * 70}ms" use:reveal>
 				<div class="flex items-center justify-between gap-3">
 					<h3 class="text-xl font-semibold tracking-[-0.016em] text-ink-50">{copy.items[item.id].name}</h3>
 					<span class="shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium {badge[item.tone]}">

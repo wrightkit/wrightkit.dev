@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '$lib/reveal';
 	import Section from './Section.svelte';
 	import CopyButton from './CopyButton.svelte';
 	import { startSteps } from '$lib/site';
@@ -10,7 +11,7 @@
 <Section id="start" title={t.start.title} lead={t.start.lead}>
 	<ol class="mt-10 grid gap-3 sm:mt-14 sm:gap-4 md:grid-cols-3">
 		{#each startSteps as step, i (step.id)}
-			<li class="surface flex flex-col p-5 sm:p-6">
+			<li class="surface flex flex-col p-5 sm:p-6" data-reveal style="--reveal-delay: {i * 70}ms" use:reveal>
 				<span class="font-mono text-xs text-ink-600">{i + 1}</span>
 				<h3 class="mt-2 text-[1.0625rem] font-semibold tracking-[-0.012em] text-ink-50">
 					{t.start.steps[step.id].title}

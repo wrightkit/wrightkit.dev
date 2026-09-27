@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '$lib/reveal';
 	import { terminalLines } from '$lib/site';
 	import { currentMessages } from '$lib/content';
 
@@ -30,7 +31,11 @@
 	<pre
 		class="whitespace-pre-wrap break-words px-4 pb-5 pt-1 font-mono text-[0.75rem] leading-[1.7] sm:px-5 sm:text-[0.8125rem]"
 		aria-label={t.terminal.label}><code
-			>{#each terminalLines as line, i (i)}<span class="block min-h-[1.7em] {tone[line.kind]}"
+			>{#each terminalLines as line, i (i)}<span
+					class="block min-h-[1.7em] {tone[line.kind]}"
+					data-reveal="fade"
+					style="--reveal-delay: {600 + i * 110}ms"
+					use:reveal
 					>{#if line.kind === 'prompt'}<span class="select-none text-[#66665f]">$ </span
 						>{/if}{line.text}</span
 				>{/each}</code

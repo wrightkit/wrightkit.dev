@@ -5,7 +5,7 @@ const en: Messages = {
 	meta: {
 		title: 'WrightKit: Tooling for Overwatch Workshop development',
 		description:
-			'Wright checks Overwatch Workshop and OverPy code for errors and server-heavy loops. Copy your code out of the game and get findings down to the line.'
+			'Wright finds errors and server-heavy code in Overwatch Workshop and OverPy projects before your players run into them. Every finding points to a line.'
 	},
 	ui: {
 		skipToContent: 'Skip to content',
@@ -32,7 +32,7 @@ const en: Messages = {
 	hero: {
 		eyebrow: 'For Overwatch Workshop and OverPy',
 		headline: 'Workshop code, checked.',
-		lead: 'Copy your code out of the game. Wright finds errors and server-heavy loops, down to the line, before you test in a match.',
+		lead: 'Wright finds errors and server-heavy code before your players run into them. Every finding points to a line.',
 		primaryCta: 'Install Wright',
 		secondaryCta: 'View on GitHub'
 	},
