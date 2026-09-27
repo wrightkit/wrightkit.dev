@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="%lang%">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -8,6 +8,7 @@
 		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#10100e" />
 		<!-- Apply a saved appearance before first paint; keep in sync with src/lib/theme.svelte.ts. -->
 		<script>
+			document.documentElement.dataset.js = '';
 			(function () {
 				try {
 					var t = localStorage.getItem('wrightkit-theme');

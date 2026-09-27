@@ -1,0 +1,94 @@
+import type { ThemePreference } from '$lib/theme.svelte';
+import type {
+	ExampleId,
+	InstallTargetId,
+	LanguageId,
+	NavSection,
+	StartStepId,
+	ToolingId
+} from '$lib/site';
+
+type Tuple<T, N extends number, R extends T[] = []> = R['length'] extends N
+	? readonly [...R]
+	: Tuple<T, N, [T, ...R]>;
+
+interface Block {
+	title: string;
+	body: string;
+}
+
+interface SectionCopy {
+	title: string;
+	lead?: string;
+}
+
+/**
+ * The complete copy for one locale. Keyed records and fixed-length tuples keep
+ * every locale structurally aligned with the shared data in `$lib/site`, so a
+ * translation cannot silently drop or add a claim.
+ */
+export interface Messages {
+	meta: {
+		title: string;
+		description: string;
+	};
+	ui: {
+		skipToContent: string;
+		home: string;
+		primaryNav: string;
+		navigation: string;
+		openMenu: string;
+		closeMenu: string;
+		appearance: string;
+		theme: Record<ThemePreference, string>;
+		language: string;
+		/** Accessible name of the language trigger, naming the current language. */
+		currentLanguage: (name: string) => string;
+		copy: string;
+		copyInstall: string;
+		copied: string;
+	};
+	nav: Record<NavSection, string> & { docs: string };
+	hero: {
+		eyebrow: string;
+		headline: string;
+		lead: string;
+		primaryCta: string;
+		secondaryCta: string;
+	};
+	terminal: {
+		title: string;
+		label: string;
+	};
+	start: SectionCopy & {
+		steps: Record<StartStepId, Block>;
+	};
+	features: SectionCopy & {
+		examples: Record<ExampleId, Block>;
+	};
+	tooling: SectionCopy & {
+		items: Record<ToolingId, Block>;
+	};
+	languages: SectionCopy & {
+		items: Record<LanguageId, { name: string; status: string; body: string }>;
+	};
+	agents: SectionCopy & {
+		/** What ships today. */
+		capabilities: Tuple<Block, 3>;
+		upcomingLabel: string;
+		upcoming: Tuple<string, 4>;
+	};
+	install: SectionCopy & {
+		platformLabel: string;
+		targets: Record<
+			InstallTargetId,
+			{ label: string; badge: string; method: string; altMethod: string; note: string }
+		>;
+		/** Sentence around the Releases link, split so each locale can place the link naturally. */
+		releases: { before: string; link: string; after: string };
+	};
+	footer: {
+		note: string;
+		openSource: string;
+	};
+}
