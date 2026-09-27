@@ -67,8 +67,9 @@
 		--surface-ring: light-dark(rgb(16 16 14 / 0.08), rgb(247 247 245 / 0.06));
 		--surface-highlight: light-dark(rgb(255 255 255 / 0), rgb(247 247 245 / 0.04));
 		--surface-shadow: light-dark(rgb(16 16 14 / 0.05), rgb(0 0 0 / 0));
-		--chrome-bg: light-dark(rgb(246 246 244 / 0.72), rgb(16 16 14 / 0.72));
-		--chrome-fade: light-dark(rgb(246 246 244 / 0.6), rgb(16 16 14 / 0.55));
+		--chrome-bg: light-dark(rgb(246 246 244 / 0.8), rgb(16 16 14 / 0.8));
+		--chrome-bg-scrolled: light-dark(rgb(246 246 244 / 0.9), rgb(16 16 14 / 0.88));
+		--chrome-fade: light-dark(rgb(246 246 244 / 0.85), rgb(16 16 14 / 0.85));
 	}
 
 	:root[data-theme='light'] {
@@ -134,13 +135,22 @@
 		}
 	}
 
-	/* Floating translucent chrome; content scrolls underneath. */
+	/*
+	 * Floating translucent chrome; content scrolls underneath. At the top of the
+	 * page it blends into the background; once content scrolls under it, the
+	 * material thickens and a scroll edge fade separates it from the content.
+	 */
 	.chrome {
 		position: relative;
 		isolation: isolate;
 		background: var(--chrome-bg);
-		backdrop-filter: blur(20px) saturate(180%);
-		-webkit-backdrop-filter: blur(20px) saturate(180%);
+		backdrop-filter: blur(24px) saturate(180%);
+		-webkit-backdrop-filter: blur(24px) saturate(180%);
+		transition: background-color 200ms ease;
+	}
+
+	.chrome[data-scrolled] {
+		background: var(--chrome-bg-scrolled);
 	}
 
 	/* Scroll edge effect instead of a hard divider. */
@@ -149,9 +159,20 @@
 		position: absolute;
 		inset-inline: 0;
 		top: 100%;
-		height: 1.25rem;
+		height: 1.75rem;
 		pointer-events: none;
-		background: linear-gradient(to bottom, var(--chrome-fade), transparent);
+		opacity: 0;
+		transition: opacity 200ms ease;
+		background: linear-gradient(
+			to bottom,
+			var(--chrome-fade) 0%,
+			color-mix(in srgb, var(--chrome-fade) 45%, transparent) 45%,
+			transparent 100%
+		);
+	}
+
+	.chrome[data-scrolled]::after {
+		opacity: 1;
 	}
 
 	.surface {

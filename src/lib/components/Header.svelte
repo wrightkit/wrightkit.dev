@@ -9,6 +9,7 @@
 
 	let isOpen = $state(false);
 	let current = $state('');
+	let scrollY = $state(0);
 	const desktop = new MediaQuery('min-width: 768px');
 
 	function closeMenu() {
@@ -56,9 +57,12 @@
 	});
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
+<svelte:window onkeydown={handleKeydown} bind:scrollY />
 
-<header class="chrome sticky top-0 z-50 pt-[env(safe-area-inset-top)]">
+<header
+	class="chrome sticky top-0 z-50 pt-[env(safe-area-inset-top)]"
+	data-scrolled={scrollY > 8 || isOpen ? '' : undefined}
+>
 	<div class="container-site flex h-14 items-center justify-between gap-4">
 		<Wordmark />
 
