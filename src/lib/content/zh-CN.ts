@@ -12,7 +12,7 @@ const zhCN: Messages = {
 	meta: {
 		title: 'WrightKit：守望先锋地图工坊开发工具',
 		description:
-			'WrightKit 是守望先锋地图工坊开发工具链。其命令行工具 Wright 可检查、lint 和分析真实的地图工坊与 OverPy 项目，供开发者与 AI 编程助手直接使用。'
+			'WrightKit 是守望先锋地图工坊的开发工具链。命令行工具 Wright 可以检查、lint 和分析真实的地图工坊与 OverPy 项目，开发者和 AI 助手都能直接使用。'
 	},
 	ui: {
 		skipToContent: '跳到正文',
@@ -36,7 +36,7 @@ const zhCN: Messages = {
 		install: '安装'
 	},
 	hero: {
-		eyebrow: '面向地图工坊开发者与 AI 编程助手',
+		eyebrow: '为地图工坊开发者和 AI 助手打造',
 		headline: '有理有据的\u200b地图工坊工具。',
 		lead: 'Wright 检查你的地图工坊和 OverPy 代码，找出错误和服务器负载隐患。每条结果都精确到行，并注明有多大把握。编辑器、CI 和 AI 编程助手拿到的是同一份结果。',
 		primaryCta: '安装 Wright',
@@ -47,7 +47,7 @@ const zhCN: Messages = {
 		label: 'wright 使用示例'
 	},
 	tooling: {
-		title: '为检查\u200b真实项目而做。',
+		title: '专为检查\u200b真实项目打造。',
 		lead: '检查、lint 和分析用同一种方式理解你的代码，所以每条结果都有固定编号和精确位置。编译用来打通不同语言，为这些检查服务。',
 		items: {
 			check: {
@@ -56,7 +56,7 @@ const zhCN: Messages = {
 			},
 			lint: {
 				title: '高置信度 lint 规则',
-				body: '一小组内置规则，专门找出会加重服务器负载的循环、等待和条件写法。每条结果都说明证据有多充分。'
+				body: '一组精简的内置规则，专门找出会加重服务器负载的循环、等待和条件写法。每条结果都说明证据有多充分。'
 			},
 			analyze: {
 				title: '代码分析',
@@ -71,7 +71,7 @@ const zhCN: Messages = {
 				body: 'wright-lsp 为任何支持 LSP 的编辑器提供悬停提示、跳转到定义、查找引用、自动补全、重命名和实时诊断。'
 			},
 			ci: {
-				title: 'CI 集成',
+				title: 'CI',
 				body: '退出码都有文档，所有结果统一为 JSON 格式，在 GitHub Actions 中自动标注问题。'
 			}
 		}
@@ -135,7 +135,7 @@ const zhCN: Messages = {
 			criteriaLabel: '比对内容',
 			criteria: [
 				'规则顺序',
-				'调用的动作与值',
+				'用到的动作和值',
 				'控制流',
 				'条件结构',
 				'值的构建方式',
@@ -159,7 +159,7 @@ const zhCN: Messages = {
 				badge: 'Apple 芯片与 Intel',
 				method: 'Homebrew',
 				altMethod: '安装脚本',
-				note: '安装已发布的 wright 与 wright-lsp 可执行文件。'
+				note: '安装已发布的 wright 和 wright-lsp 可执行文件。'
 			},
 			linux: {
 				label: 'Linux',
@@ -199,7 +199,7 @@ const zhCN: Messages = {
 	ecosystem: {
 		eyebrow: '开源',
 		title: 'WrightKit \u200b由哪些部分组成。',
-		lead: 'Wright 是你安装的工具。它底下的各个语言引擎都是独立项目，可以单独使用，各自有测试、版本发布和许可证。',
+		lead: 'Wright 是你安装的工具。底层的各个语言引擎都是独立项目，可以单独使用，各自有测试、版本发布和许可证。',
 		principles: [
 			{
 				title: '坦诚说明局限',
@@ -218,7 +218,7 @@ const zhCN: Messages = {
 			wright: '命令行工具和语言服务器：诊断、lint、分析，以及编辑器和 CI 集成。',
 			'workshop-rs': '地图工坊核心：元素目录、解析、校验、本地化和规范代码输出。',
 			'opy-rs': 'OverPy 实现，包括语义分析和到地图工坊的编译。',
-			'deltin-rs': 'DeltinScript / OSTW 语言实现（开发中）。',
+			'deltin-rs': 'DeltinScript / OSTW 实现（开发中）。',
 			'language-provider-protocol': '连接 Wright 与各语言实现的版本化协议。',
 			skills: '供 AI 编程助手使用的 wright Agent Skill。',
 			'homebrew-tap': 'Wright 的 Homebrew 安装配方。'
