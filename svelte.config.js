@@ -7,7 +7,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		prerender: {
-			entries: ['/', '/zh-CN']
+			entries: ['/', '/zh-CN', '/sitemap.xml']
 		}
 	}
 };

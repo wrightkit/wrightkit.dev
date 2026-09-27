@@ -5,7 +5,9 @@ const en: Messages = {
 	meta: {
 		title: 'WrightKit: Tooling for Overwatch Workshop development',
 		description:
-			'Stop guessing where the server-load risks are. Wright statically analyzes Overwatch Workshop and OverPy code and points every problem to a line.'
+			'Stop guessing where the server-load risks are. Wright statically analyzes Overwatch Workshop and OverPy code and points every problem to a line.',
+		imageAlt: 'WrightKit, tooling for Overwatch Workshop development',
+		keywords: 'Overwatch Workshop, OverPy, Wright, WrightKit, Workshop lint, server load'
 	},
 	ui: {
 		skipToContent: 'Skip to content',

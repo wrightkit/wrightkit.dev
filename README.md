@@ -54,9 +54,20 @@ browser-language redirect; readers switch from the header language menu.
   规则, 动作, 值, 服务器负载) and puts a space between CJK text and Latin words.
 - Long Chinese headings may use `\u200b` to mark where they are allowed to
   wrap; headings otherwise break only at spaces and punctuation.
-- To add a locale: add it to `src/lib/locales.ts`, add a content file, and add
-  the path to `prerender.entries` in `svelte.config.js` and to
-  `scripts/verify-build.mjs`.
+- To add a locale: add it to `src/lib/locales.ts`, add a content file, add the
+  path to `prerender.entries` in `svelte.config.js`, add its share-image file
+  in `src/lib/seo.ts`, regenerate the PNGs with
+  `swift scripts/share-cards/render.swift` on macOS, and extend
+  `scripts/verify-build.mjs`. The sitemap is generated from the locale list.
+
+Search and share metadata is prerendered from each locale's `meta` block.
+Title and description match the visible hero. The share card is a PNG because
+WeChat, QQ, and X do not unfurl SVG. Open Graph covers WeChat, Weibo, DingTalk,
+Feishu, Zhihu, Discord, Slack, and Telegram. X also gets Twitter Card tags.
+QQ and Qzone get `itemprop` name, description, and image. There is no review
+or price structured data: the site publishes neither, and invented ratings are
+spam. Submitting the sitemap in Google Search Console and 百度搜索资源平台 is a
+manual step after deploy.
 
 ## Stack
 
