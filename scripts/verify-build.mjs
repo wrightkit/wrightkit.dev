@@ -15,7 +15,6 @@ const pages = [
 ];
 const literals = [
 	'curl -fsSL https://install.wrightkit.dev/wright/install.sh | bash',
-	'irm https://install.wrightkit.dev/wright/install.ps1 | iex',
 	'brew install wrightkit/tap/wright',
 	'wright lint rules.txt',
 	'warning[min-wait-loop]: loop body waits at the workshop minimum rate',
