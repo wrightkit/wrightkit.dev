@@ -1,0 +1,58 @@
+name: Windows bootstrap smoke
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 * * *'
+
+permissions: {}
+
+jobs:
+  public-bootstrap:
+    name: Fetch public installer with Windows PowerShell 5.1
+    runs-on: windows-latest
+    steps:
+      - name: Fetch and enter the public installer
+        shell: powershell
+        env:
+          WRIGHT_INSTALL_BASE_URL: https://wrightkit-bootstrap-smoke.invalid
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          if ($PSVersionTable.PSVersion.Major -ne 5 -or $PSVersionTable.PSVersion.Minor -ne 1) {
+            throw "Expected Windows PowerShell 5.1, got $($PSVersionTable.PSVersion)."
+          }
+
+          try {
+            $installer = Invoke-RestMethod -Method Get -Uri 'https://wrightkit.dev/install.ps1'
+          } catch {
+            Write-Error "Public bootstrap delivery failed before installer execution: $($_.Exception.Message)"
+            throw
+          }
+
+          if ($installer -isnot [string] -or
+              -not $installer.Contains('[CmdletBinding()]') -or
+              -not $installer.Contains('x86_64-pc-windows-msvc') -or
+              -not $installer.Contains('Get-Version')) {
+            throw 'Public bootstrap delivery returned a body that does not match the Wright PowerShell installer contract.'
+          }
+
+          Write-Output 'Public bootstrap delivered the Wright PowerShell installer.'
+
+          try {
+            Invoke-Expression $installer
+            throw 'The installer unexpectedly completed without resolving a release.'
+          } catch {
+            if ($_.Exception.Message -notmatch 'could not resolve the latest release') {
+              Write-Error "Installer started but failed before the expected release-resolution boundary: $($_.Exception.Message)"
+              throw
+            }
+
+            Write-Output 'The public irm | iex path entered the installer and reached release resolution.'
+          }
