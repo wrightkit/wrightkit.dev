@@ -24,7 +24,7 @@ export const site = {
 	msrv: '1.85'
 } as const;
 
-export const quickInstall = 'curl -fsSL https://wrightkit.dev/install.sh | bash';
+export const quickInstall = 'curl -fsSL https://install.wrightkit.dev/wright/install.sh | bash';
 
 export const navSections = ['start', 'features', 'languages', 'install'] as const;
 export type NavSection = (typeof navSections)[number];
@@ -157,23 +157,23 @@ export const installTargets = [
 	{
 		id: 'macos',
 		command: 'brew install wrightkit/tap/wright',
-		altCommand: 'curl -fsSL https://wrightkit.dev/install.sh | bash'
+		altCommand: 'curl -fsSL https://install.wrightkit.dev/wright/install.sh | bash'
 	},
 	{
 		id: 'linux',
-		command: 'curl -fsSL https://wrightkit.dev/install.sh | bash',
-		altCommand: 'curl -fsSL https://wrightkit.dev/install.sh | bash -s -- --dir ~/.local/bin'
+		command: 'curl -fsSL https://install.wrightkit.dev/wright/install.sh | bash',
+		altCommand: 'curl -fsSL https://install.wrightkit.dev/wright/install.sh | bash -s -- --dir ~/.local/bin'
 	},
 	{
 		id: 'windows',
-		command: 'irm https://wrightkit.dev/install.ps1 | iex',
+		command: 'irm https://install.wrightkit.dev/wright/install.ps1 | iex',
 		altCommand:
-			'$script = irm https://wrightkit.dev/install.ps1; & ([scriptblock]::Create($script)) -InstallDir "$HOME\\bin"'
+			'$script = irm https://install.wrightkit.dev/wright/install.ps1; & ([scriptblock]::Create($script)) -InstallDir "$HOME\\bin"'
 	},
 	{
 		id: 'ci',
 		command:
-			'curl -fsSL https://wrightkit.dev/install.sh | bash -s -- --version "$WRIGHT_VERSION"',
+			'curl -fsSL https://install.wrightkit.dev/wright/install.sh | bash -s -- --version "$WRIGHT_VERSION"',
 		altCommand: 'wright lint src/main.opy --format json'
 	},
 	{
