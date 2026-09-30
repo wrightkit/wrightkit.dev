@@ -31,6 +31,10 @@ export interface Messages {
 	meta: {
 		title: string;
 		description: string;
+		/** Alt text for the 1200×630 share image. */
+		imageAlt: string;
+		/** Terms that already appear on the page. Used by engines that still read meta keywords. */
+		keywords: string;
 	};
 	ui: {
 		skipToContent: string;

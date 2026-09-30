@@ -12,7 +12,9 @@ const zhCN: Messages = {
 	meta: {
 		title: 'WrightKit：守望先锋地图工坊开发工具',
 		description:
-			'服务器负载的隐患在哪，不用再靠猜。Wright 静态分析守望先锋地图工坊和 OverPy 代码，把每个问题指到具体一行。'
+			'服务器负载的隐患在哪，不用再靠猜。Wright 静态分析守望先锋地图工坊和 OverPy 代码，把每个问题指到具体一行。',
+		imageAlt: 'WrightKit，守望先锋地图工坊开发工具',
+		keywords: '守望先锋, 地图工坊, OverPy, Wright, WrightKit, 服务器负载'
 	},
 	ui: {
 		skipToContent: '跳到正文',
