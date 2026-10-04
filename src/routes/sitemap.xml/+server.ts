@@ -3,22 +3,26 @@ import { pageUrl } from '$lib/seo';
 
 export const prerender = true;
 
-/** Both homepages, with the same alternates the HTML `hreflang` links declare. */
+/** Every page in every locale, with the same alternates the HTML `hreflang` links declare. */
+const routes = ['', '/results'];
+
 export function GET() {
-	const alternates = [
+	const alternate = (route: string) => [
 		...locales.map(
 			(locale) =>
-				`    <xhtml:link rel="alternate" hreflang="${localeInfo[locale].tag}" href="${pageUrl(locale)}"/>`
+				`    <xhtml:link rel="alternate" hreflang="${localeInfo[locale].tag}" href="${pageUrl(locale, route)}"/>`
 		),
-		`    <xhtml:link rel="alternate" hreflang="x-default" href="${pageUrl(defaultLocale)}"/>`
+		`    <xhtml:link rel="alternate" hreflang="x-default" href="${pageUrl(defaultLocale, route)}"/>`
 	].join('\n');
 
-	const urls = locales
-		.map(
-			(locale) => `  <url>
-    <loc>${pageUrl(locale)}</loc>
-${alternates}
+	const urls = routes
+		.flatMap((route) =>
+			locales.map(
+				(locale) => `  <url>
+    <loc>${pageUrl(locale, route)}</loc>
+${alternate(route)}
   </url>`
+			)
 		)
 		.join('\n');
 

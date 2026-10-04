@@ -36,7 +36,8 @@ const zhCN: Messages = {
 		features: '功能',
 		languages: '语言支持',
 		install: '安装',
-		docs: '文档'
+		docs: '文档',
+		results: '测评结果'
 	},
 	hero: {
 		eyebrow: '守望先锋地图工坊 · OverPy',
@@ -193,6 +194,46 @@ const zhCN: Messages = {
 			link: 'GitHub Releases 页面',
 			after: '。'
 		}
+	},
+	results: {
+		meta: {
+			title: 'Wright Agent Score：编程 agent 使用 Wright 的得分 | WrightKit',
+			description:
+				'对比各个编程 agent 通过 Wright 完成地图工坊和 OverPy 任务的得分，每个分数都附 95% 区间。',
+			imageAlt: 'WrightKit，守望先锋地图工坊开发工具'
+		},
+		eyebrow: 'Wright Agent Score',
+		title: '编程 agent 用 Wright 能拿多少分',
+		lead: '每个 agent 面对相同的任务、相同的 Wright 版本和相同的 Wright skill。得分是运行结果通过检查的比例。',
+		loading: '正在加载结果…',
+		empty: {
+			title: '暂时没有结果',
+			body: '基准测试结果发布后会显示在这里。如果你预期应该有结果，请稍后刷新。'
+		},
+		unsupported: {
+			title: '数据格式较旧',
+			body: '已发布的结果使用了本页暂时无法读取的数据格式。请稍后刷新，或到仓库查看更新。'
+		},
+		columns: { rank: '排名', agent: 'Agent', model: '模型', effort: '推理强度' },
+		tracks: { workshop: '地图工坊', opy: 'OverPy' },
+		interval: '95% 区间',
+		notRun: '未运行',
+		tiedWithTop: '与第一名持平',
+		provisional: '暂定',
+		noEffort: '默认',
+		howToRead: {
+			title: '如何看这个分数',
+			items: [
+				'分数范围 0 到 100：运行得到可用结果的比例，按一种语言的各个任务取平均。深色条是分数，较浅的范围是 95% 区间。',
+				'地图工坊和 OverPy 分开计分，不会取平均。排序先看地图工坊得分，再看 OverPy 得分。',
+				'某一行的区间与第一行重叠时，数据无法区分两者，这一行会标上“与第一名持平”。',
+				'网络只在指令里要求关闭：告诉 agent 不要联网，但没有任何手段阻止它。',
+				'运行超时按失败计算。',
+				'每种语言只有 8 个任务，单个任务就能让分数波动很大。',
+				'分数只是这套环境下的参考，不代表 agent 的通用能力。'
+			]
+		},
+		ran: { title: '测试环境', wright: 'Wright', suite: '任务集' }
 	},
 	footer: {
 		note: '守望先锋地图工坊开发工具。',

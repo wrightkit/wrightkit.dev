@@ -7,20 +7,28 @@
 	import ThemeSwitcher from './ThemeSwitcher.svelte';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
 	import { navSections, pageSections, site } from '$lib/site';
-	import { currentMessages } from '$lib/content';
+	import { localePath } from '$lib/locales';
+	import { currentLocale, currentMessages } from '$lib/content';
+	import { page } from '$app/state';
 
 	const t = $derived(currentMessages());
+	const locale = $derived(currentLocale());
+	const route = $derived(page.url.pathname.endsWith('/results') ? '/results' : '');
+	const resultsHref = $derived(localePath(locale, '', '/results'));
 	const nav = $derived([
-		...navSections.map((id) => ({ label: t.nav[id], href: `#${id}`, external: false, wideOnly: false })),
+		...navSections.map((id) => ({ label: t.nav[id], href: `#${id}`, to: localePath(locale, `#${id}`), external: false, wideOnly: false })),
+		{ label: t.nav.results, href: resultsHref, to: resultsHref, external: false, wideOnly: false },
 		// Docs stays in the mobile sheet but joins the desktop bar only when it fits.
-		{ label: t.nav.docs, href: site.docs, external: true, wideOnly: true },
-		{ label: 'GitHub', href: site.org, external: true, wideOnly: false }
+		{ label: t.nav.docs, href: site.docs, to: site.docs, external: true, wideOnly: true },
+		{ label: 'GitHub', href: site.org, to: site.org, external: true, wideOnly: false }
 	]);
 
 	let isOpen = $state(false);
 	let current = $state('');
 	let scrollY = $state(0);
 	const desktop = new MediaQuery('min-width: 768px');
+
+	const isCurrent = (href: string) => (route ? href === resultsHref : current === href);
 
 	function closeMenu() {
 		isOpen = false;
@@ -87,10 +95,11 @@
 		<nav aria-label={t.ui.primaryNav} class="flex items-center gap-0.5">
 			{#each nav as item (item.href)}
 				<a
-					href={item.href}
-					aria-current={current === item.href ? 'location' : undefined}
-					class="{item.wideOnly ? 'hidden lg:inline-flex' : 'inline-flex'} min-h-9 items-center whitespace-nowrap rounded-full px-3 text-sm font-medium transition-colors duration-150 active:text-ink-50 lg:px-3.5 {current ===
-					item.href
+					href={item.to}
+					aria-current={isCurrent(item.href) ? (item.href === resultsHref ? 'page' : 'location') : undefined}
+					class="{item.wideOnly ? 'hidden lg:inline-flex' : 'inline-flex'} min-h-9 items-center whitespace-nowrap rounded-full px-3 text-sm font-medium transition-colors duration-150 active:text-ink-50 lg:px-3.5 {isCurrent(
+						item.href
+					)
 						? 'bg-ink-800/70 text-ink-50'
 						: 'text-ink-400 hover:text-ink-50'}"
 					{...item.external ? { target: '_blank', rel: 'noreferrer' } : {}}
@@ -100,7 +109,7 @@
 			{/each}
 		</nav>
 		<div class="flex items-center gap-1">
-			<LanguageSwitcher hash={current} />
+			<LanguageSwitcher hash={current} {route} />
 			<ThemeSwitcher />
 		</div>
 		</div>
@@ -152,10 +161,11 @@
 				<nav class="flex flex-col" aria-label={t.ui.primaryNav}>
 					{#each nav as item (item.href)}
 						<a
-							href={item.href}
-							aria-current={current === item.href ? 'location' : undefined}
-							class="flex min-h-12 items-center justify-between border-b border-ink-800/70 text-[1.0625rem] font-medium transition-colors active:text-accent-400 {current ===
-							item.href
+							href={item.to}
+							aria-current={isCurrent(item.href) ? (item.href === resultsHref ? 'page' : 'location') : undefined}
+							class="flex min-h-12 items-center justify-between border-b border-ink-800/70 text-[1.0625rem] font-medium transition-colors active:text-accent-400 {isCurrent(
+								item.href
+							)
 								? 'text-ink-50'
 								: 'text-ink-200'}"
 							{...item.external ? { target: '_blank', rel: 'noreferrer' } : {}}
@@ -184,13 +194,13 @@
 
 				<div class="mt-6">
 					<span class="text-sm font-medium text-ink-400">{t.ui.language}</span>
-					<div class="mt-2"><LanguageSwitcher variant="list" hash={current} onselect={closeMenu} /></div>
+					<div class="mt-2"><LanguageSwitcher variant="list" hash={current} {route} onselect={closeMenu} /></div>
 				</div>
 				<div class="mt-5 flex items-center justify-between gap-4">
 					<span class="text-sm font-medium text-ink-400">{t.ui.appearance}</span>
 					<div class="w-60 max-w-[65%]"><ThemeSwitcher labelled /></div>
 				</div>
-				<a href="#install" class="btn btn-primary mt-6 w-full" onclick={closeMenu}>{t.hero.primaryCta}</a>
+				<a href={localePath(locale, '#install')} class="btn btn-primary mt-6 w-full" onclick={closeMenu}>{t.hero.primaryCta}</a>
 			</div>
 		</div>
 	{/if}

@@ -9,12 +9,15 @@
 	let {
 		variant = 'menu',
 		hash = '',
+		route = '',
 		onselect
 	}: {
 		/** `menu`: compact header trigger with a popover. `list`: inline rows for the mobile sheet. */
 		variant?: 'menu' | 'list';
 		/** Section to land on in the other locale, so switching keeps the reader's place. */
 		hash?: string;
+		/** Page to land on in the other locale, such as `/results`; empty for the homepage. */
+		route?: string;
 		onselect?: () => void;
 	} = $props();
 
@@ -134,7 +137,7 @@
 						<li>
 							<a
 								bind:this={links[i]}
-								href={localePath(option, hash)}
+								href={localePath(option, hash, route)}
 								hreflang={localeInfo[option].tag}
 								lang={localeInfo[option].tag}
 								aria-current={selected ? 'true' : undefined}
@@ -163,7 +166,7 @@
 			{@const selected = option === locale}
 			<li>
 				<a
-					href={localePath(option, hash)}
+					href={localePath(option, hash, route)}
 					hreflang={localeInfo[option].tag}
 					lang={localeInfo[option].tag}
 					aria-current={selected ? 'true' : undefined}

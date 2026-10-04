@@ -69,6 +69,15 @@ or price structured data: the site publishes neither, and invented ratings are
 spam. Submitting the sitemap in Google Search Console and 百度搜索资源平台 is a
 manual step after deploy.
 
+## Agent results
+
+`/results` and `/zh-CN/results` show the Wright Agent Score. The page holds no
+result data: the browser fetches `https://releases.wrightkit.dev/bench/latest.json`
+(`wright-agent-results/v1`, published by `wrightkit/wright`), so new results need
+no redeploy. The fields the page reads are typed in `src/lib/bench.ts`; a missing
+file shows the empty state and another schema version shows the older-format
+state. The release bucket must allow cross-origin `GET` from `wrightkit.dev`.
+
 ## Stack
 
 - SvelteKit with `@sveltejs/adapter-static`
@@ -87,6 +96,7 @@ Requires Node.js 20.19+ and `pnpm`.
 pnpm install
 pnpm dev
 pnpm check
+pnpm test
 ```
 
 ## Build and preview

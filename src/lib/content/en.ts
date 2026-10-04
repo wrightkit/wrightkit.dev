@@ -29,7 +29,8 @@ const en: Messages = {
 		features: 'Features',
 		languages: 'Languages',
 		install: 'Install',
-		docs: 'Docs'
+		docs: 'Docs',
+		results: 'Results'
 	},
 	hero: {
 		eyebrow: 'For Overwatch Workshop and OverPy',
@@ -186,6 +187,46 @@ const en: Messages = {
 			link: 'GitHub Releases page',
 			after: '.'
 		}
+	},
+	results: {
+		meta: {
+			title: 'Wright Agent Score: how coding agents do with Wright | WrightKit',
+			description:
+				'Compare how coding agents score on Workshop and OverPy tasks when they work through Wright, with a 95% interval for every score.',
+			imageAlt: 'WrightKit, tooling for Overwatch Workshop development'
+		},
+		eyebrow: 'Wright Agent Score',
+		title: 'How coding agents score with Wright',
+		lead: 'Every agent gets the same tasks, the same Wright release, and the same Wright skill. The score is the share of runs that end in a result that passes the checks.',
+		loading: 'Loading results…',
+		empty: {
+			title: 'No results yet',
+			body: 'Results appear here once a benchmark run is published. If you expected some, reload the page later.'
+		},
+		unsupported: {
+			title: 'Older data format',
+			body: 'The published results use a data format this page cannot read yet. Reload later, or check the repository for an update.'
+		},
+		columns: { rank: 'Rank', agent: 'Agent', model: 'Model', effort: 'Effort' },
+		tracks: { workshop: 'Workshop', opy: 'OverPy' },
+		interval: '95% interval',
+		notRun: 'Not run',
+		tiedWithTop: 'Tied with top',
+		provisional: 'Provisional',
+		noEffort: 'Default',
+		howToRead: {
+			title: 'How to read the score',
+			items: [
+				'A score runs from 0 to 100: the share of runs that end in a usable result, averaged over the tasks of one language. The dark bar is the score; the lighter range is its 95% interval.',
+				'Workshop and OverPy are scored separately and never averaged. Rows are ordered by Workshop score, then OverPy score.',
+				'When a row’s interval overlaps the first row’s, the data cannot tell them apart. That row is marked “Tied with top”.',
+				'The network is off by instruction only: agents are told not to use it, and nothing blocks them.',
+				'A run that times out counts as a failure.',
+				'Each language has 8 tasks, so a single task moves a score a lot.',
+				'The score is a reference for this setup, not a measure of an agent’s general ability.'
+			]
+		},
+		ran: { title: 'What was run', wright: 'Wright', suite: 'Task suite' }
 	},
 	footer: {
 		note: 'Tooling for Overwatch Workshop development.',
