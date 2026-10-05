@@ -1,3 +1,4 @@
+import type { Track } from '$lib/bench';
 import type { ThemePreference } from '$lib/theme.svelte';
 import type {
 	ExampleId,
@@ -52,7 +53,7 @@ export interface Messages {
 		copyInstall: string;
 		copied: string;
 	};
-	nav: Record<NavSection, string> & { docs: string };
+	nav: Record<NavSection, string> & { docs: string; results: string };
 	hero: {
 		eyebrow: string;
 		headline: string;
@@ -90,6 +91,24 @@ export interface Messages {
 		>;
 		/** Sentence around the Releases link, split so each locale can place the link naturally. */
 		releases: { before: string; link: string; after: string };
+	};
+	results: {
+		meta: { title: string; description: string; imageAlt: string };
+		eyebrow: string;
+		title: string;
+		lead: string;
+		loading: string;
+		empty: { title: string; body: string };
+		unsupported: { title: string; body: string };
+		columns: { rank: string; agent: string; model: string; effort: string };
+		tracks: Record<Track, string>;
+		interval: string;
+		notRun: string;
+		tiedWithTop: string;
+		provisional: string;
+		noEffort: string;
+		howToRead: { title: string; items: readonly string[] };
+		ran: { title: string; wright: string; suite: string };
 	};
 	footer: {
 		note: string;

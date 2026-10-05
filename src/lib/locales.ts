@@ -31,9 +31,9 @@ export function isLocale(value: unknown): value is Locale {
 	return typeof value === 'string' && (locales as readonly string[]).includes(value);
 }
 
-/** Root path of a locale's homepage, optionally with a section hash. */
-export function localePath(locale: Locale, hash = ''): string {
-	return (locale === defaultLocale ? '/' : `/${locale}`) + hash;
+/** Path of a locale's page: the homepage, or `route` such as `/results`, optionally with a hash. */
+export function localePath(locale: Locale, hash = '', route = ''): string {
+	return ((locale === defaultLocale ? '' : `/${locale}`) + route || '/') + hash;
 }
 
 export function localeFromPath(pathname: string): Locale {

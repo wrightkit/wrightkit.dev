@@ -12,8 +12,8 @@ export const shareImage = {
 	} as const satisfies Record<Locale, string>
 };
 
-export function pageUrl(locale: Locale): string {
-	return new URL(localePath(locale), site.url).href;
+export function pageUrl(locale: Locale, route = ''): string {
+	return new URL(localePath(locale, '', route), site.url).href;
 }
 
 export function shareImageUrl(locale: Locale): string {
@@ -25,8 +25,8 @@ export function shareImageUrl(locale: Locale): string {
  * the site has neither, and Google treats invented review markup as spam.
  * Localized text stays on WebPage so the two locales do not disagree about one node.
  */
-export function structuredData(locale: Locale, page: { title: string; description: string }) {
-	const canonical = pageUrl(locale);
+export function structuredData(locale: Locale, page: { title: string; description: string }, route = '') {
+	const canonical = pageUrl(locale, route);
 	const organization = `${site.url}/#organization`;
 	const website = `${site.url}/#website`;
 	const software = `${site.url}/#wright`;
@@ -85,6 +85,10 @@ export function structuredData(locale: Locale, page: { title: string; descriptio
 	};
 }
 
-export function structuredDataJson(locale: Locale, page: { title: string; description: string }): string {
-	return JSON.stringify(structuredData(locale, page)).replaceAll('<', '\\u003c');
+export function structuredDataJson(
+	locale: Locale,
+	page: { title: string; description: string },
+	route = ''
+): string {
+	return JSON.stringify(structuredData(locale, page, route)).replaceAll('<', '\\u003c');
 }

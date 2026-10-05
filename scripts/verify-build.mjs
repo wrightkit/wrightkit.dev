@@ -94,8 +94,33 @@ for (const image of images) {
 	}
 }
 
+const resultsPages = [
+	{ file: 'results.html', lang: 'en', canonical: `${SITE_URL}/results`, title: 'Wright Agent Score' },
+	{ file: 'zh-CN/results.html', lang: 'zh-CN', canonical: `${SITE_URL}/zh-CN/results`, title: 'Wright Agent Score' }
+];
+for (const page of resultsPages) {
+	const path = resolve(ROOT_DIR, 'build', page.file);
+	if (!existsSync(path)) {
+		console.error(`[verify-build] Error: build/${page.file} does not exist.`);
+		process.exit(1);
+	}
+	const html = readFileSync(path, 'utf8');
+	const expected = [
+		`<html lang="${page.lang}"`,
+		`<link rel="canonical" href="${page.canonical}"`,
+		`<link rel="alternate" hreflang="x-default" href="${SITE_URL}/results"`,
+		page.title
+	];
+	for (const snippet of expected) {
+		if (!html.includes(snippet)) {
+			console.error(`[verify-build] Error: build/${page.file} is missing: ${snippet}`);
+			process.exit(1);
+		}
+	}
+}
+
 const sitemap = readFileSync(resolve(ROOT_DIR, 'build/sitemap.xml'), 'utf8');
-for (const page of pages) {
+for (const page of [...pages, ...resultsPages]) {
 	if (!sitemap.includes(`<loc>${page.canonical}</loc>`)) {
 		console.error(`[verify-build] Error: sitemap.xml is missing ${page.canonical}`);
 		process.exit(1);
@@ -112,4 +137,4 @@ if (!robots.includes(`Sitemap: ${SITE_URL}/sitemap.xml`)) {
 	process.exit(1);
 }
 
-console.log(`[verify-build] OK: ${pages.length} localized pages, share images, and sitemap verified.`);
+console.log(`[verify-build] OK: ${pages.length + resultsPages.length} localized pages, share images, and sitemap verified.`);
