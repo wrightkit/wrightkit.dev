@@ -55,7 +55,7 @@ browser-language redirect; readers switch from the header language menu.
 - Long Chinese headings may use `\u200b` to mark where they are allowed to
   wrap; headings otherwise break only at spaces and punctuation.
 - To add a locale: add it to `src/lib/locales.ts`, add a content file, add the
-  path to `prerender.entries` in `svelte.config.js`, add its share-image file
+  path to `prerender.entries` in `vite.config.ts`, add its share-image file
   in `src/lib/seo.ts`, regenerate the PNGs with
   `swift scripts/share-cards/render.swift` on macOS, and extend
   `scripts/verify-build.mjs`. The sitemap is generated from the locale list.

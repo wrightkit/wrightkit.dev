@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { loadResults, type Loaded } from '$lib/bench';
-	import PageHead from '$lib/components/PageHead.svelte';
-	import ResultsTable from '$lib/components/ResultsTable.svelte';
-	import { currentMessages } from '$lib/content';
+	import { loadResults, type Loaded } from '#lib/bench.js';
+	import PageHead from '#lib/components/PageHead.svelte';
+	import ResultsTable from '#lib/components/ResultsTable.svelte';
+	import { currentMessages } from '#lib/content/index.js';
 
 	const t = $derived(currentMessages().results);
 

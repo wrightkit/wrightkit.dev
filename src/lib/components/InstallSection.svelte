@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { reveal } from '$lib/reveal';
+	import { reveal } from '#lib/reveal.js';
 	import { onMount, tick } from 'svelte';
 	import Section from './Section.svelte';
 	import CopyButton from './CopyButton.svelte';
-	import { installTargets as targets, site, type InstallTargetId as TargetId } from '$lib/site';
-	import { currentMessages } from '$lib/content';
+	import { installTargets as targets, site, type InstallTargetId as TargetId } from '#lib/site.js';
+	import { currentMessages } from '#lib/content/index.js';
 
 	const t = $derived(currentMessages());
 	const install = $derived(t.install);

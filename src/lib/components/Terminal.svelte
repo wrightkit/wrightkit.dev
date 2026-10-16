@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { reveal } from '$lib/reveal';
-	import { terminalLines } from '$lib/site';
-	import { currentMessages } from '$lib/content';
+	import { reveal } from '#lib/reveal.js';
+	import { terminalLines } from '#lib/site.js';
+	import { currentMessages } from '#lib/content/index.js';
 
 	const t = $derived(currentMessages());
 

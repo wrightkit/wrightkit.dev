@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { reveal } from '$lib/reveal';
+	import { reveal } from '#lib/reveal.js';
 	import type { Snippet } from 'svelte';
 
 	let {

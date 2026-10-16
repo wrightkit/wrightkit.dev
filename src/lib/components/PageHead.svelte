@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { site } from '$lib/site';
-	import { defaultLocale, localeInfo, locales } from '$lib/locales';
-	import { currentLocale } from '$lib/content';
-	import { pageUrl, shareImage, shareImageUrl, structuredDataJson } from '$lib/seo';
+	import { site } from '#lib/site.js';
+	import { defaultLocale, localeInfo, locales } from '#lib/locales.js';
+	import { currentLocale } from '#lib/content/index.js';
+	import { pageUrl, shareImage, shareImageUrl, structuredDataJson } from '#lib/seo.js';
 
 	let {
 		title,

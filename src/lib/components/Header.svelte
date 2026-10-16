@@ -6,9 +6,9 @@
 	import Wordmark from './Wordmark.svelte';
 	import ThemeSwitcher from './ThemeSwitcher.svelte';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
-	import { navSections, pageSections, site } from '$lib/site';
-	import { localePath } from '$lib/locales';
-	import { currentLocale, currentMessages } from '$lib/content';
+	import { navSections, pageSections, site } from '#lib/site.js';
+	import { localePath } from '#lib/locales.js';
+	import { currentLocale, currentMessages } from '#lib/content/index.js';
 	import { page } from '$app/state';
 
 	const t = $derived(currentMessages());

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import '../../app.css';
 	import type { Snippet } from 'svelte';
-	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import { localeInfo } from '$lib/locales';
-	import { currentLocale, currentMessages } from '$lib/content';
+	import Header from '#lib/components/Header.svelte';
+	import Footer from '#lib/components/Footer.svelte';
+	import { localeInfo } from '#lib/locales.js';
+	import { currentLocale, currentMessages } from '#lib/content/index.js';
 
 	let { children }: { children: Snippet } = $props();
 

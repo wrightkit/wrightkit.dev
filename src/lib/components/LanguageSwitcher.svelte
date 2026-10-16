@@ -3,8 +3,8 @@
 	import { scale } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import { prefersReducedMotion } from 'svelte/motion';
-	import { localeInfo, localePath, locales } from '$lib/locales';
-	import { currentLocale, currentMessages } from '$lib/content';
+	import { localeInfo, localePath, locales } from '#lib/locales.js';
+	import { currentLocale, currentMessages } from '#lib/content/index.js';
 
 	let {
 		variant = 'menu',

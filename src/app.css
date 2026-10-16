@@ -295,7 +295,7 @@
 	}
 }
 
-/* Scroll reveal (see $lib/reveal.ts). Elements start hidden only once JS is
+/* Scroll reveal (see #lib/reveal.ts). Elements start hidden only once JS is
    known to run; the fallback animation shows them if hydration never lands. */
 :root[data-js] [data-reveal]:not([data-revealed]) {
 	opacity: 0;
