@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Mark from './Mark.svelte';
-	import { localePath } from '$lib/locales';
-	import { currentLocale, currentMessages } from '$lib/content';
+	import { localePath } from '#lib/locales.js';
+	import { currentLocale, currentMessages } from '#lib/content/index.js';
 
 	let { compact = false }: { compact?: boolean } = $props();
 

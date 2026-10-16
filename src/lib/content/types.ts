@@ -1,5 +1,5 @@
-import type { Track } from '$lib/bench';
-import type { ThemePreference } from '$lib/theme.svelte';
+import type { Track } from '#lib/bench.js';
+import type { ThemePreference } from '#lib/theme.svelte.js';
 import type {
 	ExampleId,
 	InstallTargetId,
@@ -7,7 +7,7 @@ import type {
 	NavSection,
 	StartStepId,
 	ToolingId
-} from '$lib/site';
+} from '#lib/site.js';
 
 type Tuple<T, N extends number, R extends T[] = []> = R['length'] extends N
 	? readonly [...R]
@@ -25,7 +25,7 @@ interface SectionCopy {
 
 /**
  * The complete copy for one locale. Keyed records and fixed-length tuples keep
- * every locale structurally aligned with the shared data in `$lib/site`, so a
+ * every locale structurally aligned with the shared data in `#lib/site.js`, so a
  * translation cannot silently drop or add a claim.
  */
 export interface Messages {

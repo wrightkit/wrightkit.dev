@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { reveal } from '$lib/reveal';
+	import { reveal } from '#lib/reveal.js';
 	import Section from './Section.svelte';
-	import { languages, type SupportTone } from '$lib/site';
-	import { currentMessages } from '$lib/content';
+	import { languages, type SupportTone } from '#lib/site.js';
+	import { currentMessages } from '#lib/content/index.js';
 
 	const t = $derived(currentMessages());
 	const copy = $derived(t.languages);

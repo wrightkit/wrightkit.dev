@@ -1,5 +1,5 @@
 import { page } from '$app/state';
-import { defaultLocale, isLocale, type Locale } from '$lib/locales';
+import { defaultLocale, isLocale, type Locale } from '#lib/locales.js';
 import type { Messages } from './types';
 import en from './en';
 import zhCN from './zh-CN';

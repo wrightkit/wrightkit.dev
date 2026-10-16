@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { reveal } from '$lib/reveal';
+	import { reveal } from '#lib/reveal.js';
 	import Section from './Section.svelte';
-	import { currentMessages } from '$lib/content';
+	import { currentMessages } from '#lib/content/index.js';
 
 	const t = $derived(currentMessages());
 	const agents = $derived(t.agents);

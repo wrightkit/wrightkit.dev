@@ -1,4 +1,4 @@
-import { defaultLocale } from '$lib/locales';
+import { defaultLocale } from '#lib/locales.js';
 import type { LayoutLoad } from './$types';
 
 export const prerender = true;

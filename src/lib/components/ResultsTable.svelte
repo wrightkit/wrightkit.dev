@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { rankAgents, tiedWithTop, tracks, type Results } from '$lib/bench';
-	import type { Messages } from '$lib/content/types';
+	import { rankAgents, tiedWithTop, tracks, type Results } from '#lib/bench.js';
+	import type { Messages } from '#lib/content/types.js';
 
 	let { results, t }: { results: Results; t: Messages['results'] } = $props();
 

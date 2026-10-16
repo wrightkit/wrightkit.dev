@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { reveal } from '$lib/reveal';
+	import { reveal } from '#lib/reveal.js';
 	import Section from './Section.svelte';
-	import { examples } from '$lib/site';
-	import { currentLocale, currentMessages } from '$lib/content';
+	import { examples } from '#lib/site.js';
+	import { currentLocale, currentMessages } from '#lib/content/index.js';
 
 	const t = $derived(currentMessages());
 	const locale = $derived(currentLocale());

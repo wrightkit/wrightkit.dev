@@ -1,5 +1,5 @@
-import { defaultLocale, localeInfo, locales } from '$lib/locales';
-import { pageUrl } from '$lib/seo';
+import { defaultLocale, localeInfo, locales } from '#lib/locales.js';
+import { pageUrl } from '#lib/seo.js';
 
 export const prerender = true;
 

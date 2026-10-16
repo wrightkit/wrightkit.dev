@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Wordmark from './Wordmark.svelte';
-	import { repos, site } from '$lib/site';
-	import { currentMessages } from '$lib/content';
+	import { repos, site } from '#lib/site.js';
+	import { currentMessages } from '#lib/content/index.js';
 
 	const t = $derived(currentMessages());
 </script>

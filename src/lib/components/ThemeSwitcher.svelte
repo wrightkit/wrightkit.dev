@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { theme, initTheme, setTheme, type ThemePreference } from '$lib/theme.svelte';
+	import { theme, initTheme, setTheme, type ThemePreference } from '#lib/theme.svelte.js';
 
-	import { currentMessages } from '$lib/content';
+	import { currentMessages } from '#lib/content/index.js';
 
 	let { labelled = false }: { labelled?: boolean } = $props();
 

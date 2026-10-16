@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { reveal } from '$lib/reveal';
+	import { reveal } from '#lib/reveal.js';
 	import Section from './Section.svelte';
 	import CopyButton from './CopyButton.svelte';
-	import { startSteps } from '$lib/site';
-	import { currentMessages } from '$lib/content';
+	import { startSteps } from '#lib/site.js';
+	import { currentMessages } from '#lib/content/index.js';
 
 	const t = $derived(currentMessages());
 </script>

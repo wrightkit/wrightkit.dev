@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { reveal } from '$lib/reveal';
+	import { reveal } from '#lib/reveal.js';
 	import Terminal from './Terminal.svelte';
 	import CopyButton from './CopyButton.svelte';
-	import { quickInstall, site } from '$lib/site';
-	import { currentMessages } from '$lib/content';
+	import { quickInstall, site } from '#lib/site.js';
+	import { currentMessages } from '#lib/content/index.js';
 
 	const t = $derived(currentMessages());
 </script>

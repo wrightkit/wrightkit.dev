@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { currentMessages } from '$lib/content';
+	import { currentMessages } from '#lib/content/index.js';
 
 	let { text, label }: { text: string; label?: string } = $props();
 

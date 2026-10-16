@@ -1,4 +1,4 @@
-import { site } from '$lib/site';
+import { site } from '#lib/site.js';
 import type { Messages } from './types';
 
 /*
