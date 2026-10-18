@@ -81,7 +81,7 @@ export interface Messages {
 		/** What ships today. */
 		capabilities: Tuple<Block, 3>;
 		upcomingLabel: string;
-		upcoming: Tuple<string, 4>;
+		upcoming: Tuple<string, 1>;
 	};
 	install: SectionCopy & {
 		platformLabel: string;

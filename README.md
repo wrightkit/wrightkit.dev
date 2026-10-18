@@ -73,7 +73,7 @@ manual step after deploy.
 
 `/results` and `/zh-CN/results` show the Wright Agent Score. The page holds no
 result data: the browser fetches `https://releases.wrightkit.dev/bench/latest.json`
-(`wright-agent-results/v1`, published by `wrightkit/wright`), so new results need
+(`wright-agent-results/v1`, published by `wrightkit/benchmark-suite`), so new results need
 no redeploy. The fields the page reads are typed in `src/lib/bench.ts`; a missing
 file shows the empty state and another schema version shows the older-format
 state. The release bucket must allow cross-origin `GET` from `wrightkit.dev`.

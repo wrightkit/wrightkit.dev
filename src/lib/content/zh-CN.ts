@@ -93,15 +93,23 @@ const zhCN: Messages = {
 		items: {
 			analyze: {
 				title: '分析',
-				body: '找出最复杂的规则，以及被最多规则共用的变量。'
+				body: '元素开销、最复杂的规则、服务器负载隐患，以及被最多规则共用的变量。每条结果都标明是精确值、静态推断还是经验估计。'
 			},
 			inspect: {
 				title: '结构',
-				body: '项目里所有规则、变量和引用。'
+				body: '查询规则、符号、引用、控制流和调用关系。inspect cost 列出每条规则的元素开销，并和上一次运行对比。'
+			},
+			edit: {
+				title: '修改先校验',
+				body: '重命名变量或子程序，或用 lint --fix 应用修复。Wright 先给出校验过的 diff，加 --write 才写入。'
+			},
+			lookup: {
+				title: '查名字',
+				body: '从相近的拼写查到动作或值的准确名称和签名，地图工坊和 OverPy 都能查。'
 			},
 			lsp: {
 				title: '编辑器',
-				body: '在支持语言服务器的编辑器里边写边报错，还能跳转、补全和重命名。VS Code 扩展暂时还没有。'
+				body: '在支持语言服务器的编辑器里边写边报错。地图工坊文件支持悬停提示、跳转到定义和查找引用；OverPy 文件支持跳转和重命名。VS Code 扩展暂时还没有。'
 			},
 			ci: {
 				title: 'CI',
@@ -120,12 +128,12 @@ const zhCN: Messages = {
 			overpy: {
 				name: 'OverPy',
 				status: '部分支持',
-				body: '照常写 .opy。Wright 负责检查，并编译成地图工坊代码，结果以原版 OverPy 编译器为准。'
+				body: '照常写 .opy。Wright 负责检查、lint、分析和重命名，并编译成地图工坊代码，结果以原版 OverPy 编译器为准。'
 			},
 			ostw: {
 				name: 'OSTW',
-				status: '开发中',
-				body: 'deltin-rs 开发中，之后接入 Wright。'
+				status: '已暂停',
+				body: 'deltin-rs 能解析和类型检查 OSTW，但功能开发已暂停，Wright 暂不支持。'
 			}
 		}
 	},
@@ -141,12 +149,12 @@ const zhCN: Messages = {
 				body: '诊断编号、规则 ID 和退出码固定不变，助手可以放心判断。'
 			},
 			{
-				title: 'Agent Skill',
-				body: '装上 wrightkit/skills 里的 wright skill，助手就会用 Wright。'
+				title: 'Agent 指南与 MCP',
+				body: 'wright agent install 把 Wright 指南装进项目；加上 --mcp claude、cursor 或 vscode，同时注册 MCP 服务器。'
 			}
 		],
 		upcomingLabel: '即将推出',
-		upcoming: ['从需求到改动', '修改先校验', '项目查询', '开销评估']
+		upcoming: ['从需求到改动']
 	},
 	install: {
 		title: '获取 Wright。',

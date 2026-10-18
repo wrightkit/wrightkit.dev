@@ -1,6 +1,6 @@
 /**
  * The hosted Wright Agent Score results (`wright-agent-results/v1`, published by
- * wrightkit/wright). The page holds no result data; it fetches this document in
+ * wrightkit/benchmark-suite). The page holds no result data; it fetches this document in
  * the browser and shows only the fields declared here.
  */
 

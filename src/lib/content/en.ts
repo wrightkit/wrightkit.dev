@@ -86,15 +86,23 @@ const en: Messages = {
 		items: {
 			analyze: {
 				title: 'Analyze',
-				body: 'Your most complex rules and the variables most rules share.'
+				body: 'Element cost, your most complex rules, server-load risks, and the variables most rules share. Each result says whether it is exact, static, or a heuristic.'
 			},
 			inspect: {
 				title: 'Inspect',
-				body: 'Every rule, variable, and reference in a project.'
+				body: 'Query rules, symbols, references, control flow, and call graphs. inspect cost breaks down each rule’s element cost and compares it with your last run.'
+			},
+			edit: {
+				title: 'Checked edits',
+				body: 'Rename a variable or subroutine, or apply lint fixes with lint --fix. Wright shows the validated diff first and writes only with --write.'
+			},
+			lookup: {
+				title: 'Lookup',
+				body: 'Turn a near spelling into the exact name and signature of an action or value, in Workshop or OverPy.'
 			},
 			lsp: {
 				title: 'Editor',
-				body: 'Errors as you type, plus go to definition, completion, and rename, in editors that support language servers. No VS Code extension yet.'
+				body: 'Errors as you type in editors that support language servers. Workshop files get hover, go to definition, and find references; OverPy files get navigation and rename. No VS Code extension yet.'
 			},
 			ci: {
 				title: 'CI',
@@ -113,12 +121,12 @@ const en: Messages = {
 			overpy: {
 				name: 'OverPy',
 				status: 'Partial',
-				body: 'Keep your .opy files. Wright checks them and compiles them to Workshop, with output held to the original OverPy compiler.'
+				body: 'Keep your .opy files. Wright checks, lints, analyzes, and renames them, and compiles them to Workshop with output held to the original OverPy compiler.'
 			},
 			ostw: {
 				name: 'OSTW',
-				status: 'In development',
-				body: 'deltin-rs is in progress. Wright support follows.'
+				status: 'Paused',
+				body: 'deltin-rs parses and type-checks OSTW, but feature work is paused. Wright does not support it yet.'
 			}
 		}
 	},
@@ -134,12 +142,12 @@ const en: Messages = {
 				body: 'Diagnostic codes, rule IDs, and exit codes an agent can rely on.'
 			},
 			{
-				title: 'Agent Skill',
-				body: 'Teach your agent Wright with the skill in wrightkit/skills.'
+				title: 'Agent guide and MCP',
+				body: 'wright agent install adds the Wright guide to your project. Add --mcp claude, cursor, or vscode to register the MCP server too.'
 			}
 		],
 		upcomingLabel: 'Coming soon',
-		upcoming: ['Request to change', 'Checked edits', 'Project queries', 'Cost estimates']
+		upcoming: ['From request to change']
 	},
 	install: {
 		title: 'Get Wright.',
