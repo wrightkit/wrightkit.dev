@@ -35,19 +35,22 @@ export const pageSections = ['start', 'features', 'tooling', 'languages', 'agent
 export type TerminalLineKind = 'prompt' | 'error' | 'warning' | 'info' | 'dim' | 'blank';
 
 /**
- * `wright lint rules.txt` from wright 0.2.40 on a copied Workshop rule. Evidence
- * labels and source excerpts are trimmed; keep in sync with the real CLI.
+ * `wright lint rules.txt` from wright 0.25.2 on two copied Workshop rules, in the
+ * terminal renderer. Source excerpts, evidence labels, and the hint line are
+ * trimmed; keep in sync with the real CLI.
  */
 export const terminalLines = [
 	{ kind: 'prompt', text: 'wright lint rules.txt' },
-	{ kind: 'dim', text: 'WARN lint' },
-	{ kind: 'dim', text: '  2 finding(s) across 6 rule(s)' },
-	{ kind: 'blank', text: '' },
-	{ kind: 'warning', text: 'warning[min-wait-loop]: loop body waits at the workshop minimum rate; the loop runs at maximum frequency' },
-	{ kind: 'dim', text: '  --> rules.txt:18:3' },
-	{ kind: 'blank', text: '' },
-	{ kind: 'info', text: 'info[expensive-loop-check]: geometry predicate evaluated inside a loop body may be expensive per iteration' },
-	{ kind: 'dim', text: '  --> rules.txt:20:4' }
+	{ kind: 'dim', text: '╭─ WARN lint' },
+	{ kind: 'dim', text: '│  1 warning(s), 1 info finding(s)' },
+	{ kind: 'dim', text: '│' },
+	{ kind: 'warning', text: '├─ warning[min-wait-loop]: loop body waits at the workshop minimum rate; the loop runs at maximum frequency' },
+	{ kind: 'dim', text: '│  --> rules.txt:27:3' },
+	{ kind: 'dim', text: '│' },
+	{ kind: 'info', text: '├─ info[expensive-loop-check]: geometry predicate evaluated inside a loop body may be expensive per iteration' },
+	{ kind: 'dim', text: '│  --> rules.txt:29:7' },
+	{ kind: 'dim', text: '│' },
+	{ kind: 'dim', text: '╰─ 1 file(s) affected' }
 ] as const satisfies readonly { kind: TerminalLineKind; text: string }[];
 
 /** The getting-started steps; only the last one runs a command. */
@@ -59,7 +62,7 @@ export const startSteps = [
 export type StartStepId = (typeof startSteps)[number]['id'];
 
 /**
- * Real findings from wright 0.2.40. Each snippet is the actions block of an
+ * Real findings from wright 0.25.2. Each snippet is the actions block of an
  * `Ongoing - Each Player` rule, written the way the matching game client
  * copies it; the finding is the first line wright prints (evidence label
  * trimmed). Re-run both locales through `wright lint` when editing.
@@ -69,8 +72,8 @@ export const examples = [
 		id: 'typo',
 		kind: 'error',
 		finding: {
-			en: "error[unknown-action]: unknown action spelling 'Heall'",
-			'zh-CN': "error[unknown-action]: unknown action spelling '治愈'"
+			en: "error[unknown-action]: unknown action spelling 'Heall' for locale 'en-us' (did you mean 'Heal'?)",
+			'zh-CN': "error[unknown-action]: unknown action spelling '治愈' for locale 'zh-cn' (did you mean '治疗'?)"
 		},
 		code: {
 			en: 'Heall(Event Player, Null, 10);',
@@ -124,6 +127,8 @@ export type ExampleId = (typeof examples)[number]['id'];
 export const tooling = [
 	{ id: 'analyze', command: 'wright analyze' },
 	{ id: 'inspect', command: 'wright inspect' },
+	{ id: 'edit', command: 'wright rename' },
+	{ id: 'lookup', command: 'wright lookup' },
 	{ id: 'lsp', command: 'wright-lsp' },
 	{ id: 'ci', command: 'wright lint' }
 ] as const;
