@@ -32,25 +32,45 @@ export type NavSection = (typeof navSections)[number];
 /** Every section the header's wayfinding tracks, in page order. */
 export const pageSections = ['start', 'features', 'tooling', 'languages', 'agents', 'install'] as const;
 
-export type TerminalLineKind = 'prompt' | 'error' | 'warning' | 'info' | 'dim' | 'blank';
+export type TerminalLineKind =
+	| 'prompt'
+	| 'tag'
+	| 'heading'
+	| 'text'
+	| 'error'
+	| 'warning'
+	| 'info'
+	| 'dim'
+	| 'blank';
 
 /**
- * `wright lint rules.txt` from wright 0.25.2 on two copied Workshop rules, in the
- * terminal renderer. Source excerpts, evidence labels, and the hint line are
- * trimmed; keep in sync with the real CLI.
+ * `wright lint rules.txt` from wright 0.29.0 on two copied Workshop rules, in the
+ * terminal renderer (progress lines, the elapsed time, and the hint line are
+ * trimmed; tabs in the source excerpts are shown as two spaces). Keep in sync
+ * with the real CLI.
  */
 export const terminalLines = [
 	{ kind: 'prompt', text: 'wright lint rules.txt' },
-	{ kind: 'dim', text: '╭─ WARN lint' },
-	{ kind: 'dim', text: '│  1 warning(s), 1 info finding(s)' },
-	{ kind: 'dim', text: '│' },
-	{ kind: 'warning', text: '├─ warning[min-wait-loop]: loop body waits at the workshop minimum rate; the loop runs at maximum frequency' },
-	{ kind: 'dim', text: '│  --> rules.txt:27:3' },
-	{ kind: 'dim', text: '│' },
-	{ kind: 'info', text: '├─ info[expensive-loop-check]: geometry predicate evaluated inside a loop body may be expensive per iteration' },
-	{ kind: 'dim', text: '│  --> rules.txt:29:7' },
-	{ kind: 'dim', text: '│' },
-	{ kind: 'dim', text: '╰─ 1 file(s) affected' }
+	{ kind: 'tag', text: 'WARN lint' },
+	{ kind: 'dim', text: '  1 warning, 1 info finding' },
+	{ kind: 'blank', text: '' },
+	{ kind: 'heading', text: 'Lint findings' },
+	{ kind: 'warning', text: '  warning[min-wait-loop]: loop body waits at the workshop minimum rate; the loop runs at maximum frequency' },
+	{ kind: 'dim', text: '    --> rules.txt:31:3' },
+	{ kind: 'dim', text: '    | 31 |     While(Is Alive(Event Player));' },
+	{ kind: 'dim', text: '    |    |     ^' },
+	{ kind: 'dim', text: '    = evidence: static-indicator' },
+	{ kind: 'info', text: '  info[expensive-loop-check]: geometry predicate evaluated inside a loop body may be expensive per iteration' },
+	{ kind: 'dim', text: '    --> rules.txt:51:7' },
+	{ kind: 'dim', text: '    | 51 |       If(Is In Line of Sight(Event Player, Vector(0, 0, 0), Barriers Do Not Block LOS));' },
+	{ kind: 'dim', text: '    |    |          ^' },
+	{ kind: 'dim', text: '    = evidence: heuristic' },
+	{ kind: 'dim', text: '  1 file affected' },
+	{ kind: 'blank', text: '' },
+	{ kind: 'heading', text: 'Next' },
+	{ kind: 'text', text: '  wright lint --fix' },
+	{ kind: 'text', text: '  wright analyze' },
+	{ kind: 'text', text: '  wright inspect cost' }
 ] as const satisfies readonly { kind: TerminalLineKind; text: string }[];
 
 /** The getting-started steps; only the last one runs a command. */
@@ -62,7 +82,7 @@ export const startSteps = [
 export type StartStepId = (typeof startSteps)[number]['id'];
 
 /**
- * Real findings from wright 0.25.2. Each snippet is the actions block of an
+ * Real findings from wright 0.29.0. Each snippet is the actions block of an
  * `Ongoing - Each Player` rule, written the way the matching game client
  * copies it; the finding is the first line wright prints (evidence label
  * trimmed). Re-run both locales through `wright lint` when editing.
@@ -84,8 +104,8 @@ export const examples = [
 		id: 'noWait',
 		kind: 'warning',
 		finding: {
-			en: 'warning[while-without-wait]: loop body contains no wait call',
-			'zh-CN': 'warning[while-without-wait]: loop body contains no wait call'
+			en: "warning[while-without-wait]: loop body contains no wait call and the loop's boundedness is unknown (data-dependent condition with no static counter pattern), so the loop may repeat without yielding",
+			'zh-CN': "warning[while-without-wait]: loop body contains no wait call and the loop's boundedness is unknown (data-dependent condition with no static counter pattern), so the loop may repeat without yielding"
 		},
 		code: {
 			en: 'While(Is Alive(Event Player));\n\tHeal(Event Player, Null, 10);\nEnd;',
@@ -96,8 +116,8 @@ export const examples = [
 		id: 'minWait',
 		kind: 'warning',
 		finding: {
-			en: 'warning[min-wait-loop]: loop body waits at the workshop minimum rate',
-			'zh-CN': 'warning[min-wait-loop]: loop body waits at the workshop minimum rate'
+			en: 'warning[min-wait-loop]: loop body waits at the workshop minimum rate; the loop runs at maximum frequency',
+			'zh-CN': 'warning[min-wait-loop]: loop body waits at the workshop minimum rate; the loop runs at maximum frequency'
 		},
 		code: {
 			en: 'While(Is Alive(Event Player));\n\tWait(0.016, Ignore Condition);\n\tHeal(Event Player, Null, 10);\nEnd;',
@@ -108,8 +128,8 @@ export const examples = [
 		id: 'losInLoop',
 		kind: 'info',
 		finding: {
-			en: 'info[expensive-loop-check]: geometry predicate evaluated inside a loop body',
-			'zh-CN': 'info[expensive-loop-check]: geometry predicate evaluated inside a loop body'
+			en: 'info[expensive-loop-check]: geometry predicate evaluated inside a loop body may be expensive per iteration',
+			'zh-CN': 'info[expensive-loop-check]: geometry predicate evaluated inside a loop body may be expensive per iteration'
 		},
 		code: {
 			en: 'While(Is Alive(Event Player));\n\tWait(0.25, Ignore Condition);\n\tIf(Is In Line of Sight(Event Player, Vector(0, 0, 0), Barriers Do Not Block LOS));\n\t\tHeal(Event Player, Null, 10);\n\tEnd;\nEnd;',
