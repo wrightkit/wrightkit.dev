@@ -104,6 +104,10 @@ const en: Messages = {
 				title: 'Editor',
 				body: 'Errors as you type in editors that support language servers. Workshop files get hover, go to definition, and find references; OverPy files get navigation and rename. No VS Code extension yet.'
 			},
+			ui: {
+				title: 'Rule view',
+				body: 'Browse a Workshop project’s rules in the browser, read-only and local: event, conditions, and actions, with names in your locale. Raw Workshop files only; OverPy is refused.'
+			},
 			ci: {
 				title: 'CI',
 				body: 'Run Wright in GitHub Actions and findings show up on the pull request.'

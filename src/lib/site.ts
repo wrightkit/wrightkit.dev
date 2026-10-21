@@ -130,6 +130,7 @@ export const tooling = [
 	{ id: 'edit', command: 'wright rename' },
 	{ id: 'lookup', command: 'wright lookup' },
 	{ id: 'lsp', command: 'wright-lsp' },
+	{ id: 'ui', command: 'wright ui rules.txt' },
 	{ id: 'ci', command: 'wright lint' }
 ] as const;
 export type ToolingId = (typeof tooling)[number]['id'];
