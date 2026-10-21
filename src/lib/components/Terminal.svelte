@@ -9,6 +9,9 @@
 	// rather than the theme-aware ink tokens.
 	const tone = {
 		prompt: 'text-[#f7f7f5]',
+		tag: 'text-[#d6d6cf]',
+		heading: 'font-semibold text-[#f7f7f5]',
+		text: 'text-[#d6d6cf]',
 		error: 'text-[#ff7b72]',
 		warning: 'text-[#ff9a4d]',
 		info: 'text-[#79c0ff]',
@@ -34,10 +37,11 @@
 			>{#each terminalLines as line, i (i)}<span
 					class="block min-h-[1.7em] {tone[line.kind]}"
 					data-reveal="fade"
-					style="--reveal-delay: {600 + i * 110}ms"
+					style="--reveal-delay: {600 + i * 60}ms"
 					use:reveal
 					>{#if line.kind === 'prompt'}<span class="select-none text-[#66665f]">$ </span
-						>{/if}{line.text}</span
+						>{line.text}{:else if line.kind === 'tag'}<span class="rounded-[2px] bg-[#e0a526] px-1 font-semibold text-black">{line.text.split(' ')[0]}</span
+						>{line.text.slice(line.text.indexOf(' '))}{:else}{line.text}{/if}</span
 				>{/each}</code
 		></pre>
 </figure>
