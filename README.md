@@ -22,7 +22,9 @@ implementation:
   support;
 - `wright` for the unified tooling product: CLI commands, lint, analysis,
   language server, CI output, and agent-facing APIs;
-- `language-provider-protocol` for LPP protocol contracts.
+- `language-provider-protocol` for LPP protocol contracts;
+- `skills` for the agent skills and `homebrew-tap` for the Homebrew formula;
+- `benchmark-suite` for the published agent results.
 
 Do not treat an issue state, an unreleased branch, or a hidden command as proof
 that a capability ships. Planned features go in the agents section's "Coming
@@ -54,10 +56,10 @@ browser-language redirect; readers switch from the header language menu.
   规则, 动作, 值, 服务器负载) and puts a space between CJK text and Latin words.
 - Long Chinese headings may use `\u200b` to mark where they are allowed to
   wrap; headings otherwise break only at spaces and punctuation.
-- To add a locale: add it to `src/lib/locales.ts`, add a content file, add the
-  path to `prerender.entries` in `vite.config.ts`, add its share-image file
-  in `src/lib/seo.ts`, regenerate the PNGs with
-  `swift scripts/share-cards/render.swift` on macOS, and extend
+- To add a locale: add it to `src/lib/locales.ts`, add a content file, add
+  `/<locale>` and `/<locale>/results` to `prerender.entries` in
+  `vite.config.ts`, add its share-image file in `src/lib/seo.ts`, regenerate
+  the PNGs with `swift scripts/share-cards/render.swift` on macOS, and extend
   `scripts/verify-build.mjs`. The sitemap is generated from the locale list.
 
 Search and share metadata is prerendered from each locale's `meta` block.
@@ -80,7 +82,7 @@ state. The release bucket must allow cross-origin `GET` from `wrightkit.dev`.
 
 ## Stack
 
-- SvelteKit with `@sveltejs/adapter-static`
+- SvelteKit 3 with `@sveltejs/adapter-static`
 - Svelte 5
 - TypeScript
 - Tailwind CSS v4
@@ -90,7 +92,7 @@ client-side data service.
 
 ## Local development
 
-Requires Node.js 20.19+ and `pnpm`.
+Requires Node.js 22.17+ and `pnpm`. CI uses Node.js 26.
 
 ```sh
 pnpm install
